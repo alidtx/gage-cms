@@ -28,7 +28,7 @@ const isOpen = (key) => openDropdown.value === key;
             <div class="p-6 border-b border-gray-700">
                 <div class="flex items-center space-x-3">
                     <div class="w-10 h-10 bg-blue-500 rounded-xl flex items-center justify-center">
-                        <i class="fas fa-rocket text-white text-xl"></i>
+                        <i class=" text-white text-xl">G</i>
                     </div>
                     <div>
                         <h1 class="text-white font-bold text-lg">Gage CMS</h1>
