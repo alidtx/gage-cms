@@ -187,7 +187,7 @@ const markAllAsRead = () => {
             </nav>
         </aside>
 
-        <main class="flex-1 overflow-y-auto bg-gray-100">
+        <main class="flex-1 overflow-y-auto bg-gray-200">
 
             <header class="bg-white border-b border-gray-200 sticky top-0 z-10">
                 <div class="px-8 py-4 flex justify-between items-center">
