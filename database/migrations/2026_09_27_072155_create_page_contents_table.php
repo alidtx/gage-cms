@@ -13,8 +13,8 @@ return new class extends Migration
     {
         Schema::create('page_contents', function (Blueprint $table) {
             $table->id();
-            $table->string('page')->unique();   // 'home', 'about', 'contact'
-            $table->json('content');            // whole tree
+            $table->string('page')->unique();   
+            $table->json('content');        
             $table->timestamps();
         });
     }
