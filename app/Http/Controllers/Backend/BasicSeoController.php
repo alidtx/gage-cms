@@ -1,11 +1,12 @@
 <?php
 
-namespace App\Http\Controllers;
+namespace App\Http\Controllers\Backend;
 
-use App\Models\SocialLink;
+use App\Http\Controllers\Controller;
+use App\Models\BasicSeo;
 use Illuminate\Http\Request;
 
-class SocialLinkController extends Controller
+class BasicSeoController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -34,7 +35,7 @@ class SocialLinkController extends Controller
     /**
      * Display the specified resource.
      */
-    public function show(SocialLink $socialLink)
+    public function show(BasicSeo $basicSeo)
     {
         //
     }
@@ -42,7 +43,7 @@ class SocialLinkController extends Controller
     /**
      * Show the form for editing the specified resource.
      */
-    public function edit(SocialLink $socialLink)
+    public function edit(BasicSeo $basicSeo)
     {
         //
     }
@@ -50,7 +51,7 @@ class SocialLinkController extends Controller
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, SocialLink $socialLink)
+    public function update(Request $request, BasicSeo $basicSeo)
     {
         //
     }
@@ -58,7 +59,7 @@ class SocialLinkController extends Controller
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(SocialLink $socialLink)
+    public function destroy(BasicSeo $basicSeo)
     {
         //
     }

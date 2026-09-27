@@ -1,11 +1,12 @@
 <?php
 
-namespace App\Http\Controllers;
+namespace App\Http\Controllers\Backend;
 
-use App\Models\Entity;
+use App\Http\Controllers\Controller;
+use App\Models\EntityProfile;
 use Illuminate\Http\Request;
 
-class EntityController extends Controller
+class EntityProfileController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -34,7 +35,7 @@ class EntityController extends Controller
     /**
      * Display the specified resource.
      */
-    public function show(Entity $entity)
+    public function show(EntityProfile $entityProfile)
     {
         //
     }
@@ -42,7 +43,7 @@ class EntityController extends Controller
     /**
      * Show the form for editing the specified resource.
      */
-    public function edit(Entity $entity)
+    public function edit(EntityProfile $entityProfile)
     {
         //
     }
@@ -50,7 +51,7 @@ class EntityController extends Controller
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, Entity $entity)
+    public function update(Request $request, EntityProfile $entityProfile)
     {
         //
     }
@@ -58,7 +59,7 @@ class EntityController extends Controller
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(Entity $entity)
+    public function destroy(EntityProfile $entityProfile)
     {
         //
     }

@@ -1,11 +1,13 @@
 <?php
 
-namespace App\Http\Controllers;
+namespace App\Http\Controllers\Backend;
 
-use App\Models\BasicSeo;
+use App\Http\Controllers\Controller;
+
+use App\Models\GlobalSetting;
 use Illuminate\Http\Request;
 
-class BasicSeoController extends Controller
+class GlobalSettingController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -34,7 +36,7 @@ class BasicSeoController extends Controller
     /**
      * Display the specified resource.
      */
-    public function show(BasicSeo $basicSeo)
+    public function show(GlobalSetting $globalSetting)
     {
         //
     }
@@ -42,7 +44,7 @@ class BasicSeoController extends Controller
     /**
      * Show the form for editing the specified resource.
      */
-    public function edit(BasicSeo $basicSeo)
+    public function edit(GlobalSetting $globalSetting)
     {
         //
     }
@@ -50,7 +52,7 @@ class BasicSeoController extends Controller
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, BasicSeo $basicSeo)
+    public function update(Request $request, GlobalSetting $globalSetting)
     {
         //
     }
@@ -58,7 +60,7 @@ class BasicSeoController extends Controller
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(BasicSeo $basicSeo)
+    public function destroy(GlobalSetting $globalSetting)
     {
         //
     }

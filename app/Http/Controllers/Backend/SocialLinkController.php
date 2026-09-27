@@ -1,11 +1,12 @@
 <?php
 
-namespace App\Http\Controllers;
+namespace App\Http\Controllers\Backend;
 
-use App\Models\EntityProfile;
+use App\Http\Controllers\Controller;
+use App\Models\SocialLink;
 use Illuminate\Http\Request;
 
-class EntityProfileController extends Controller
+class SocialLinkController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -34,7 +35,7 @@ class EntityProfileController extends Controller
     /**
      * Display the specified resource.
      */
-    public function show(EntityProfile $entityProfile)
+    public function show(SocialLink $socialLink)
     {
         //
     }
@@ -42,7 +43,7 @@ class EntityProfileController extends Controller
     /**
      * Show the form for editing the specified resource.
      */
-    public function edit(EntityProfile $entityProfile)
+    public function edit(SocialLink $socialLink)
     {
         //
     }
@@ -50,7 +51,7 @@ class EntityProfileController extends Controller
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, EntityProfile $entityProfile)
+    public function update(Request $request, SocialLink $socialLink)
     {
         //
     }
@@ -58,7 +59,7 @@ class EntityProfileController extends Controller
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(EntityProfile $entityProfile)
+    public function destroy(SocialLink $socialLink)
     {
         //
     }

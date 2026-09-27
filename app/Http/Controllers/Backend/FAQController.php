@@ -1,11 +1,12 @@
 <?php
 
-namespace App\Http\Controllers;
+namespace App\Http\Controllers\Backend;
 
-use App\Models\PageContent;
+use App\Http\Controllers\Controller;
+use App\Models\FAQ;
 use Illuminate\Http\Request;
 
-class PageContentController extends Controller
+class FAQController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -34,7 +35,7 @@ class PageContentController extends Controller
     /**
      * Display the specified resource.
      */
-    public function show(PageContent $pageContent)
+    public function show(FAQ $fAQ)
     {
         //
     }
@@ -42,7 +43,7 @@ class PageContentController extends Controller
     /**
      * Show the form for editing the specified resource.
      */
-    public function edit(PageContent $pageContent)
+    public function edit(FAQ $fAQ)
     {
         //
     }
@@ -50,7 +51,7 @@ class PageContentController extends Controller
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, PageContent $pageContent)
+    public function update(Request $request, FAQ $fAQ)
     {
         //
     }
@@ -58,7 +59,7 @@ class PageContentController extends Controller
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(PageContent $pageContent)
+    public function destroy(FAQ $fAQ)
     {
         //
     }

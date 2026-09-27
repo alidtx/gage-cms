@@ -1,11 +1,12 @@
 <?php
 
-namespace App\Http\Controllers;
+namespace App\Http\Controllers\Backend;
 
-use App\Models\ContactSubmission;
+use App\Http\Controllers\Controller;
+use App\Models\Service;
 use Illuminate\Http\Request;
 
-class ContactSubmissionController extends Controller
+class ServiceController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -34,7 +35,7 @@ class ContactSubmissionController extends Controller
     /**
      * Display the specified resource.
      */
-    public function show(ContactSubmission $contactSubmission)
+    public function show(Service $service)
     {
         //
     }
@@ -42,7 +43,7 @@ class ContactSubmissionController extends Controller
     /**
      * Show the form for editing the specified resource.
      */
-    public function edit(ContactSubmission $contactSubmission)
+    public function edit(Service $service)
     {
         //
     }
@@ -50,7 +51,7 @@ class ContactSubmissionController extends Controller
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, ContactSubmission $contactSubmission)
+    public function update(Request $request, Service $service)
     {
         //
     }
@@ -58,7 +59,7 @@ class ContactSubmissionController extends Controller
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(ContactSubmission $contactSubmission)
+    public function destroy(Service $service)
     {
         //
     }

@@ -1,11 +1,13 @@
 <?php
 
-namespace App\Http\Controllers;
+namespace App\Http\Controllers\Backend;
 
-use App\Models\GlobalSetting;
+use App\Http\Controllers\Controller;
+
+use App\Models\ContactSubmission;
 use Illuminate\Http\Request;
 
-class GlobalSettingController extends Controller
+class ContactSubmissionController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -34,7 +36,7 @@ class GlobalSettingController extends Controller
     /**
      * Display the specified resource.
      */
-    public function show(GlobalSetting $globalSetting)
+    public function show(ContactSubmission $contactSubmission)
     {
         //
     }
@@ -42,7 +44,7 @@ class GlobalSettingController extends Controller
     /**
      * Show the form for editing the specified resource.
      */
-    public function edit(GlobalSetting $globalSetting)
+    public function edit(ContactSubmission $contactSubmission)
     {
         //
     }
@@ -50,7 +52,7 @@ class GlobalSettingController extends Controller
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, GlobalSetting $globalSetting)
+    public function update(Request $request, ContactSubmission $contactSubmission)
     {
         //
     }
@@ -58,7 +60,7 @@ class GlobalSettingController extends Controller
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(GlobalSetting $globalSetting)
+    public function destroy(ContactSubmission $contactSubmission)
     {
         //
     }

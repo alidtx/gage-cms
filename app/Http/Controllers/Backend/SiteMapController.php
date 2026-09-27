@@ -1,11 +1,13 @@
 <?php
 
-namespace App\Http\Controllers;
+namespace App\Http\Controllers\Backend;
 
-use App\Models\SocialAnalytic;
+use App\Http\Controllers\Controller;
+
+use App\Models\SiteMap;
 use Illuminate\Http\Request;
 
-class SocialAnalyticController extends Controller
+class SiteMapController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -34,7 +36,7 @@ class SocialAnalyticController extends Controller
     /**
      * Display the specified resource.
      */
-    public function show(SocialAnalytic $socialAnalytic)
+    public function show(SiteMap $siteMap)
     {
         //
     }
@@ -42,7 +44,7 @@ class SocialAnalyticController extends Controller
     /**
      * Show the form for editing the specified resource.
      */
-    public function edit(SocialAnalytic $socialAnalytic)
+    public function edit(SiteMap $siteMap)
     {
         //
     }
@@ -50,7 +52,7 @@ class SocialAnalyticController extends Controller
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, SocialAnalytic $socialAnalytic)
+    public function update(Request $request, SiteMap $siteMap)
     {
         //
     }
@@ -58,7 +60,7 @@ class SocialAnalyticController extends Controller
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(SocialAnalytic $socialAnalytic)
+    public function destroy(SiteMap $siteMap)
     {
         //
     }
