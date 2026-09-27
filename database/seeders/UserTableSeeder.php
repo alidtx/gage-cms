@@ -1,0 +1,23 @@
+<?php
+
+namespace Database\Seeders;
+
+use App\Models\User;
+use Illuminate\Database\Console\Seeds\WithoutModelEvents;
+use Illuminate\Database\Seeder;
+
+class UserTableSeeder extends Seeder
+{
+    /**
+     * Run the database seeds.
+     */
+    public function run(): void
+    {
+        User::factory()->admin()->create([
+            'name' => 'Admin',
+            'email' => 'admin@gage.mv.com',
+            'phone' => '+8801000000001',
+            'is_profile_completed' => true,
+        ]);
+    }
+}
