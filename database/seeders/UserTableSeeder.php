@@ -3,7 +3,6 @@
 namespace Database\Seeders;
 
 use App\Models\User;
-use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
 
 class UserTableSeeder extends Seeder
@@ -13,11 +12,11 @@ class UserTableSeeder extends Seeder
      */
     public function run(): void
     {
-        User::factory()->admin()->create([
+          User::factory()->create([
             'name' => 'Admin',
             'email' => 'admin@gage.mv.com',
-            'phone' => '+8801000000001',
-            'is_profile_completed' => true,
+            'email_verified_at' => now(),
+            'password' => bcrypt('admin123'),
         ]);
     }
 }

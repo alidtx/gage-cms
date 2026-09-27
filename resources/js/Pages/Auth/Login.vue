@@ -42,7 +42,7 @@ const submit = () => {
             <div
                 class="inline-flex items-center justify-center w-14 h-14 rounded-2xl bg-gradient-to-br from-blue-500 to-purple-600 text-white mb-4 shadow-lg shadow-blue-500/30"
             >
-                <i class="fas fa-rocket text-2xl">G</i>
+                Gage
             </div>
             <h1 class="text-2xl font-bold text-gray-800">Welcome back</h1>
             <p class="text-sm text-gray-500 mt-1">
