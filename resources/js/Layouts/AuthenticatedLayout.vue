@@ -157,7 +157,7 @@ const markAllAsRead = () => {
                             <i class="fas fa-sitemap w-4"></i>
                             <span>Sitemap</span>
                         </Link>
-                        <a href="#redirects"
+                        <!-- <a href="#redirects"
                             class="sub-item flex items-center justify-between px-4 py-2.5 rounded-lg text-gray-400 text-sm transition-colors">
                             <span class="flex items-center space-x-3">
                                 <i class="fas fa-random w-4"></i>
@@ -172,7 +172,7 @@ const markAllAsRead = () => {
                                 <span>SEO Analysis</span>
                             </span>
                             <span class="bg-red-500 text-white text-xs px-2 py-0.5 rounded-full animate-pulse">3</span>
-                        </a>
+                        </a> -->
                     </div>
                 </div>
 
