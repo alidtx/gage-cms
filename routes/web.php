@@ -36,8 +36,14 @@ Route::middleware('auth')
         Route::get('/basic-seo/{basicSeo}/image', [BasicSeoController::class, 'image'])
             ->name('basic-seo.image');
 
-          Route::get('/global-seo', [GlobalSettingController::class, 'index'])
-            ->name('global-seo.index');  
+           Route::get('global-settings', [GlobalSettingController::class, 'index'])
+        ->name('global-settings.index');
+
+    Route::get('global-settings/{globalSetting}/image/{type}', [GlobalSettingController::class, 'image'])
+        ->name('global-settings.image');
+
+    Route::put('global-settings/{globalSetting}', [GlobalSettingController::class, 'update'])
+        ->name('global-settings.update');
 
         Route::get('/profile', [ProfileController::class, 'edit'])
             ->name('profile.edit');

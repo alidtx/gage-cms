@@ -18,15 +18,12 @@ return new class extends Migration
             $table->text('site_description')->nullable();
             $table->text('site_keywords')->nullable();
 
-            $table->foreignId('default_og_image')
-                ->nullable()
-                ->constrained('media')
-                ->nullOnDelete();
-
-            $table->foreignId('default_twitter_image')
-                ->nullable()
-                ->constrained('media')
-                ->nullOnDelete();
+            $table->string('author')->nullable();
+            $table->string('publisher')->nullable();
+            $table->string('facebook_app_id')->nullable();
+            $table->string('twitter_site')->nullable();
+            $table->string('google_analytics_id')->nullable();
+            $table->string('google_tag_manager_id')->nullable();
 
             $table->timestamps();
         });

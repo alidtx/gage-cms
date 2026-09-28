@@ -3,66 +3,87 @@
 namespace App\Http\Controllers\Backend;
 
 use App\Http\Controllers\Controller;
-
+use App\Http\Requests\UpdateGlobalSettingRequest;
 use App\Models\GlobalSetting;
-use Illuminate\Http\Request;
+use App\Services\MediaService;
+use Illuminate\Support\Facades\Storage;
 use Inertia\Inertia;
+use Symfony\Component\HttpFoundation\StreamedResponse;
 
 class GlobalSettingController extends Controller
 {
-    /**
-     * Display a listing of the resource.
-     */
     public function index()
     {
-       return Inertia('Backend/GlobalSeo/Index');
+        $globalSetting = GlobalSetting::firstOrCreate([], [
+            'site_name' => 'Your Company Name',
+            'site_description' => 'Delivering excellence in services across multiple industries with a commitment to quality and innovation.',
+            'site_keywords' => 'services, innovation, quality, industry leader',
+            'author' => 'Your Company',
+            'publisher' => 'Your Company',
+        ]);
+
+        $globalSetting->load(['defaultOgImage', 'defaultTwitterImage']);
+
+        return Inertia::render('Backend/GlobalSeo/Index', [
+            'globalSetting' => [
+                ...$globalSetting->toArray(),
+                'default_og_image_url' => $globalSetting->defaultOgImage
+                    ? route('backend.global-settings.image', [$globalSetting, 'og'], false)
+                    : null,
+                'default_twitter_image_url' => $globalSetting->defaultTwitterImage
+                    ? route('backend.global-settings.image', [$globalSetting, 'twitter'], false)
+                    : null,
+            ],
+        ]);
     }
 
-    /**
-     * Show the form for creating a new resource.
-     */
-    public function create()
+    public function image(GlobalSetting $globalSetting, string $type): StreamedResponse
     {
-        //
+        $media = match ($type) {
+            'og' => $globalSetting->defaultOgImage,
+            'twitter' => $globalSetting->defaultTwitterImage,
+            default => null,
+        };
+
+        abort_unless($media && Storage::exists($media->src), 404);
+
+        return Storage::response($media->src, null, [
+            'Cache-Control' => 'no-store, private',
+        ]);
     }
 
-    /**
-     * Store a newly created resource in storage.
-     */
-    public function store(Request $request)
+    public function update(UpdateGlobalSettingRequest $request, GlobalSetting $globalSetting)
     {
-        //
-    }
+        $data = $request->validated();
 
-    /**
-     * Display the specified resource.
-     */
-    public function show(GlobalSetting $globalSetting)
-    {
-        //
-    }
+        unset($data['default_og_image'], $data['default_twitter_image']);
 
-    /**
-     * Show the form for editing the specified resource.
-     */
-    public function edit(GlobalSetting $globalSetting)
-    {
-        //
-    }
+        if ($request->hasFile('default_og_image')) {
+            MediaService::deleteByName($globalSetting, 'Default OG Image');
 
-    /**
-     * Update the specified resource in storage.
-     */
-    public function update(Request $request, GlobalSetting $globalSetting)
-    {
-        //
-    }
+            MediaService::upload(
+                file: $request->file('default_og_image'),
+                path: 'seo/global/og-images',
+                name: 'Default OG Image',
+                fileable: $globalSetting,
+            );
+        }
 
-    /**
-     * Remove the specified resource from storage.
-     */
-    public function destroy(GlobalSetting $globalSetting)
-    {
-        //
+        if ($request->hasFile('default_twitter_image')) {
+            MediaService::deleteByName($globalSetting, 'Default Twitter Image');
+
+            MediaService::upload(
+                file: $request->file('default_twitter_image'),
+                path: 'seo/global/twitter-images',
+                name: 'Default Twitter Image',
+                fileable: $globalSetting,
+            );
+        }
+
+        $globalSetting->update($data);
+
+        return redirect()
+            ->route('backend.global-settings.index')
+            ->with('success', 'Global settings updated successfully.');
     }
 }
