@@ -13,7 +13,10 @@ class BasicSeoController extends Controller
      */
     public function index()
     {
-        //
+        $basicSeo = BasicSeo::first();
+        return inertia('Backend/BasicSeo/Index', [
+            'basicSeo' => $basicSeo,
+        ]);
     }
 
     /**
