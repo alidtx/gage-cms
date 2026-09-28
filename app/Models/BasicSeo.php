@@ -6,6 +6,8 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
+use Illuminate\Database\Eloquent\Casts\Attribute;
+use Illuminate\Database\Eloquent\Relations\MorphOne;
 
 class BasicSeo extends Model
 {
@@ -31,8 +33,26 @@ class BasicSeo extends Model
         'custom_schema' => 'array',
     ];
 
-    public function media(): BelongsTo
+    protected $appends = [
+        'social_share_image',
+    ];
+
+    public function media()
     {
-        return $this->belongsTo(Media::class);
+        return $this->morphMany(Media::class, 'fileable');
+    }
+
+    public function socialShareImage(): Attribute
+    {
+        return new Attribute(
+            get: fn () => $this->seoImage ? $this->seoImage->path : ''
+        );
+    }
+
+    public function seoImage(): MorphOne
+    {
+        return $this->morphOne(Media::class, 'fileable')
+            ->where('name', 'Social Share Image')
+            ->latest();
     }
 }

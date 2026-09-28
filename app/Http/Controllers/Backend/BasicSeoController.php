@@ -12,7 +12,7 @@ class BasicSeoController extends Controller
 {
     public function index()
     {
-        $basicSeo = BasicSeo::with('media')->firstOrCreate([], [
+        $basicSeo = BasicSeo::with('seoImage')->firstOrCreate([], [
             'title'             => 'Digital Marketing Services - Grow Your Business Online',
             'meta_description'  => 'We provide expert digital marketing services including SEO, PPC, social media, and content marketing.',
             'og_type'           => 'website',
@@ -21,7 +21,10 @@ class BasicSeoController extends Controller
         ]);
 
         return inertia('Backend/BasicSeo/Index', [
-            'basicSeo' => $basicSeo,
+            'basicSeo' => [
+                ...$basicSeo->toArray(),
+                'social_share_image' => $basicSeo->socialShareImage,
+            ],
         ]);
     }
 
@@ -29,24 +32,23 @@ class BasicSeoController extends Controller
     {
         $data = $request->validated();
 
-        // Remove the file key — it isn't a column on basic_seos
         unset($data['social_share_image']);
 
-        // Decode custom_schema if it arrived as a JSON string
         if (!empty($data['custom_schema']) && is_string($data['custom_schema'])) {
             $decoded = json_decode($data['custom_schema'], true);
-            $data['custom_schema'] = json_last_error() === JSON_ERROR_NONE ? $decoded : null;
+            $data['custom_schema'] = json_last_error() === JSON_ERROR_NONE
+                ? $decoded
+                : null;
         }
 
-        // Handle image upload → media table → media_id on basic_seos
         if ($request->hasFile('social_share_image')) {
 
             MediaService::deleteByName($basicSeo, 'Social Share Image');
 
             $media = MediaService::upload(
-                file:     $request->file('social_share_image'),
-                path:     'customer/documents',
-                name:     'Social Share Image',
+                file: $request->file('social_share_image'),
+                path: 'seo/social-share-images',
+                name: 'Social Share Image',
                 fileable: $basicSeo,
             );
 
