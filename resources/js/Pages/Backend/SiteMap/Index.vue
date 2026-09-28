@@ -2,6 +2,7 @@
 import AuthenticatedLayout from '@/Layouts/AuthenticatedLayout.vue';
 import { Head, useForm } from '@inertiajs/vue3';
 import { computed } from 'vue';
+import { toast } from 'vue3-toastify';
 
 const props = defineProps({
     settings: { type: Array, required: true },
@@ -27,7 +28,18 @@ const cards = computed(() => [
 const generatedLabel = computed(() => props.generatedAt ? new Date(props.generatedAt).toLocaleString() : 'Not generated yet');
 
 function save(regenerate = false) {
-    const options = { preserveScroll: true, onSuccess: () => form.defaults() };
+    const options = {
+        preserveScroll: true,
+        onSuccess: () => {
+            form.defaults();
+            toast.success(regenerate
+                ? 'Sitemap regenerated successfully!'
+                : 'Sitemap settings saved successfully!');
+        },
+        onError: () => {
+            toast.error('Unable to save sitemap settings. Please check the highlighted errors.');
+        },
+    };
     if (regenerate) {
         form.post(route('backend.sitemap.regenerate'), options);
     } else {
@@ -52,7 +64,6 @@ function save(regenerate = false) {
                 </button>
             </div>
 
-            <p v-if="success && !form.isDirty" role="status" class="mb-6 p-4 rounded-xl bg-green-50 text-green-700">{{ success }}</p>
             <div v-if="Object.keys(form.errors).length" role="alert" class="mb-6 p-4 rounded-xl bg-red-50 text-red-700">
                 <p v-for="(error, field) in form.errors" :key="field">{{ error }}</p>
             </div>
