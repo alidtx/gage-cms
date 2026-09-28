@@ -144,11 +144,12 @@ const markAllAsRead = () => {
                             :class="{ 'rotate-90': isOpen('seo') }"></i>
                     </button>
                     <div class="dropdown-panel" :class="{ 'open': isOpen('seo') }">
-                        <a href="#global"
+                       <Link :href="route('backend.global-seo.index')"
                             class="sub-item flex items-center space-x-3 px-4 py-2.5 rounded-lg text-gray-400 text-sm transition-colors">
                             <i class="fas fa-globe w-4"></i>
-                            <span>Global Settings</span>
-                        </a>
+                            <span>Global Setting</span>
+                        </Link>
+                       
                         <Link :href="route('backend.basic-seo.index')"
                             class="sub-item flex items-center space-x-3 px-4 py-2.5 rounded-lg text-gray-400 text-sm transition-colors">
                             <i class="fas fa-search w-4"></i>

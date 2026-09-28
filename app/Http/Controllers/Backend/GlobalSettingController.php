@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 
 use App\Models\GlobalSetting;
 use Illuminate\Http\Request;
+use Inertia\Inertia;
 
 class GlobalSettingController extends Controller
 {
@@ -14,7 +15,7 @@ class GlobalSettingController extends Controller
      */
     public function index()
     {
-        //
+       return Inertia('Backend/GlobalSeo/Index');
     }
 
     /**

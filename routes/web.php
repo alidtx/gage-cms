@@ -1,7 +1,9 @@
 <?php
 
 use App\Http\Controllers\Backend\BasicSeoController;
+use App\Http\Controllers\Backend\GlobalSettingController;
 use App\Http\Controllers\ProfileController;
+use App\Models\GlobalSetting;
 use Illuminate\Foundation\Application;
 use Illuminate\Support\Facades\Route;
 use Inertia\Inertia;
@@ -33,6 +35,9 @@ Route::middleware('auth')
 
         Route::get('/basic-seo/{basicSeo}/image', [BasicSeoController::class, 'image'])
             ->name('basic-seo.image');
+
+          Route::get('/global-seo', [GlobalSettingController::class, 'index'])
+            ->name('global-seo.index');  
 
         Route::get('/profile', [ProfileController::class, 'edit'])
             ->name('profile.edit');
