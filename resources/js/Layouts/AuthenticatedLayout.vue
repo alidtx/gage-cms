@@ -125,13 +125,7 @@ const markAllAsRead = () => {
                             class="sub-item flex items-center space-x-3 px-4 py-2.5 rounded-lg text-gray-400 text-sm transition-colors">
                             <i class="fas fa-file-alt w-4"></i>
                             <span>All Pages</span>
-                        </a>
-                        <Link :href="route('backend.basic-seo.index')"
-                            class="sub-item flex items-center space-x-3 px-4 py-2.5 rounded-lg text-gray-400 text-sm transition-colors">
-                            <i class="fas fa-search w-4"></i>
-                            <span>Basic SEO</span>
-                        </Link>
-                        
+                        </a>  
                         <a href="#sitemap"
                             class="sub-item flex items-center space-x-3 px-4 py-2.5 rounded-lg text-gray-400 text-sm transition-colors">
                             <i class="fas fa-sitemap w-4"></i>
@@ -155,6 +149,11 @@ const markAllAsRead = () => {
                             <i class="fas fa-globe w-4"></i>
                             <span>Global Settings</span>
                         </a>
+                        <Link :href="route('backend.basic-seo.index')"
+                            class="sub-item flex items-center space-x-3 px-4 py-2.5 rounded-lg text-gray-400 text-sm transition-colors">
+                            <i class="fas fa-search w-4"></i>
+                            <span>Basic SEO</span>
+                        </Link>
                         <a href="#redirects"
                             class="sub-item flex items-center justify-between px-4 py-2.5 rounded-lg text-gray-400 text-sm transition-colors">
                             <span class="flex items-center space-x-3">
