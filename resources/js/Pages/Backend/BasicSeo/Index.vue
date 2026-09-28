@@ -2,6 +2,7 @@
 import AuthenticatedLayout from '@/Layouts/AuthenticatedLayout.vue';
 import { Head, useForm } from '@inertiajs/vue3';
 import { computed, onMounted, onUnmounted, ref } from 'vue';
+import { toast } from 'vue3-toastify'
 
 const props = defineProps({
     basicSeo: {
@@ -114,12 +115,20 @@ const previewUrl = computed(() => {
 /* ---------- Submit ---------- */
 function submit() {
     form.post(route('backend.basic-seo.update', props.basicSeo.id), {
-        forceFormData: true,       // required for file uploads
+        forceFormData: true,
         preserveScroll: true,
+
         onSuccess: () => {
+            // Show success toast
+            toast.success('SEO settings updated successfully!');
+
             currentTime.value = Date.now();
-            // Clear local state so the page shows the newly-uploaded server image
-            if (localImagePreview.value) URL.revokeObjectURL(localImagePreview.value);
+
+            // Clear local image preview
+            if (localImagePreview.value) {
+                URL.revokeObjectURL(localImagePreview.value);
+            }
+
             localImagePreview.value = null;
             form.social_share_image = null;
         },
