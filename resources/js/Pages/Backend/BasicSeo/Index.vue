@@ -1,45 +1,64 @@
 <script setup>
 import AuthenticatedLayout from '@/Layouts/AuthenticatedLayout.vue';
 import { Head, useForm } from '@inertiajs/vue3';
-import { computed } from 'vue';
+import { computed, ref, watch } from 'vue';
 
 const props = defineProps({
     basicSeo: {
         type: Object,
         required: true,
     },
-    
 });
 
-
+/* ---------- Custom schema → pretty string ---------- */
 const schemaString = props.basicSeo.custom_schema
     ? JSON.stringify(props.basicSeo.custom_schema, null, 2)
     : '';
 
+/* ---------- Form ---------- */
 const form = useForm({
     _method: 'PUT',
-    title: props.basicSeo.title ?? '',
-    meta_description: props.basicSeo.meta_description ?? '',
-    keywords: props.basicSeo.keywords ?? '',
+    title:              props.basicSeo.title ?? '',
+    meta_description:   props.basicSeo.meta_description ?? '',
+    keywords:           props.basicSeo.keywords ?? '',
 
-    og_title: props.basicSeo.og_title ?? '',
-    og_type: props.basicSeo.og_type ?? 'website',
-    og_description: props.basicSeo.og_description ?? '',
+    og_title:           props.basicSeo.og_title ?? '',
+    og_type:            props.basicSeo.og_type ?? 'website',
+    og_description:     props.basicSeo.og_description ?? '',
 
-    media_id: props.basicSeo.media_id ?? null,
-    canonical_url: props.basicSeo.canonical_url ?? '',
+    canonical_url:      props.basicSeo.canonical_url ?? '',
 
-    schema_type: props.basicSeo.schema_type ?? 'Service',
-    custom_schema: schemaString,
+    schema_type:        props.basicSeo.schema_type ?? 'Service',
+    custom_schema:      schemaString,
 
-    twitter_title: props.basicSeo.twitter_title ?? '',
-    twitter_card_type: props.basicSeo.twitter_card_type ?? 'summary_large_image',
-    twitter_description: props.basicSeo.twitter_description ?? '',
+    twitter_title:      props.basicSeo.twitter_title ?? '',
+    twitter_card_type:  props.basicSeo.twitter_card_type ?? 'summary_large_image',
+    twitter_description:props.basicSeo.twitter_description ?? '',
+
+    // The file — sent only when user picks a new one
+    social_share_image: null,
 });
 
+/* ---------- Image preview (server value + local override) ---------- */
+const localImagePreview = ref(null); // set when user picks a new file
 
-const titleCount = computed(() => form.title.length);
-const descCount = computed(() => form.meta_description.length);
+const imagePreview = computed(() =>
+    localImagePreview.value ?? props.basicSeo.media?.url ?? null
+);
+
+function onImageChange(e) {
+    const file = e.target.files?.[0] ?? null;
+    form.social_share_image = file;
+
+    // Clean up old blob URL if any
+    if (localImagePreview.value) URL.revokeObjectURL(localImagePreview.value);
+
+    localImagePreview.value = file ? URL.createObjectURL(file) : null;
+}
+
+/* ---------- Character counters ---------- */
+const titleCount = computed(() => (form.title || '').length);
+const descCount  = computed(() => (form.meta_description || '').length);
 
 const titleStatus = computed(() => {
     if (titleCount.value === 0) return 'text-gray-500';
@@ -55,9 +74,9 @@ const descStatus = computed(() => {
         : 'text-amber-600';
 });
 
-
+/* ---------- Preview host ---------- */
 const previewUrl = computed(() => {
-    if (!form.canonical_url) return 'https://example.com/services/digital-marketing';
+    if (!form.canonical_url) return 'example.com';
     try {
         return new URL(form.canonical_url).hostname;
     } catch {
@@ -65,11 +84,17 @@ const previewUrl = computed(() => {
     }
 });
 
-const mediaUrl = computed(() => props.basicSeo.media?.url ?? null);
-
+/* ---------- Submit ---------- */
 function submit() {
     form.post(route('backend.basic-seo.update', props.basicSeo.id), {
+        forceFormData: true,       // required for file uploads
         preserveScroll: true,
+        onSuccess: () => {
+            // Clear local state so the page shows the newly-uploaded server image
+            if (localImagePreview.value) URL.revokeObjectURL(localImagePreview.value);
+            localImagePreview.value = null;
+            form.social_share_image = null;
+        },
     });
 }
 </script>
@@ -209,33 +234,37 @@ function submit() {
                             ></textarea>
                         </div>
 
-                        <!-- Media picker (shared by OG + Twitter) -->
+                        <!-- Social share image (upload) -->
                         <div class="mt-4">
                             <label class="block text-sm font-medium text-gray-700 mb-2">
-                                Social Share Image (media_id)
+                                Social Share Image
                             </label>
                             <div class="flex items-center space-x-4">
-                                <div class="w-24 h-24 bg-gray-100 rounded-xl overflow-hidden flex items-center justify-center border-2 border-dashed border-gray-300">
-                                    <img v-if="mediaUrl" :src="mediaUrl" class="w-full h-full object-cover" alt="Share image" />
+                                <div class="w-32 h-20 bg-gray-100 rounded-xl overflow-hidden flex items-center justify-center border-2 border-dashed border-gray-300">
+                                    <img
+                                        v-if="imagePreview"
+                                        :src="imagePreview"
+                                        class="w-full h-full object-cover"
+                                        alt="Social share preview"
+                                    />
                                     <i v-else class="fas fa-image text-2xl text-gray-400"></i>
                                 </div>
                                 <div>
-                                    <input
-                                        v-model.number="form.media_id"
-                                        type="number"
-                                        min="1"
-                                        placeholder="Media ID"
-                                        class="px-4 py-2 border border-gray-200 rounded-xl text-sm w-40 focus:ring-2 focus:ring-blue-500 focus:border-transparent"
-                                    />
-                                    <p class="text-xs text-gray-500 mt-1">Enter an ID from the media library</p>
-                                    <p v-if="form.errors.media_id" class="text-xs text-red-600 mt-1">
-                                        {{ form.errors.media_id }}
+                                    <label class="cursor-pointer px-4 py-2 bg-gray-200 text-gray-700 rounded-xl text-sm font-medium hover:bg-gray-300 transition-colors inline-block">
+                                        <i class="fas fa-upload mr-2"></i> Upload Image
+                                        <input
+                                            type="file"
+                                            accept="image/*"
+                                            class="hidden"
+                                            @change="onImageChange"
+                                        />
+                                    </label>
+                                    <p class="text-xs text-gray-500 mt-1">Recommended: 1200×630px (JPG/PNG/WebP, max 4MB)</p>
+                                    <p v-if="form.errors.social_share_image" class="text-xs text-red-600 mt-1">
+                                        {{ form.errors.social_share_image }}
                                     </p>
                                 </div>
                             </div>
-                            <p class="text-xs text-gray-500 mt-2">
-                                Recommended size: 1200×630px — used for both Open Graph and Twitter cards.
-                            </p>
                         </div>
                     </div>
 
@@ -318,7 +347,7 @@ function submit() {
                                 placeholder='{ "@context": "https://schema.org", "@type": "Service" }'
                             ></textarea>
                             <span class="text-xs text-gray-500 mt-1 block">
-                                Must be valid JSON. It will be stored in the <code>custom_schema</code> JSON column.
+                                Must be valid JSON. Stored in the <code>custom_schema</code> JSON column.
                             </span>
                             <p v-if="form.errors.custom_schema" class="text-xs text-red-600 mt-1">
                                 {{ form.errors.custom_schema }}
@@ -348,7 +377,7 @@ function submit() {
                         <h4 class="text-sm font-semibold text-gray-500 uppercase tracking-wider mb-4">Social Preview</h4>
                         <div class="bg-gray-50 rounded-xl overflow-hidden">
                             <div class="h-32 bg-gradient-to-r from-blue-500 to-purple-500 flex items-center justify-center">
-                                <img v-if="mediaUrl" :src="mediaUrl" class="w-full h-full object-cover" alt="Social preview" />
+                                <img v-if="imagePreview" :src="imagePreview" class="w-full h-full object-cover" alt="Social preview" />
                                 <i v-else class="fas fa-image text-4xl text-white opacity-50"></i>
                             </div>
                             <div class="p-4">
