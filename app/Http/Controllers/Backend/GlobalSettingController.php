@@ -59,7 +59,7 @@ class GlobalSettingController extends Controller
         unset($data['default_og_image'], $data['default_twitter_image']);
 
         if ($request->hasFile('default_og_image')) {
-            MediaService::deleteByName($globalSetting, 'Default OG Image');
+            // MediaService::deleteByName($globalSetting, 'Default OG Image');
 
             MediaService::upload(
                 file: $request->file('default_og_image'),
@@ -70,7 +70,7 @@ class GlobalSettingController extends Controller
         }
 
         if ($request->hasFile('default_twitter_image')) {
-            MediaService::deleteByName($globalSetting, 'Default Twitter Image');
+            // MediaService::deleteByName($globalSetting, 'Default Twitter Image');
 
             MediaService::upload(
                 file: $request->file('default_twitter_image'),
