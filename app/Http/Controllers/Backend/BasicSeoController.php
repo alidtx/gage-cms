@@ -3,67 +3,39 @@
 namespace App\Http\Controllers\Backend;
 
 use App\Http\Controllers\Controller;
+use App\Http\Requests\UpdateBasicSeoRequest;
 use App\Models\BasicSeo;
-use Illuminate\Http\Request;
 
 class BasicSeoController extends Controller
 {
-    /**
-     * Display a listing of the resource.
-     */
     public function index()
     {
-        $basicSeo = BasicSeo::first();
+        $basicSeo = BasicSeo::with('media')->firstOrCreate([], [
+            'title'             => 'Digital Marketing Services - Grow Your Business Online',
+            'meta_description'  => 'We provide expert digital marketing services including SEO, PPC, social media, and content marketing.',
+            'og_type'           => 'website',
+            'twitter_card_type' => 'summary_large_image',
+            'schema_type'       => 'Service',
+        ]);
+
         return inertia('Backend/BasicSeo/Index', [
             'basicSeo' => $basicSeo,
         ]);
     }
 
-    /**
-     * Show the form for creating a new resource.
-     */
-    public function create()
+    public function update(UpdateBasicSeoRequest $request, BasicSeo $basicSeo)
     {
-        //
-    }
+        $data = $request->validated();
 
-    /**
-     * Store a newly created resource in storage.
-     */
-    public function store(Request $request)
-    {
-        //
-    }
+        if (!empty($data['custom_schema']) && is_string($data['custom_schema'])) {
+            $decoded = json_decode($data['custom_schema'], true);
+            $data['custom_schema'] = json_last_error() === JSON_ERROR_NONE ? $decoded : null;
+        }
 
-    /**
-     * Display the specified resource.
-     */
-    public function show(BasicSeo $basicSeo)
-    {
-        //
-    }
+        $basicSeo->update($data);
 
-    /**
-     * Show the form for editing the specified resource.
-     */
-    public function edit(BasicSeo $basicSeo)
-    {
-        //
-    }
-
-    /**
-     * Update the specified resource in storage.
-     */
-    public function update(Request $request, BasicSeo $basicSeo)
-    {
-        //
-    }
-
-    /**
-     * Remove the specified resource from storage.
-     */
-    public function destroy(BasicSeo $basicSeo)
-    {
-        //
+        return redirect()
+            ->route('backend.basic-seo.index')
+            ->with('success', 'SEO settings updated successfully.');
     }
 }

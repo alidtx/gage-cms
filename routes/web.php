@@ -25,8 +25,11 @@ Route::middleware('auth')
     ->name('backend.')
     ->group(function () {
 
-        Route::get('/basic-seo', [BasicSeoController::class, 'index'])
+         Route::get('/basic-seo', [BasicSeoController::class, 'index'])
             ->name('basic-seo.index');
+
+        Route::put('/basic-seo/{basicSeo}', [BasicSeoController::class, 'update'])
+            ->name('basic-seo.update');
 
         Route::get('/profile', [ProfileController::class, 'edit'])
             ->name('profile.edit');
