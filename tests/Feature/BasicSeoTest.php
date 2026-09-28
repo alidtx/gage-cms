@@ -33,7 +33,7 @@ class BasicSeoTest extends TestCase
             'social_share_image' => $image,
         ])->assertSessionHasNoErrors()->assertRedirect(route('backend.basic-seo.index'));
 
-        $media = $seo->fresh()->media;
+        $media = $seo->fresh()->seoImage;
         $this->assertNotNull($media);
         Storage::disk('local')->assertExists($media->src);
 
@@ -45,9 +45,9 @@ class BasicSeoTest extends TestCase
             ->where('basicSeo.og_title', 'Saved social title')
             ->where('basicSeo.og_description', 'Saved social description')
             ->where('basicSeo.canonical_url', 'https://example.com/services')
-            ->has('basicSeo.media.url')
+            ->has('basicSeo.social_share_image')
         );
-        $url = $response->inertiaProps('basicSeo.media.url');
+        $url = $response->inertiaProps('basicSeo.social_share_image');
         $this->get($url)->assertOk()->assertHeader('Content-Type', 'image/png')
             ->assertStreamedContent($contents);
 
@@ -58,8 +58,8 @@ class BasicSeoTest extends TestCase
 
         $this->get(route('backend.basic-seo.index'))->assertInertia(fn (Assert $page) => $page
             ->where('basicSeo.title', 'Updated search title')
-            ->where('basicSeo.media.id', $media->id)
-            ->where('basicSeo.media.url', $url)
+            ->where('basicSeo.media_id', $media->id)
+            ->where('basicSeo.social_share_image', $url)
         );
         $this->get($url)->assertOk()->assertStreamedContent($contents);
     }
@@ -82,7 +82,7 @@ class BasicSeoTest extends TestCase
             '_method' => 'PUT',
             'social_share_image' => UploadedFile::fake()->image('first.png'),
         ])->assertSessionHasNoErrors();
-        $oldMedia = $seo->fresh()->media;
+        $oldMedia = $seo->fresh()->seoImage;
         $replacement = UploadedFile::fake()->image('replacement.png', 20, 20);
         $contents = file_get_contents($replacement->getRealPath());
 
@@ -91,7 +91,7 @@ class BasicSeoTest extends TestCase
             'social_share_image' => $replacement,
         ])->assertSessionHasNoErrors()->assertRedirect(route('backend.basic-seo.index'));
 
-        $media = $seo->fresh()->media;
+        $media = $seo->fresh()->seoImage;
         Storage::disk('local')->assertMissing($oldMedia->src);
         $this->assertModelMissing($oldMedia);
         $this->get("/backend/basic-seo/{$seo->id}/image")

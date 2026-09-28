@@ -1,13 +1,42 @@
 <script setup>
 import AuthenticatedLayout from '@/Layouts/AuthenticatedLayout.vue';
 import { Head, useForm } from '@inertiajs/vue3';
-import { computed, ref, watch } from 'vue';
+import { computed, onMounted, onUnmounted, ref } from 'vue';
 
 const props = defineProps({
     basicSeo: {
         type: Object,
         required: true,
     },
+});
+
+const currentTime = ref(Date.now());
+let lastUpdatedTimer;
+
+onMounted(() => {
+    lastUpdatedTimer = window.setInterval(() => {
+        currentTime.value = Date.now();
+    }, 60_000);
+});
+
+onUnmounted(() => window.clearInterval(lastUpdatedTimer));
+
+const lastUpdated = computed(() => {
+    const updatedAt = props.basicSeo.updated_at
+        ? new Date(props.basicSeo.updated_at).getTime()
+        : NaN;
+
+    if (!Number.isFinite(updatedAt)) return 'Not available';
+
+    const seconds = Math.max(0, Math.floor((currentTime.value - updatedAt) / 1000));
+    if (seconds < 60) return 'just now';
+
+    for (const [unit, duration] of [['year', 31_536_000], ['month', 2_592_000], ['day', 86_400], ['hour', 3600], ['minute', 60]]) {
+        if (seconds >= duration) {
+            const count = Math.floor(seconds / duration);
+            return `${count} ${unit}${count === 1 ? '' : 's'} ago`;
+        }
+    }
 });
 
 /* ---------- Custom schema → pretty string ---------- */
@@ -43,14 +72,12 @@ const form = useForm({
 const localImagePreview = ref(null); // set when user picks a new file
 
 const imagePreview = computed(() =>
-    localImagePreview.value ?? props.basicSeo.media?.url ?? null
+    localImagePreview.value ?? props.basicSeo.social_share_image ?? null
 );
 
 function onImageChange(e) {
     const file = e.target.files?.[0] ?? null;
     form.social_share_image = file;
-
-    // Clean up old blob URL if any
     if (localImagePreview.value) URL.revokeObjectURL(localImagePreview.value);
 
     localImagePreview.value = file ? URL.createObjectURL(file) : null;
@@ -90,6 +117,7 @@ function submit() {
         forceFormData: true,       // required for file uploads
         preserveScroll: true,
         onSuccess: () => {
+            currentTime.value = Date.now();
             // Clear local state so the page shows the newly-uploaded server image
             if (localImagePreview.value) URL.revokeObjectURL(localImagePreview.value);
             localImagePreview.value = null;
@@ -111,16 +139,10 @@ function submit() {
                     <p class="text-gray-600">
                         Digital Marketing Services
                         <span class="text-gray-400">|</span>
-                        <span class="text-sm text-blue-600">Last updated: 2 hours ago</span>
+                        <span class="text-sm text-blue-600">Last updated: {{ lastUpdated }}</span>
                     </p>
                 </div>
                 <div class="flex items-center space-x-3">
-                    <button
-                        type="button"
-                        class="px-4 py-2 bg-gray-200 text-gray-700 rounded-xl font-semibold hover:bg-gray-300 transition-colors"
-                    >
-                        <i class="fas fa-eye mr-2"></i> Preview
-                    </button>
                     <button
                         type="button"
                         @click="submit"

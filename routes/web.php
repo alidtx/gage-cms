@@ -25,11 +25,14 @@ Route::middleware('auth')
     ->name('backend.')
     ->group(function () {
 
-         Route::get('/basic-seo', [BasicSeoController::class, 'index'])
+        Route::get('/basic-seo', [BasicSeoController::class, 'index'])
             ->name('basic-seo.index');
 
         Route::put('/basic-seo/{basicSeo}', [BasicSeoController::class, 'update'])
             ->name('basic-seo.update');
+
+        Route::get('/basic-seo/{basicSeo}/image', [BasicSeoController::class, 'image'])
+            ->name('basic-seo.image');
 
         Route::get('/profile', [ProfileController::class, 'edit'])
             ->name('profile.edit');
@@ -40,7 +43,6 @@ Route::middleware('auth')
         Route::delete('/profile', [ProfileController::class, 'destroy'])
             ->name('profile.destroy');
     });
-
 
 // Frontend routes
 Route::prefix('frontend')
@@ -54,4 +56,4 @@ Route::prefix('frontend')
         // Other frontend routes...
     });
 
-require __DIR__ . '/auth.php';
+require __DIR__.'/auth.php';
