@@ -2,7 +2,7 @@
 import { ref, onMounted, onUnmounted } from 'vue';
 import { Link } from '@inertiajs/vue3';
 
-const openDropdown = ref(null);
+const openDropdown = ref(route().current('backend.sitemap.*') ? 'content' : null);
 
 const toggleDropdown = (key) => {
     openDropdown.value = openDropdown.value === key ? null : key;
@@ -126,11 +126,6 @@ const markAllAsRead = () => {
                             <i class="fas fa-file-alt w-4"></i>
                             <span>All Pages</span>
                         </a>  
-                        <a href="#sitemap"
-                            class="sub-item flex items-center space-x-3 px-4 py-2.5 rounded-lg text-gray-400 text-sm transition-colors">
-                            <i class="fas fa-sitemap w-4"></i>
-                            <span>Sitemap</span>
-                        </a>
                     </div>
                 </div>
 
@@ -154,6 +149,13 @@ const markAllAsRead = () => {
                             class="sub-item flex items-center space-x-3 px-4 py-2.5 rounded-lg text-gray-400 text-sm transition-colors">
                             <i class="fas fa-search w-4"></i>
                             <span>Basic SEO</span>
+                        </Link>
+                        <Link :href="route('backend.sitemap.index')"
+                            :aria-current="route().current('backend.sitemap.*') ? 'page' : undefined"
+                            :class="{ 'bg-blue-600 text-white': route().current('backend.sitemap.*') }"
+                            class="sub-item flex items-center space-x-3 px-4 py-2.5 rounded-lg text-gray-400 text-sm transition-colors">
+                            <i class="fas fa-sitemap w-4"></i>
+                            <span>Sitemap</span>
                         </Link>
                         <a href="#redirects"
                             class="sub-item flex items-center justify-between px-4 py-2.5 rounded-lg text-gray-400 text-sm transition-colors">

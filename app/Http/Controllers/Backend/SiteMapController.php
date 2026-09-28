@@ -3,65 +3,48 @@
 namespace App\Http\Controllers\Backend;
 
 use App\Http\Controllers\Controller;
-
-use App\Models\SiteMap;
-use Illuminate\Http\Request;
+use App\Http\Requests\UpdateSiteMapRequest;
+use App\Services\SiteMapService;
+use Illuminate\Http\RedirectResponse;
+use Illuminate\Http\Response;
+use Inertia\Inertia;
+use Inertia\Response as InertiaResponse;
 
 class SiteMapController extends Controller
 {
-    /**
-     * Display a listing of the resource.
-     */
-    public function index()
+    public function index(SiteMapService $sitemap): InertiaResponse
     {
-        //
+        $settings = $sitemap->settings();
+        $total = $settings->sum('page_count');
+        $included = $settings->where('include', true)->sum('page_count');
+
+        return Inertia::render('Backend/SiteMap/Index', [
+            'settings' => $settings,
+            'stats' => ['total' => $total, 'included' => $included, 'excluded' => $total - $included, 'files' => 1],
+            'generatedAt' => $sitemap->document()['generated_at'],
+            'sitemapUrl' => route('sitemap.xml', [], false),
+            'success' => session('success'),
+        ]);
     }
 
-    /**
-     * Show the form for creating a new resource.
-     */
-    public function create()
+    public function update(UpdateSiteMapRequest $request, SiteMapService $sitemap): RedirectResponse
     {
-        //
+        $sitemap->save($request->validated('settings'));
+        $sitemap->regenerate();
+
+        return to_route('backend.sitemap.index')->with('success', 'Sitemap settings saved and XML regenerated.');
     }
 
-    /**
-     * Store a newly created resource in storage.
-     */
-    public function store(Request $request)
+    public function regenerate(UpdateSiteMapRequest $request, SiteMapService $sitemap): RedirectResponse
     {
-        //
+        return $this->update($request, $sitemap);
     }
 
-    /**
-     * Display the specified resource.
-     */
-    public function show(SiteMap $siteMap)
+    public function xml(SiteMapService $sitemap): Response
     {
-        //
-    }
-
-    /**
-     * Show the form for editing the specified resource.
-     */
-    public function edit(SiteMap $siteMap)
-    {
-        //
-    }
-
-    /**
-     * Update the specified resource in storage.
-     */
-    public function update(Request $request, SiteMap $siteMap)
-    {
-        //
-    }
-
-    /**
-     * Remove the specified resource from storage.
-     */
-    public function destroy(SiteMap $siteMap)
-    {
-        //
+        return response($sitemap->document()['xml'], 200, [
+            'Content-Type' => 'application/xml; charset=UTF-8',
+            'Cache-Control' => 'no-cache',
+        ]);
     }
 }
