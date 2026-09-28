@@ -103,13 +103,14 @@ const markAllAsRead = () => {
             </div>
 
             <nav class="p-4 space-y-1">
-
-                <a href="#dashboard"
-                    class="sidebar-item active flex items-center space-x-3 px-4 py-3 rounded-lg text-gray-300 transition-colors">
+                 
+                
+                 <Link :href="route('dashboard')"
+                    class="sidebar-item flex items-center space-x-3 px-4 py-3 rounded-lg text-gray-300 transition-colors">
                     <i class="fas fa-chart-pie w-5"></i>
                     <span>Dashboard</span>
                     <span class="ml-auto bg-blue-500 text-white text-xs px-2 py-0.5 rounded-full">12</span>
-                </a>
+                </Link>
                 <div>
                     <button type="button"
                         class="dropdown-trigger sidebar-item w-full flex items-center space-x-3 px-4 py-3 rounded-lg text-gray-300 transition-colors"
