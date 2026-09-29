@@ -87,7 +87,7 @@ const markAllAsRead = () => {
 </script>
 
 <template>
-    <div class="flex h-screen overflow-hidden">
+    <div class="fixed inset-0 flex overflow-hidden">
 
         <aside class="sidebar w-64 flex-shrink-0 overflow-y-auto">
             <div class="p-6 border-b border-gray-700">
@@ -115,6 +115,11 @@ const markAllAsRead = () => {
                     class="sidebar-item flex items-center space-x-3 px-4 py-3 rounded-lg text-gray-300 transition-colors">
                     <i class="fas fa-newspaper w-5"></i>
                     <span>News Category</span>
+                </Link>
+                 <Link :href="route('backend.news.index')"
+                    class="sidebar-item flex items-center space-x-3 px-4 py-3 rounded-lg text-gray-300 transition-colors">
+                    <i class="fas fa-newspaper w-5"></i>
+                    <span>News</span>
                 </Link>
                 <div>
                     <button type="button"
@@ -194,7 +199,7 @@ const markAllAsRead = () => {
             </nav>
         </aside>
 
-        <main class="flex-1 overflow-y-auto bg-gray-200">
+        <main class="min-w-0 flex-1 overflow-y-auto bg-gray-200" scroll-region>
 
             <header class="bg-white border-b border-gray-200 sticky top-0 z-10">
                 <div class="px-8 py-4 flex justify-between items-center">

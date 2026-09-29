@@ -3,6 +3,7 @@
 use App\Http\Controllers\Backend\BasicSeoController;
 use App\Http\Controllers\Backend\GlobalSettingController;
 use App\Http\Controllers\Backend\NewsCategoryController;
+use App\Http\Controllers\Backend\NewsController;
 use App\Http\Controllers\Backend\ProfileController;
 use App\Http\Controllers\Backend\SiteMapController;
 use Illuminate\Foundation\Application;
@@ -57,6 +58,14 @@ Route::middleware('auth')
         Route::post('/news-category', [NewsCategoryController::class, 'store'])->name('news-category.store');
         Route::put('/news-category/{newsCategory}', [NewsCategoryController::class, 'update'])->name('news-category.update');
         Route::delete('/news-category/{newsCategory}', [NewsCategoryController::class, 'destroy'])->name('news-category.destroy');
+
+        Route::get('/news', [NewsController::class, 'index'])
+            ->name('news.index');
+        Route::get('/news/{news}/edit', [NewsController::class, 'edit'])->name('news.edit');
+        Route::get('/news/{news}/image/{type}', [NewsController::class, 'image'])->name('news.image');
+        Route::post('/news', [NewsController::class, 'store'])->name('news.store');
+        Route::put('/news/{news}', [NewsController::class, 'update'])->name('news.update');
+        Route::delete('/news/{news}', [NewsController::class, 'destroy'])->name('news.destroy');
 
         Route::get('/profile', [ProfileController::class, 'edit'])
             ->name('profile.edit');
