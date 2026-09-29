@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\Backend\BasicSeoController;
+use App\Http\Controllers\Backend\EntityController;
 use App\Http\Controllers\Backend\GlobalSettingController;
 use App\Http\Controllers\Backend\NewsCategoryController;
 use App\Http\Controllers\Backend\NewsController;
@@ -55,6 +56,8 @@ Route::middleware('auth')
 
         Route::get('/news-category', [NewsCategoryController::class, 'index'])
             ->name('news-category.index');
+        Route::get('/entities/{entity}/image', [EntityController::class, 'image'])->name('entities.image');
+        Route::resource('entities', EntityController::class)->only(['index', 'store', 'update', 'destroy']);
         Route::post('/news-category', [NewsCategoryController::class, 'store'])->name('news-category.store');
         Route::put('/news-category/{newsCategory}', [NewsCategoryController::class, 'update'])->name('news-category.update');
         Route::delete('/news-category/{newsCategory}', [NewsCategoryController::class, 'destroy'])->name('news-category.destroy');

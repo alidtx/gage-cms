@@ -3,65 +3,53 @@
 namespace App\Http\Controllers\Backend;
 
 use App\Http\Controllers\Controller;
-
+use App\Http\Requests\SaveEntityRequest;
 use App\Models\Entity;
-use Illuminate\Http\Request;
+use App\Services\EntityService;
+use Illuminate\Http\RedirectResponse;
+use Illuminate\Support\Facades\Storage;
+use Inertia\Inertia;
+use Inertia\Response;
+use Symfony\Component\HttpFoundation\StreamedResponse;
 
 class EntityController extends Controller
 {
-    /**
-     * Display a listing of the resource.
-     */
-    public function index()
+    public function index(): Response
     {
-        //
+        return Inertia::render('Backend/Entity/Index', [
+            'entities' => Entity::latest('id')->paginate(10)->through(fn (Entity $entity) => [
+                ...$entity->toArray(),
+                'image_url' => $entity->media_id ? route('backend.entities.image', $entity, false).'?v='.$entity->media_id : null,
+            ]),
+        ]);
     }
 
-    /**
-     * Show the form for creating a new resource.
-     */
-    public function create()
+    public function store(SaveEntityRequest $request, EntityService $service): RedirectResponse
     {
-        //
+        $service->save(new Entity, $request->validated());
+
+        return to_route('backend.entities.index');
     }
 
-    /**
-     * Store a newly created resource in storage.
-     */
-    public function store(Request $request)
+    public function update(SaveEntityRequest $request, Entity $entity, EntityService $service): RedirectResponse
     {
-        //
+        $service->save($entity, $request->validated());
+
+        return to_route('backend.entities.index');
     }
 
-    /**
-     * Display the specified resource.
-     */
-    public function show(Entity $entity)
+    public function destroy(Entity $entity, EntityService $service): RedirectResponse
     {
-        //
+        $service->delete($entity);
+
+        return to_route('backend.entities.index');
     }
 
-    /**
-     * Show the form for editing the specified resource.
-     */
-    public function edit(Entity $entity)
+    public function image(Entity $entity): StreamedResponse
     {
-        //
-    }
+        $media = $entity->media;
+        abort_unless($media && Storage::exists($media->src), 404);
 
-    /**
-     * Update the specified resource in storage.
-     */
-    public function update(Request $request, Entity $entity)
-    {
-        //
-    }
-
-    /**
-     * Remove the specified resource from storage.
-     */
-    public function destroy(Entity $entity)
-    {
-        //
+        return Storage::response($media->src, null, ['Cache-Control' => 'no-store, private']);
     }
 }
