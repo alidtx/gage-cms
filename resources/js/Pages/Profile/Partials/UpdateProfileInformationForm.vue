@@ -4,6 +4,7 @@ import InputLabel from '@/Components/InputLabel.vue';
 import PrimaryButton from '@/Components/PrimaryButton.vue';
 import TextInput from '@/Components/TextInput.vue';
 import { Link, useForm, usePage } from '@inertiajs/vue3';
+import { toast } from 'vue3-toastify';
 
 defineProps({
     mustVerifyEmail: {
@@ -20,6 +21,14 @@ const form = useForm({
     name: user.name,
     email: user.email,
 });
+
+function submit() {
+    form.patch(route('backend.profile.update'), {
+        onSuccess: () => {
+            toast.success('Profile updated successfully!');
+        },
+    });
+}
 </script>
 
 <template>
@@ -35,7 +44,7 @@ const form = useForm({
         </header>
 
         <form
-            @submit.prevent="form.patch(route('profile.update'))"
+            @submit.prevent="submit"
             class="mt-6 space-y-6"
         >
             <div>
@@ -51,7 +60,10 @@ const form = useForm({
                     autocomplete="name"
                 />
 
-                <InputError class="mt-2" :message="form.errors.name" />
+                <InputError
+                    class="mt-2"
+                    :message="form.errors.name"
+                />
             </div>
 
             <div>
@@ -66,12 +78,16 @@ const form = useForm({
                     autocomplete="username"
                 />
 
-                <InputError class="mt-2" :message="form.errors.email" />
+                <InputError
+                    class="mt-2"
+                    :message="form.errors.email"
+                />
             </div>
 
             <div v-if="mustVerifyEmail && user.email_verified_at === null">
                 <p class="mt-2 text-sm text-gray-800">
                     Your email address is unverified.
+
                     <Link
                         :href="route('verification.send')"
                         method="post"
@@ -91,7 +107,9 @@ const form = useForm({
             </div>
 
             <div class="flex items-center gap-4">
-                <PrimaryButton :disabled="form.processing">Save</PrimaryButton>
+                <PrimaryButton :disabled="form.processing">
+                    Save
+                </PrimaryButton>
 
                 <Transition
                     enter-active-class="transition ease-in-out"
