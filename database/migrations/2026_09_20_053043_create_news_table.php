@@ -45,20 +45,6 @@ return new class extends Migration
 
             $table->boolean('is_featured')->default(false);
 
-            /*
-    |--------------------------------------------------------------------------
-    | Hero
-    |--------------------------------------------------------------------------
-    */
-            $table->string('hero_eyebrow')->nullable();
-            $table->string('hero_heading')->nullable();
-            $table->text('hero_description')->nullable();
-
-            /*
-    |--------------------------------------------------------------------------
-    | SEO
-    |--------------------------------------------------------------------------
-    */
             $table->string('meta_title')->nullable();
             $table->text('meta_description')->nullable();
             $table->string('canonical_url')->nullable();

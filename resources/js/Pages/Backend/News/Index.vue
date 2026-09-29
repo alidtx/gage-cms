@@ -133,7 +133,7 @@ function viewAll() {
                         </div>
                     </div>
                     <details class="border-t border-gray-200 pt-6" :open="Boolean(form.errors.meta_title || form.errors.meta_description || form.errors.canonical_url || form.errors.og_image)">
-                        <summary class="cursor-pointer font-semibold text-gray-800 mb-4"><i class="fas fa-search text-purple-500 mr-2" aria-hidden="true"></i>SEO Settings <span class="ml-2 px-3 py-1 rounded-full bg-blue-100 text-blue-700 text-xs font-normal">Optional</span></summary>
+                        <summary class="cursor-pointer font-semibold text-gray-800 mb-4">SEO Settings <span class="ml-2 px-3 py-1 rounded-full bg-blue-100 text-blue-700 text-xs font-normal">Optional</span></summary>
                         <div class="space-y-4 bg-purple-50/40 border border-purple-100 rounded-xl p-5">
                             <div><label for="news-meta-title" class="block text-sm font-medium text-gray-700 mb-2">Meta Title</label><input id="news-meta-title" v-model="form.meta_title" maxlength="255" placeholder="SEO title (50–60 chars recommended)" class="w-full px-4 py-3 border-gray-200 rounded-xl" /><InputError :message="form.errors.meta_title" class="mt-2" /></div>
                             <div><label for="news-meta-description" class="block text-sm font-medium text-gray-700 mb-2">Meta Description</label><textarea id="news-meta-description" v-model="form.meta_description" rows="2" maxlength="2000" placeholder="SEO description (120–160 chars recommended)" class="w-full px-4 py-3 border-gray-200 rounded-xl"></textarea><InputError :message="form.errors.meta_description" class="mt-2" /></div>
