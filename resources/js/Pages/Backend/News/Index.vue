@@ -1,6 +1,7 @@
 <script setup>
 import AuthenticatedLayout from '@/Layouts/AuthenticatedLayout.vue';
 import ImageUpload from '@/Components/ImageUpload.vue';
+import ArticleEditor from '@/Components/ArticleEditor.vue';
 import InputError from '@/Components/InputError.vue';
 import ArticlePreview from './ArticlePreview.vue';
 import NewsTable from './NewsTable.vue';
@@ -19,7 +20,8 @@ const defaults = article => ({
 });
 const form = useForm(defaults(props.article));
 const deletion = useForm({});
-const busy = computed(() => form.processing || deletion.processing);
+const imageUploading = ref(false);
+const busy = computed(() => form.processing || deletion.processing || imageUploading.value);
 const slugify = value => value.toLowerCase().replace(/[^a-z0-9]+/g, '-').replace(/^-+|-+$/g, '');
 watch(() => form.title, (title, previous) => {
     if (!form.slug || form.slug === slugify(previous)) form.slug = slugify(title);
@@ -30,6 +32,7 @@ watch(() => props.article?.id, () => {
     form.clearErrors();
 });
 function save() {
+    if (busy.value) return;
     const editing = Boolean(props.article);
     form.transform(data => ({ ...data, ...(editing ? { _method: 'put' } : {}) }))
         .post(route(editing ? 'backend.news.update' : 'backend.news.store', editing ? props.article.id : undefined), {
@@ -106,9 +109,9 @@ function viewAll() {
                         <InputError :message="form.errors.excerpt" class="mt-2" />
                     </div>
                     <div>
-                        <label for="news-content" class="block text-sm font-medium text-gray-700 mb-2">Content <span class="text-red-500">*</span></label>
-                        <textarea id="news-content" v-model="form.content" required rows="7" maxlength="200000" placeholder="Write the full article content here..." class="w-full px-4 py-3 border-gray-200 rounded-xl focus:ring-blue-500 focus:border-blue-500"></textarea>
-                        <p class="text-xs text-gray-400 mt-1">Enter text or HTML. Use Preview to see the formatting.</p>
+                        <label id="news-content-label" class="block text-sm font-medium text-gray-700 mb-2">Content <span class="text-red-500">*</span></label>
+                        <ArticleEditor v-model="form.content" :disabled="busy" @uploading="imageUploading = $event" />
+                        <p class="text-xs text-gray-400 mt-1">Use the toolbar to format your article.</p>
                         <InputError :message="form.errors.content" class="mt-2" />
                     </div>
                     <div>

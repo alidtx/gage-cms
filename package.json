@@ -23,6 +23,12 @@
         "@laravel/multiplex": "^0.4.1"
     },
     "dependencies": {
+        "@tiptap/extension-image": "^3.31.3",
+        "@tiptap/extension-placeholder": "^3.31.3",
+        "@tiptap/extension-table": "^3.31.3",
+        "@tiptap/pm": "^3.31.3",
+        "@tiptap/starter-kit": "^3.31.3",
+        "@tiptap/vue-3": "^3.31.3",
         "axios": "^1.20.0",
         "vue3-toastify": "^0.2.9"
     }

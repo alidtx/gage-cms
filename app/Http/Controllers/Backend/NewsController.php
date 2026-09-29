@@ -4,10 +4,12 @@ namespace App\Http\Controllers\Backend;
 
 use App\Http\Controllers\Controller;
 use App\Http\Requests\SaveNewsRequest;
+use App\Http\Requests\UploadNewsImageRequest;
 use App\Models\News;
 use App\Models\NewsCategory;
 use App\Models\User;
 use App\Services\NewsService;
+use Illuminate\Http\JsonResponse;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Storage;
@@ -18,6 +20,14 @@ use Symfony\Component\HttpFoundation\StreamedResponse;
 
 class NewsController extends Controller
 {
+    public function uploadImage(UploadNewsImageRequest $request): JsonResponse
+    {
+        $path = $request->file('image')->store('news/content', 'public');
+        abort_unless($path, 500, 'Unable to store the image.');
+
+        return response()->json(['url' => '/storage/'.$path], 201);
+    }
+
     public function index(Request $request): Response
     {
         return $this->page($request);

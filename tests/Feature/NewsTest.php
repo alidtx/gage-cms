@@ -115,4 +115,36 @@ class NewsTest extends TestCase
         $this->delete('/backend/news/'.$article->id)->assertRedirect('/login');
         $this->assertDatabaseHas('news', ['id' => $article->id]);
     }
+
+    public function test_editor_image_upload_returns_a_persistent_image_url(): void
+    {
+        Storage::fake('public');
+        $response = $this->actingAs(User::factory()->create())
+            ->postJson('/backend/news/editor-images', ['image' => UploadedFile::fake()->image('photo.png')])
+            ->assertCreated();
+
+        $url = $response->json('url');
+        $this->assertStringStartsWith('/storage/news/content/', $url);
+        Storage::disk('public')->assertExists(substr($url, strlen('/storage/')));
+        $data = $this->articleData(['content' => '<p>News image</p><img src="'.$url.'">']);
+        $this->post('/backend/news', $data)->assertSessionHasNoErrors();
+        $this->assertDatabaseHas('news', ['content' => $data['content']]);
+    }
+
+    public function test_editor_image_upload_rejects_invalid_files_and_guests(): void
+    {
+        Storage::fake('public');
+        $this->postJson('/backend/news/editor-images')->assertUnauthorized();
+        $this->actingAs(User::factory()->create());
+        $this->postJson('/backend/news/editor-images')->assertUnprocessable()->assertJsonValidationErrors('image');
+        foreach ([
+            UploadedFile::fake()->create('document.pdf', 10, 'application/pdf'),
+            UploadedFile::fake()->create('image.svg', 10, 'image/svg+xml'),
+            UploadedFile::fake()->image('large.jpg')->size(5121),
+        ] as $file) {
+            $this->postJson('/backend/news/editor-images', ['image' => $file])
+                ->assertUnprocessable()->assertJsonValidationErrors('image');
+        }
+        $this->assertSame([], Storage::disk('public')->allFiles());
+    }
 }

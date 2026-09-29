@@ -64,6 +64,7 @@ Route::middleware('auth')
         Route::get('/news/{news}/edit', [NewsController::class, 'edit'])->name('news.edit');
         Route::get('/news/{news}/image/{type}', [NewsController::class, 'image'])->name('news.image');
         Route::post('/news', [NewsController::class, 'store'])->name('news.store');
+        Route::post('/news/editor-images', [NewsController::class, 'uploadImage'])->name('news.editor-images.store');
         Route::put('/news/{news}', [NewsController::class, 'update'])->name('news.update');
         Route::delete('/news/{news}', [NewsController::class, 'destroy'])->name('news.destroy');
 
