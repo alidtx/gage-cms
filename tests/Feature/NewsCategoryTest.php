@@ -20,7 +20,7 @@ class NewsCategoryTest extends TestCase
             ->assertSessionHasNoErrors()->assertRedirect('/backend/news-category');
         $this->assertDatabaseHas('news_categories', ['name' => 'Technology', 'slug' => 'technology']);
         $category = NewsCategory::firstOrFail();
-        $this->put('/backend/news-category/'.$category->id, ['name' => 'Tech', 'slug' => 'technology', 'is_active' => false, 'parent_id' => null])
+        $this->put('/backend/news-category/'.$category->id, ['name' => 'Tech', 'slug' => 'technology', 'is_active' => false])
             ->assertSessionHasNoErrors()->assertRedirect('/backend/news-category');
         $this->withoutVite()->get('/backend/news-category')->assertOk()
             ->assertInertia(fn (Assert $page) => $page->component('Backend/NewsCategory/Index')
@@ -38,63 +38,62 @@ class NewsCategoryTest extends TestCase
         $this->delete('/backend/news-category/1')->assertRedirect('/login');
     }
 
-    public function test_parent_relationship_and_article_counts_are_displayed(): void
+    public function test_article_counts_are_displayed_without_parent_categories(): void
     {
-        $parent = NewsCategory::factory()->create(['name' => 'Technology']);
-        $this->actingAs(User::factory()->create())->post('/backend/news-category', [
-            'name' => 'AI', 'slug' => 'ai', 'parent_id' => $parent->id, 'is_active' => true,
-        ])->assertSessionHasNoErrors();
-        $child = NewsCategory::where('slug', 'ai')->firstOrFail();
-        News::factory()->create(['news_category_id' => $child->id]);
-        $this->withoutVite()->get('/backend/news-category')->assertInertia(fn (Assert $page) => $page
-            ->where('categories.0.parent.name', 'Technology')->where('categories.0.articles_count', 1));
+        $category = NewsCategory::factory()->create();
+        News::factory()->create(['news_category_id' => $category->id]);
+        $this->actingAs(User::factory()->create())->withoutVite()->get('/backend/news-category')
+            ->assertInertia(fn (Assert $page) => $page
+                ->where('categories.0.articles_count', 1)
+                ->missing('categories.0.parent')->missing('categories.0.parent_id'));
     }
 
     public function test_invalid_fields_and_duplicate_slugs_are_rejected(): void
     {
         $category = NewsCategory::factory()->create();
         $this->actingAs(User::factory()->create())->post('/backend/news-category', [
-            'name' => '', 'slug' => $category->slug, 'parent_id' => 9999, 'is_active' => 'invalid',
-        ])->assertSessionHasErrors(['name', 'slug', 'parent_id', 'is_active']);
+            'name' => '', 'slug' => $category->slug, 'is_active' => 'invalid',
+        ])->assertSessionHasErrors(['name', 'slug', 'is_active']);
         $this->post('/backend/news-category', [
-            'name' => 'News', 'slug' => 'Bad Slug!', 'is_active' => true,
+            'name' => '!!!', 'slug' => 'ignored', 'is_active' => true,
         ])->assertSessionHasErrors('slug');
         $this->assertDatabaseCount('news_categories', 1);
     }
 
-    public function test_self_and_descendant_parents_are_rejected(): void
+    public function test_categories_with_articles_cannot_be_deleted(): void
     {
-        $parent = NewsCategory::factory()->create();
-        $child = NewsCategory::factory()->create(['parent_id' => $parent->id]);
-        $grandchild = NewsCategory::factory()->create(['parent_id' => $child->id]);
-        $this->actingAs(User::factory()->create());
-        foreach ([$parent->id, $grandchild->id] as $parentId) {
-            $this->put('/backend/news-category/'.$parent->id, [
-                'name' => $parent->name, 'slug' => $parent->slug, 'parent_id' => $parentId, 'is_active' => true,
-            ])->assertSessionHasErrors('parent_id');
-        }
-        $this->assertNull($parent->fresh()->parent_id);
-    }
-
-    public function test_categories_with_children_or_articles_cannot_be_deleted(): void
-    {
-        $parent = NewsCategory::factory()->create();
-        $child = NewsCategory::factory()->create(['parent_id' => $parent->id]);
-        $article = News::factory()->create(['news_category_id' => $child->id]);
-        $this->actingAs(User::factory()->create())->delete('/backend/news-category/'.$parent->id)
+        $category = NewsCategory::factory()->create();
+        $article = News::factory()->create(['news_category_id' => $category->id]);
+        $this->actingAs(User::factory()->create())->delete('/backend/news-category/'.$category->id)
             ->assertSessionHasErrors('category');
-        $this->delete('/backend/news-category/'.$child->id)->assertSessionHasErrors('category');
-        $this->assertDatabaseCount('news_categories', 2);
-        $this->assertSame($child->id, $article->fresh()->news_category_id);
+        $this->assertDatabaseCount('news_categories', 1);
+        $this->assertSame($category->id, $article->fresh()->news_category_id);
     }
 
     public function test_updating_to_an_existing_slug_does_not_change_the_category(): void
     {
         $category = NewsCategory::factory()->create();
-        $other = NewsCategory::factory()->create();
+        $other = NewsCategory::factory()->create(['name' => 'Sport Entertainment', 'slug' => 'sport_entertainment']);
         $this->actingAs(User::factory()->create())->put('/backend/news-category/'.$category->id, [
-            'name' => 'Changed', 'slug' => $other->slug, 'is_active' => false,
+            'name' => $other->name, 'slug' => 'ignored', 'is_active' => false,
         ])->assertSessionHasErrors('slug');
         $this->assertSame($category->name, $category->fresh()->name);
+    }
+
+    public function test_slugs_are_generated_from_names_on_create_and_update(): void
+    {
+        $this->actingAs(User::factory()->create())->post('/backend/news-category', [
+            'name' => 'Sport', 'is_active' => true,
+        ])->assertSessionHasNoErrors();
+        $category = NewsCategory::firstOrFail();
+        $this->assertSame('sport', $category->slug);
+        $this->put('/backend/news-category/'.$category->id, [
+            'name' => '  Sport   Entertainment News  ', 'slug' => 'tampered', 'is_active' => true,
+        ])->assertSessionHasNoErrors();
+        $this->assertSame('sport_entertainment_news', $category->fresh()->slug);
+        $this->post('/backend/news-category', [
+            'name' => 'Sport Entertainment News', 'is_active' => true,
+        ])->assertSessionHasErrors('slug');
+        $this->assertDatabaseCount('news_categories', 1);
     }
 }

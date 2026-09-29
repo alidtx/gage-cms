@@ -2,24 +2,18 @@
 import AuthenticatedLayout from '@/Layouts/AuthenticatedLayout.vue';
 import InputError from '@/Components/InputError.vue';
 import { Head, useForm } from '@inertiajs/vue3';
-import { computed, ref } from 'vue';
+import { computed, ref, watch } from 'vue';
 import { toast } from 'vue3-toastify';
 
 const props = defineProps({ categories: { type: Array, required: true } });
 const editingId = ref(null);
-const form = useForm({ name: '', slug: '', parent_id: null, is_active: true });
+const form = useForm({ name: '', slug: '', is_active: true });
 const deletion = useForm({});
 const busy = computed(() => form.processing || deletion.processing);
-const availableParents = computed(() => props.categories.filter(category => {
-    const visited = new Set();
-    let current = category;
-    while (current) {
-        if (current.id === editingId.value || visited.has(current.id)) return false;
-        visited.add(current.id);
-        current = props.categories.find(item => item.id === current.parent_id);
-    }
-    return true;
-}));
+
+watch(() => form.name, name => {
+    form.slug = name.toLowerCase().replace(/[^a-z0-9]+/g, '_').replace(/^_+|_+$/g, '');
+});
 
 function reset() {
     editingId.value = null;
@@ -31,7 +25,7 @@ function edit(category) {
     reset();
     deletion.clearErrors();
     editingId.value = category.id;
-    Object.assign(form, { name: category.name, slug: category.slug, parent_id: category.parent_id, is_active: category.is_active });
+    Object.assign(form, { name: category.name, slug: category.slug, is_active: category.is_active });
     document.getElementById('categoryName')?.focus();
 }
 
@@ -80,7 +74,7 @@ function remove(category) {
                 <h3 class="font-semibold text-gray-700 mb-4">
                     <i class="fas fa-plus-circle text-blue-500 mr-2" aria-hidden="true"></i>{{ editingId ? 'Edit category' : 'Add new category' }}
                 </h3>
-                <fieldset :disabled="busy" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4">
+                <fieldset :disabled="busy" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
                     <div>
                         <label for="categoryName" class="block text-sm font-medium text-gray-700 mb-2">Category name</label>
                         <input id="categoryName" v-model="form.name" required maxlength="255" placeholder="e.g. Technology" class="w-full px-4 py-3 border-gray-200 rounded-xl focus:ring-blue-500 focus:border-blue-500" />
@@ -88,16 +82,8 @@ function remove(category) {
                     </div>
                     <div>
                         <label for="categorySlug" class="block text-sm font-medium text-gray-700 mb-2">Slug</label>
-                        <input id="categorySlug" v-model="form.slug" required maxlength="255" pattern="[a-z0-9]+(-[a-z0-9]+)*" title="Use lowercase letters, numbers, and single hyphens between words." placeholder="technology" class="w-full px-4 py-3 border-gray-200 rounded-xl focus:ring-blue-500 focus:border-blue-500" />
+                        <input id="categorySlug" :value="form.slug" disabled placeholder="technology" class="w-full px-4 py-3 border-gray-200 rounded-xl bg-gray-100 text-gray-500 cursor-not-allowed" />
                         <InputError :message="form.errors.slug" class="mt-2" />
-                    </div>
-                    <div>
-                        <label for="categoryParent" class="block text-sm font-medium text-gray-700 mb-2">Parent category</label>
-                        <select id="categoryParent" v-model="form.parent_id" class="w-full px-4 py-3 border-gray-200 rounded-xl focus:ring-blue-500 focus:border-blue-500">
-                            <option :value="null">— None (top level) —</option>
-                            <option v-for="category in availableParents" :key="category.id" :value="category.id">{{ category.name }}</option>
-                        </select>
-                        <InputError :message="form.errors.parent_id" class="mt-2" />
                     </div>
                     <div>
                         <label for="categoryStatus" class="block text-sm font-medium text-gray-700 mb-2">Status</label>
@@ -126,14 +112,13 @@ function remove(category) {
                     <table class="w-full min-w-[700px]">
                         <thead class="bg-gray-50 border-b border-gray-200">
                             <tr>
-                                <th v-for="heading in ['Category', 'Slug', 'Parent', 'Articles', 'Status', 'Actions']" :key="heading" scope="col" class="px-6 py-4 text-xs font-semibold text-gray-600 uppercase tracking-wider" :class="heading === 'Actions' ? 'text-right' : 'text-left'">{{ heading }}</th>
+                                <th v-for="heading in ['Category', 'Slug', 'Articles', 'Status', 'Actions']" :key="heading" scope="col" class="px-6 py-4 text-xs font-semibold text-gray-600 uppercase tracking-wider" :class="heading === 'Actions' ? 'text-right' : 'text-left'">{{ heading }}</th>
                             </tr>
                         </thead>
                         <tbody class="divide-y divide-gray-100">
                             <tr v-for="category in categories" :key="category.id">
                                 <td class="px-6 py-4 text-gray-900">{{ category.name }}</td>
                                 <td class="px-6 py-4 text-sm font-mono text-gray-600">{{ category.slug }}</td>
-                                <td class="px-6 py-4 text-sm text-gray-600">{{ category.parent?.name ?? '—' }}</td>
                                 <td class="px-6 py-4 text-sm text-gray-600">{{ category.articles_count }}</td>
                                 <td class="px-6 py-4"><span class="px-3 py-1 rounded-full text-xs font-medium" :class="category.is_active ? 'bg-green-100 text-green-700' : 'bg-yellow-100 text-yellow-800'">{{ category.is_active ? 'Active' : 'Inactive' }}</span></td>
                                 <td class="px-6 py-4 text-right whitespace-nowrap">
@@ -141,7 +126,7 @@ function remove(category) {
                                     <button type="button" @click="remove(category)" :disabled="busy" :aria-label="`Delete ${category.name}`" class="p-2 text-red-500 hover:text-red-700 disabled:opacity-50"><i class="fas fa-trash-alt" aria-hidden="true"></i></button>
                                 </td>
                             </tr>
-                            <tr v-if="!categories.length"><td colspan="6" class="px-6 py-12 text-center text-gray-500">No categories yet. Add your first category above.</td></tr>
+                            <tr v-if="!categories.length"><td colspan="5" class="px-6 py-12 text-center text-gray-500">No categories yet. Add your first category above.</td></tr>
                         </tbody>
                     </table>
                 </div>

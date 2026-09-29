@@ -15,7 +15,7 @@ class NewsCategoryController extends Controller
     public function index(): Response
     {
         return Inertia::render('Backend/NewsCategory/Index', [
-            'categories' => NewsCategory::with('parent:id,name')->withCount('articles')->orderBy('name')->get(),
+            'categories' => NewsCategory::withCount('articles')->orderBy('name')->get(),
         ]);
     }
 
@@ -35,9 +35,9 @@ class NewsCategoryController extends Controller
 
     public function destroy(NewsCategory $newsCategory): RedirectResponse
     {
-        if ($newsCategory->articles()->exists() || $newsCategory->children()->exists()) {
+        if ($newsCategory->articles()->exists()) {
             throw ValidationException::withMessages([
-                'category' => 'Move this category’s articles and child categories before deleting it.',
+                'category' => 'Move this category’s articles before deleting it.',
             ]);
         }
 
