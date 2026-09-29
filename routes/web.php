@@ -3,9 +3,8 @@
 use App\Http\Controllers\Backend\BasicSeoController;
 use App\Http\Controllers\Backend\GlobalSettingController;
 use App\Http\Controllers\Backend\NewsCategoryController;
-use App\Http\Controllers\Backend\SiteMapController;
 use App\Http\Controllers\Backend\ProfileController;
-use App\Models\NewsCategory;
+use App\Http\Controllers\Backend\SiteMapController;
 use Illuminate\Foundation\Application;
 use Illuminate\Support\Facades\Route;
 use Inertia\Inertia;
@@ -52,9 +51,12 @@ Route::middleware('auth')
 
         Route::put('global-settings/{globalSetting}', [GlobalSettingController::class, 'update'])
             ->name('global-settings.update');
-         
-         Route::get('/news-category', [NewsCategoryController::class, 'index'])
+
+        Route::get('/news-category', [NewsCategoryController::class, 'index'])
             ->name('news-category.index');
+        Route::post('/news-category', [NewsCategoryController::class, 'store'])->name('news-category.store');
+        Route::put('/news-category/{newsCategory}', [NewsCategoryController::class, 'update'])->name('news-category.update');
+        Route::delete('/news-category/{newsCategory}', [NewsCategoryController::class, 'destroy'])->name('news-category.destroy');
 
         Route::get('/profile', [ProfileController::class, 'edit'])
             ->name('profile.edit');

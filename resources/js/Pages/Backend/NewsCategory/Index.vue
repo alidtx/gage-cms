@@ -1,165 +1,151 @@
 <script setup>
 import AuthenticatedLayout from '@/Layouts/AuthenticatedLayout.vue';
-import { Head } from '@inertiajs/vue3';
+import InputError from '@/Components/InputError.vue';
+import { Head, useForm } from '@inertiajs/vue3';
+import { computed, ref } from 'vue';
+import { toast } from 'vue3-toastify';
 
+const props = defineProps({ categories: { type: Array, required: true } });
+const editingId = ref(null);
+const form = useForm({ name: '', slug: '', parent_id: null, is_active: true });
+const deletion = useForm({});
+const busy = computed(() => form.processing || deletion.processing);
+const availableParents = computed(() => props.categories.filter(category => {
+    const visited = new Set();
+    let current = category;
+    while (current) {
+        if (current.id === editingId.value || visited.has(current.id)) return false;
+        visited.add(current.id);
+        current = props.categories.find(item => item.id === current.parent_id);
+    }
+    return true;
+}));
+
+function reset() {
+    editingId.value = null;
+    form.reset();
+    form.clearErrors();
+}
+
+function edit(category) {
+    reset();
+    deletion.clearErrors();
+    editingId.value = category.id;
+    Object.assign(form, { name: category.name, slug: category.slug, parent_id: category.parent_id, is_active: category.is_active });
+    document.getElementById('categoryName')?.focus();
+}
+
+function save() {
+    const updating = editingId.value !== null;
+    const options = {
+        preserveScroll: true,
+        onSuccess: () => {
+            reset();
+            toast.success(updating ? 'Category updated successfully.' : 'Category created successfully.');
+        },
+    };
+    deletion.clearErrors();
+    if (updating) form.put(route('backend.news-category.update', editingId.value), options);
+    else form.post(route('backend.news-category.store'), options);
+}
+
+function remove(category) {
+    if (!window.confirm(`Delete “${category.name}”? This cannot be undone.`)) return;
+    deletion.clearErrors();
+    deletion.delete(route('backend.news-category.destroy', category.id), {
+        preserveScroll: true,
+        onSuccess: () => {
+            if (editingId.value === category.id) reset();
+            toast.success('Category deleted successfully.');
+        },
+    });
+}
 </script>
 
-
 <template>
-     <AuthenticatedLayout>
-       <Head title="News Category"/>
-       <div id="news-category" class="p-8">
-
-                <div class="flex items-center justify-between mb-6">
-                    <div>
-                        <h3 class="text-xl font-semibold text-gray-800">Manage News Categories</h3>
-                        <p class="text-sm text-gray-500">Add, edit or remove categories used for news articles</p>
-                    </div>
-                    <div class="text-sm text-blue-600 bg-blue-50 px-4 py-2 rounded-xl font-medium">
-                        <i class="fas fa-tag mr-2"></i>6 categories
-                    </div>
+    <AuthenticatedLayout>
+        <Head title="News Categories" />
+        <div id="news-category" class="p-4 md:p-8">
+            <div class="flex flex-wrap items-center justify-between gap-4 mb-6">
+                <div>
+                    <h2 class="text-xl font-semibold text-gray-800">Manage News Categories</h2>
+                    <p class="text-sm text-gray-500">Add, edit or remove categories used for news articles</p>
                 </div>
-
-                <div class="bg-white rounded-2xl shadow-sm border border-gray-100 p-6 mb-8">
-                    <h4 class="text-md font-semibold text-gray-700 mb-4 flex items-center">
-                        <i class="fas fa-plus-circle text-blue-500 mr-2"></i>Add new category
-                    </h4>
-                    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4 items-end">
-                        <div>
-                            <label class="block text-sm font-medium text-gray-700 mb-2">Category name</label>
-                            <input type="text" id="categoryName" placeholder="e.g. Technology" 
-                                   class="w-full px-4 py-3 border border-gray-200 rounded-xl focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-all" />
-                        </div>
-                        <div>
-                            <label class="block text-sm font-medium text-gray-700 mb-2">Slug</label>
-                            <input type="text" id="categorySlug" placeholder="technology" 
-                                   class="w-full px-4 py-3 border border-gray-200 rounded-xl focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-all" />
-                        </div>
-                        <div>
-                            <label class="block text-sm font-medium text-gray-700 mb-2">Status</label>
-                            <select id="categoryStatus" class="w-full px-4 py-3 border border-gray-200 rounded-xl focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-all">
-                                <option value="active">Active</option>
-                                <option value="inactive">Inactive</option>
-                            </select>
-                        </div>
-                    </div>
-                    
-                    <div class="mt-6 flex justify-end">
-                        <button id="saveCategoryBtn" class="px-8 py-3 bg-blue-600 text-white rounded-xl font-semibold hover:bg-blue-700 transition-colors shadow-sm flex items-center gap-2">
-                            <i class="fas fa-save"></i> Save Category
-                        </button>
-                    </div>
-
-                    <p class="text-xs text-gray-400 mt-3 text-right"><i class="fas fa-info-circle mr-1"></i>Click save to add category (demo)</p>
-                </div>
-
-                <div class="bg-white rounded-2xl shadow-sm border border-gray-100 overflow-hidden">
-                    <div class="px-6 py-4 border-b border-gray-100 flex items-center justify-between">
-                        <h4 class="font-semibold text-gray-800 flex items-center">
-                            <i class="fas fa-list-ul text-gray-500 mr-2"></i>All categories
-                        </h4>
-                        <span class="text-xs text-gray-500 bg-gray-100 px-3 py-1 rounded-full">6 items</span>
-                    </div>
-                    <div class="table-container overflow-x-auto">
-                        <table class="w-full min-w-[700px]">
-                            <thead class="bg-gray-50 border-b border-gray-200">
-                                <tr>
-                                    <th class="px-6 py-4 text-left text-xs font-semibold text-gray-600 uppercase tracking-wider">Category</th>
-                                    <th class="px-6 py-4 text-left text-xs font-semibold text-gray-600 uppercase tracking-wider">Slug</th>
-                                    <th class="px-6 py-4 text-left text-xs font-semibold text-gray-600 uppercase tracking-wider">Parent</th>
-                                    <th class="px-6 py-4 text-left text-xs font-semibold text-gray-600 uppercase tracking-wider">Articles</th>
-                                    <th class="px-6 py-4 text-left text-xs font-semibold text-gray-600 uppercase tracking-wider">Status</th>
-                                    <th class="px-6 py-4 text-right text-xs font-semibold text-gray-600 uppercase tracking-wider">Actions</th>
-                                </tr>
-                            </thead>
-                            <tbody id="categoryTableBody">
-                                <!-- row 1 -->
-                                <tr class="table-row border-b border-gray-100" data-id="1">
-                                    <td class="px-6 py-4 font-medium text-gray-800">Technology</td>
-                                    <td class="px-6 py-4 text-sm text-gray-600 font-mono">technology</td>
-                                    <td class="px-6 py-4 text-sm text-gray-500">—</td>
-                                    <td class="px-6 py-4 text-sm text-gray-600">24</td>
-                                    <td class="px-6 py-4"><span class="badge badge-success">Active</span></td>
-                                    <td class="px-6 py-4 text-right space-x-3">
-                                        <button class="edit-category text-blue-600 hover:text-blue-800 transition-colors" title="Edit" data-id="1"><i class="fas fa-edit"></i></button>
-                                        <button class="delete-category text-red-500 hover:text-red-700 transition-colors" title="Delete" data-id="1"><i class="fas fa-trash-alt"></i></button>
-                                    </td>
-                                </tr>
-                                <!-- row 2 -->
-                                <tr class="table-row border-b border-gray-100" data-id="2">
-                                    <td class="px-6 py-4 font-medium text-gray-800">Business</td>
-                                    <td class="px-6 py-4 text-sm text-gray-600 font-mono">business</td>
-                                    <td class="px-6 py-4 text-sm text-gray-500">—</td>
-                                    <td class="px-6 py-4 text-sm text-gray-600">18</td>
-                                    <td class="px-6 py-4"><span class="badge badge-success">Active</span></td>
-                                    <td class="px-6 py-4 text-right space-x-3">
-                                        <button class="edit-category text-blue-600 hover:text-blue-800 transition-colors" title="Edit" data-id="2"><i class="fas fa-edit"></i></button>
-                                        <button class="delete-category text-red-500 hover:text-red-700 transition-colors" title="Delete" data-id="2"><i class="fas fa-trash-alt"></i></button>
-                                    </td>
-                                </tr>
-                                <!-- row 3 -->
-                                <tr class="table-row border-b border-gray-100" data-id="3">
-                                    <td class="px-6 py-4 font-medium text-gray-800">Health</td>
-                                    <td class="px-6 py-4 text-sm text-gray-600 font-mono">health</td>
-                                    <td class="px-6 py-4 text-sm text-gray-500">—</td>
-                                    <td class="px-6 py-4 text-sm text-gray-600">12</td>
-                                    <td class="px-6 py-4"><span class="badge badge-success">Active</span></td>
-                                    <td class="px-6 py-4 text-right space-x-3">
-                                        <button class="edit-category text-blue-600 hover:text-blue-800 transition-colors" title="Edit" data-id="3"><i class="fas fa-edit"></i></button>
-                                        <button class="delete-category text-red-500 hover:text-red-700 transition-colors" title="Delete" data-id="3"><i class="fas fa-trash-alt"></i></button>
-                                    </td>
-                                </tr>
-                                <!-- row 4 -->
-                                <tr class="table-row border-b border-gray-100" data-id="4">
-                                    <td class="px-6 py-4 font-medium text-gray-800">Sports</td>
-                                    <td class="px-6 py-4 text-sm text-gray-600 font-mono">sports</td>
-                                    <td class="px-6 py-4 text-sm text-gray-500">—</td>
-                                    <td class="px-6 py-4 text-sm text-gray-600">9</td>
-                                    <td class="px-6 py-4"><span class="badge badge-success">Active</span></td>
-                                    <td class="px-6 py-4 text-right space-x-3">
-                                        <button class="edit-category text-blue-600 hover:text-blue-800 transition-colors" title="Edit" data-id="4"><i class="fas fa-edit"></i></button>
-                                        <button class="delete-category text-red-500 hover:text-red-700 transition-colors" title="Delete" data-id="4"><i class="fas fa-trash-alt"></i></button>
-                                    </td>
-                                </tr>
-                                <!-- row 5 -->
-                                <tr class="table-row border-b border-gray-100" data-id="5">
-                                    <td class="px-6 py-4 font-medium text-gray-800">Entertainment</td>
-                                    <td class="px-6 py-4 text-sm text-gray-600 font-mono">entertainment</td>
-                                    <td class="px-6 py-4 text-sm text-gray-500">—</td>
-                                    <td class="px-6 py-4 text-sm text-gray-600">15</td>
-                                    <td class="px-6 py-4"><span class="badge badge-warning">Inactive</span></td>
-                                    <td class="px-6 py-4 text-right space-x-3">
-                                        <button class="edit-category text-blue-600 hover:text-blue-800 transition-colors" title="Edit" data-id="5"><i class="fas fa-edit"></i></button>
-                                        <button class="delete-category text-red-500 hover:text-red-700 transition-colors" title="Delete" data-id="5"><i class="fas fa-trash-alt"></i></button>
-                                    </td>
-                                </tr>
-                                <!-- row 6 -->
-                                <tr class="table-row" data-id="6">
-                                    <td class="px-6 py-4 font-medium text-gray-800">Science</td>
-                                    <td class="px-6 py-4 text-sm text-gray-600 font-mono">science</td>
-                                    <td class="px-6 py-4 text-sm text-gray-500">—</td>
-                                    <td class="px-6 py-4 text-sm text-gray-600">7</td>
-                                    <td class="px-6 py-4"><span class="badge badge-success">Active</span></td>
-                                    <td class="px-6 py-4 text-right space-x-3">
-                                        <button class="edit-category text-blue-600 hover:text-blue-800 transition-colors" title="Edit" data-id="6"><i class="fas fa-edit"></i></button>
-                                        <button class="delete-category text-red-500 hover:text-red-700 transition-colors" title="Delete" data-id="6"><i class="fas fa-trash-alt"></i></button>
-                                    </td>
-                                </tr>
-                            </tbody>
-                        </table>
-                    </div>
-                    <div class="px-6 py-4 flex items-center justify-between border-t border-gray-200 bg-gray-50/50">
-                        <span class="text-sm text-gray-500">Showing 6 categories</span>
-                        <div class="flex space-x-1 text-xs text-gray-400">
-                            <i class="fas fa-chevron-left"></i>
-                            <span class="mx-1">1</span>
-                            <i class="fas fa-chevron-right"></i>
-                        </div>
-                    </div>
-                </div>
+                <span class="text-sm text-blue-600 bg-blue-50 px-4 py-2 rounded-xl font-medium">
+                    <i class="fas fa-tag mr-2" aria-hidden="true"></i>{{ categories.length }} categories
+                </span>
             </div>
 
-     </AuthenticatedLayout>
+            <form @submit.prevent="save" class="bg-white rounded-2xl shadow-sm border border-gray-100 p-6 mb-8">
+                <h3 class="font-semibold text-gray-700 mb-4">
+                    <i class="fas fa-plus-circle text-blue-500 mr-2" aria-hidden="true"></i>{{ editingId ? 'Edit category' : 'Add new category' }}
+                </h3>
+                <fieldset :disabled="busy" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4">
+                    <div>
+                        <label for="categoryName" class="block text-sm font-medium text-gray-700 mb-2">Category name</label>
+                        <input id="categoryName" v-model="form.name" required maxlength="255" placeholder="e.g. Technology" class="w-full px-4 py-3 border-gray-200 rounded-xl focus:ring-blue-500 focus:border-blue-500" />
+                        <InputError :message="form.errors.name" class="mt-2" />
+                    </div>
+                    <div>
+                        <label for="categorySlug" class="block text-sm font-medium text-gray-700 mb-2">Slug</label>
+                        <input id="categorySlug" v-model="form.slug" required maxlength="255" pattern="[a-z0-9]+(-[a-z0-9]+)*" title="Use lowercase letters, numbers, and single hyphens between words." placeholder="technology" class="w-full px-4 py-3 border-gray-200 rounded-xl focus:ring-blue-500 focus:border-blue-500" />
+                        <InputError :message="form.errors.slug" class="mt-2" />
+                    </div>
+                    <div>
+                        <label for="categoryParent" class="block text-sm font-medium text-gray-700 mb-2">Parent category</label>
+                        <select id="categoryParent" v-model="form.parent_id" class="w-full px-4 py-3 border-gray-200 rounded-xl focus:ring-blue-500 focus:border-blue-500">
+                            <option :value="null">— None (top level) —</option>
+                            <option v-for="category in availableParents" :key="category.id" :value="category.id">{{ category.name }}</option>
+                        </select>
+                        <InputError :message="form.errors.parent_id" class="mt-2" />
+                    </div>
+                    <div>
+                        <label for="categoryStatus" class="block text-sm font-medium text-gray-700 mb-2">Status</label>
+                        <select id="categoryStatus" v-model="form.is_active" class="w-full px-4 py-3 border-gray-200 rounded-xl focus:ring-blue-500 focus:border-blue-500">
+                            <option :value="true">Active</option>
+                            <option :value="false">Inactive</option>
+                        </select>
+                        <InputError :message="form.errors.is_active" class="mt-2" />
+                    </div>
+                </fieldset>
+                <div class="mt-6 flex justify-end gap-3">
+                    <button v-if="editingId" type="button" @click="reset" :disabled="busy" class="px-5 py-3 border border-gray-200 rounded-xl text-gray-700 disabled:opacity-50">Cancel</button>
+                    <button type="submit" :disabled="busy" class="px-8 py-3 bg-blue-600 text-white rounded-xl font-semibold hover:bg-blue-700 disabled:opacity-50 disabled:cursor-not-allowed">
+                        <i class="fas fa-save mr-2" aria-hidden="true"></i>{{ form.processing ? 'Saving...' : editingId ? 'Update Category' : 'Save Category' }}
+                    </button>
+                </div>
+            </form>
 
-
+            <div v-if="deletion.errors.category" role="alert" class="mb-6 p-4 bg-red-50 text-red-700 rounded-xl">{{ deletion.errors.category }}</div>
+            <section class="bg-white rounded-2xl shadow-sm border border-gray-100 overflow-hidden">
+                <div class="px-6 py-4 border-b border-gray-100 flex items-center justify-between">
+                    <h3 class="font-semibold text-gray-800"><i class="fas fa-list-ul text-gray-500 mr-2" aria-hidden="true"></i>All categories</h3>
+                    <span class="text-xs text-gray-500 bg-gray-100 px-3 py-1 rounded-full">{{ categories.length }} items</span>
+                </div>
+                <div class="overflow-x-auto">
+                    <table class="w-full min-w-[700px]">
+                        <thead class="bg-gray-50 border-b border-gray-200">
+                            <tr>
+                                <th v-for="heading in ['Category', 'Slug', 'Parent', 'Articles', 'Status', 'Actions']" :key="heading" scope="col" class="px-6 py-4 text-xs font-semibold text-gray-600 uppercase tracking-wider" :class="heading === 'Actions' ? 'text-right' : 'text-left'">{{ heading }}</th>
+                            </tr>
+                        </thead>
+                        <tbody class="divide-y divide-gray-100">
+                            <tr v-for="category in categories" :key="category.id">
+                                <td class="px-6 py-4 text-gray-900">{{ category.name }}</td>
+                                <td class="px-6 py-4 text-sm font-mono text-gray-600">{{ category.slug }}</td>
+                                <td class="px-6 py-4 text-sm text-gray-600">{{ category.parent?.name ?? '—' }}</td>
+                                <td class="px-6 py-4 text-sm text-gray-600">{{ category.articles_count }}</td>
+                                <td class="px-6 py-4"><span class="px-3 py-1 rounded-full text-xs font-medium" :class="category.is_active ? 'bg-green-100 text-green-700' : 'bg-yellow-100 text-yellow-800'">{{ category.is_active ? 'Active' : 'Inactive' }}</span></td>
+                                <td class="px-6 py-4 text-right whitespace-nowrap">
+                                    <button type="button" @click="edit(category)" :disabled="busy" :aria-label="`Edit ${category.name}`" class="p-2 text-blue-600 hover:text-blue-800 disabled:opacity-50"><i class="fas fa-edit" aria-hidden="true"></i></button>
+                                    <button type="button" @click="remove(category)" :disabled="busy" :aria-label="`Delete ${category.name}`" class="p-2 text-red-500 hover:text-red-700 disabled:opacity-50"><i class="fas fa-trash-alt" aria-hidden="true"></i></button>
+                                </td>
+                            </tr>
+                            <tr v-if="!categories.length"><td colspan="6" class="px-6 py-12 text-center text-gray-500">No categories yet. Add your first category above.</td></tr>
+                        </tbody>
+                    </table>
+                </div>
+            </section>
+        </div>
+    </AuthenticatedLayout>
 </template>
