@@ -175,14 +175,12 @@ const markAllAsRead = () => {
                         </a> -->
                     </div>
                 </div>
-
                 <hr class="border-gray-700 my-4" />
-
-                <a href="#settings"
-                    class="sidebar-item flex items-center space-x-3 px-4 py-3 rounded-lg text-gray-300 transition-colors">
-                    <i class="fas fa-cog w-5"></i>
+                <Link :href="route('backend.profile.edit')"
+                    class="sidebar-item w-full flex items-center space-x-3 px-4 py-3 rounded-lg text-gray-300 transition-colors">
+                    <i class="fas fa-sign-out-alt w-5"></i>
                     <span>Settings</span>
-                </a>
+                </Link>
                 <Link :href="route('logout')" method="post" as="button"
                     class="sidebar-item w-full flex items-center space-x-3 px-4 py-3 rounded-lg text-gray-300 transition-colors">
                     <i class="fas fa-sign-out-alt w-5"></i>

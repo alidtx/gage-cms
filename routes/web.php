@@ -3,7 +3,7 @@
 use App\Http\Controllers\Backend\BasicSeoController;
 use App\Http\Controllers\Backend\GlobalSettingController;
 use App\Http\Controllers\Backend\SiteMapController;
-use App\Http\Controllers\ProfileController;
+use App\Http\Controllers\Backend\ProfileController;
 use Illuminate\Foundation\Application;
 use Illuminate\Support\Facades\Route;
 use Inertia\Inertia;
