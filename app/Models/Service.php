@@ -2,11 +2,16 @@
 
 namespace App\Models;
 
+use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\BelongsTo;
 
 class Service extends Model
 {
-     protected $fillable = [
+    use HasFactory;
+    protected $table = 'services';
+
+    protected $fillable = [
         'title',
         'icon',
         'description',
@@ -14,4 +19,22 @@ class Service extends Model
         'badge',
         'media_id',
     ];
+
+   
+    protected $casts = [
+        'created_at' => 'datetime',
+        'updated_at' => 'datetime',
+    ];
+
+ 
+    public function entity(): BelongsTo
+    {
+        return $this->belongsTo(Entity::class);
+    }
+
+   
+    public function media(): BelongsTo
+    {
+        return $this->belongsTo(Media::class);
+    }
 }
