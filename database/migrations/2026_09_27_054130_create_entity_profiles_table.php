@@ -6,29 +6,39 @@ use Illuminate\Support\Facades\Schema;
 
 return new class extends Migration
 {
-    /**
-     * Run the migrations.
-     */
     public function up(): void
     {
-        Schema::create('entity_profiles', function (Blueprint $table) {
+        Schema::create('entities', function (Blueprint $table) {
             $table->id();
 
-            $table->foreignId('entity_id')
-                ->constrained('entities')
-                ->cascadeOnDelete();
+    
+            $table->string('name');                          // GAGE Security
+            $table->string('slug')->unique();                // gage-security
+            $table->string('category');                      // security|safety|training|retail|consulting|marine
+
+            // ==== Display flags ====
+            $table->boolean('is_active')->default(true);
+            $table->boolean('is_featured')->default(false);
+            $table->integer('sort_order')->default(0);
 
             $table->json('content')->nullable();
+            $table->foreignId('media_id')->nullable()->constrained('media')->nullOnDelete();
+
+            $table->json('meta')->nullable();
+
+            $table->unsignedBigInteger('views')->default(0);
 
             $table->timestamps();
+            $table->softDeletes();
+
+            $table->index(['category', 'is_active']);
+            $table->index(['is_active', 'sort_order']);
+            $table->index('is_featured');
         });
     }
 
-    /**
-     * Reverse the migrations.
-     */
     public function down(): void
     {
-        Schema::dropIfExists('entity_profiles');
+        Schema::dropIfExists('entities');
     }
 };
