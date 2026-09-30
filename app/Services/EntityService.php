@@ -3,7 +3,6 @@
 namespace App\Services;
 
 use App\Models\Entity;
-use App\Models\Media;
 use Illuminate\Http\UploadedFile;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Storage;
@@ -38,15 +37,6 @@ class EntityService
 
     public function delete(Entity $entity): void
     {
-        $images = Media::where('fileable_type', Entity::class)->where('fileable_id', $entity->id)->get();
-        DB::transaction(function () use ($entity, $images): void {
-            $entity->delete();
-            foreach ($images as $image) {
-                $image->delete();
-            }
-        });
-        foreach ($images as $image) {
-            Storage::delete($image->src);
-        }
+        $entity->delete();
     }
 }

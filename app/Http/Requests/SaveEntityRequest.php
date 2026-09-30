@@ -2,32 +2,80 @@
 
 namespace App\Http\Requests;
 
-use Illuminate\Contracts\Validation\ValidationRule;
+use App\Models\Entity;
 use Illuminate\Foundation\Http\FormRequest;
+use Illuminate\Support\Str;
+use Illuminate\Validation\Rule;
 
 class SaveEntityRequest extends FormRequest
 {
-    /**
-     * Determine if the user is authorized to make this request.
-     */
     public function authorize(): bool
     {
         return $this->user() !== null;
     }
 
-    /**
-     * Get the validation rules that apply to the request.
-     *
-     * @return array<string, ValidationRule|array<mixed>|string>
-     */
+    protected function prepareForValidation(): void
+    {
+        if (! $this->filled('slug')) {
+            $name = $this->input('name');
+            $this->merge(['slug' => is_string($name) ? Str::slug($name) : '']);
+        }
+        foreach (['content', 'meta'] as $field) {
+            if (is_string($this->input($field))) {
+                $decoded = json_decode($this->input($field), true);
+                if (json_last_error() === JSON_ERROR_NONE && is_array($decoded)) {
+                    $this->merge([$field => $decoded]);
+                }
+            }
+        }
+    }
+
     public function rules(): array
     {
         return [
-            'title' => ['required', 'string', 'max:255'],
-            'bio' => ['nullable', 'string', 'max:255'],
-            'description' => ['nullable', 'string', 'max:10000'],
-            'badge' => ['nullable', 'string', 'max:255'],
+            'name' => ['required', 'string', 'max:255'],
+            'slug' => ['required', 'string', 'max:255', 'regex:/^[a-z0-9]+(?:-[a-z0-9]+)*$/', Rule::unique('entities')->ignore($this->route('entity'))],
+            'category' => ['required', Rule::in(Entity::CATEGORIES)],
+            'is_active' => ['sometimes', 'boolean'],
+            'is_featured' => ['sometimes', 'boolean'],
+            'sort_order' => ['sometimes', 'integer', 'min:0', 'max:2147483647'],
             'image' => ['nullable', 'image', 'mimes:jpg,jpeg,png,webp,gif', 'max:5120'],
+            'content' => ['nullable', 'array'],
+            'content.hero' => ['sometimes', 'array'],
+            'content.hero.badge' => ['sometimes', 'array'],
+            'content.hero.primary_cta' => ['sometimes', 'array'],
+            'content.hero.trust_badges' => ['sometimes', 'array'],
+            'content.hero.trust_badges.*' => ['string', 'max:255'],
+            'content.sections' => ['sometimes', 'array', 'max:100'],
+            'content.sections.*' => ['array'],
+            'content.sections.*.items' => ['sometimes', 'array', 'max:100'],
+            'content.sections.*.items.*' => ['array'],
+            'content.team' => ['sometimes', 'array', 'max:100'],
+            'content.team.*' => ['array'],
+            'content.team.*.tags' => ['sometimes', 'array'],
+            'content.team.*.tags.*' => ['string', 'max:255'],
+            'content.partners' => ['sometimes', 'array', 'max:100'],
+            'content.partners.*' => ['array'],
+            'content.contact' => ['sometimes', 'array'],
+            'content.contact.email' => ['nullable', 'email', 'max:255'],
+            'meta' => ['nullable', 'array'],
+            'meta.*' => ['nullable', 'string', 'max:2000'],
+            'meta.primary_color' => ['nullable', 'regex:/^#[0-9a-fA-F]{6}$/'],
+            'meta.secondary_color' => ['nullable', 'regex:/^#[0-9a-fA-F]{6}$/'],
         ];
+    }
+
+    /** @return array<string, mixed> */
+    public function entityData(): array
+    {
+        $data = $this->validated();
+        // Keep custom JSON sections after validating the structures used by the editor.
+        foreach (['content', 'meta'] as $field) {
+            if ($this->has($field)) {
+                $data[$field] = $this->input($field);
+            }
+        }
+
+        return $data;
     }
 }

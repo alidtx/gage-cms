@@ -2,26 +2,21 @@
 
 namespace Database\Factories;
 
-use App\Models\Entity;
 use Illuminate\Database\Eloquent\Factories\Factory;
 
-/**
- * @extends Factory<Entity>
- */
 class EntityFactory extends Factory
 {
-    /**
-     * Define the model's default state.
-     *
-     * @return array<string, mixed>
-     */
     public function definition(): array
     {
         return [
-            'title' => fake()->company(),
-            'bio' => fake()->sentence(),
-            'description' => fake()->paragraph(),
-            'badge' => 'Partner',
+            'name' => fake()->company(),
+            'slug' => fake()->unique()->slug(),
+            'category' => 'security',
+            'is_active' => true,
+            'is_featured' => false,
+            'sort_order' => 0,
+            'content' => [],
+            'meta' => [],
         ];
     }
 }

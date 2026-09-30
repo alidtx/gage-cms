@@ -1,127 +1,93 @@
 <script setup>
 import AuthenticatedLayout from '@/Layouts/AuthenticatedLayout.vue';
+import Modal from '@/Components/Modal.vue';
 import InputError from '@/Components/InputError.vue';
-import ImageUpload from '@/Components/ImageUpload.vue';
-import { Head, Link, useForm } from '@inertiajs/vue3';
-import { computed, ref } from 'vue';
+import { Head, Link, router, useForm } from '@inertiajs/vue3';
+import { ref } from 'vue';
 import { toast } from 'vue3-toastify';
-
-defineProps({ entities: Object });
-const editingId = ref(null);
-const currentImage = ref(null);
-const form = useForm({ title: '', bio: '', description: '', badge: '', image: null });
-const deletion = useForm({});
-const busy = computed(() => form.processing || deletion.processing);
-function reset() {
-    editingId.value = null;
-    currentImage.value = null;
-    form.reset();
-    form.clearErrors();
+const props = defineProps({ entities: Object, categories: Array, stats: Object, filters: Object });
+const search = ref(props.filters.search ?? '');
+const category = ref(props.filters.category ?? '');
+const creating = ref(false);
+const action = useForm({});
+const form = useForm({ name: '', slug: '', category: 'security' });
+const cards = [
+    { key: 'total', label: 'Total Entities', icon: 'building', color: 'bg-blue-100 text-blue-600' },
+    { key: 'active', label: 'Active', icon: 'check-circle', color: 'bg-green-100 text-green-600' },
+    { key: 'featured', label: 'Featured', icon: 'star', color: 'bg-yellow-100 text-yellow-600' },
+    { key: 'inactive', label: 'Inactive', icon: 'eye-slash', color: 'bg-red-100 text-red-600' },
+];
+function filter() {
+    router.get(route('backend.entities.index'), { search: search.value, category: category.value }, { preserveState: true, preserveScroll: true });
 }
-function edit(entity) {
-    reset();
-    editingId.value = entity.id;
-    currentImage.value = entity.image_url;
-    Object.assign(form, { title: entity.title, bio: entity.bio ?? '', description: entity.description ?? '', badge: entity.badge ?? '' });
-    document.getElementById('entity-title')?.focus();
-}
-function save() {
-    if (busy.value) return;
-    const updating = editingId.value !== null;
-    form.transform(data => ({ ...data, ...(updating ? { _method: 'put' } : {}) }))
-        .post(route(updating ? 'backend.entities.update' : 'backend.entities.store', updating ? editingId.value : undefined), {
-            forceFormData: true,
-            preserveScroll: true,
-            onSuccess: () => { reset(); toast.success(updating ? 'Entity updated.' : 'Entity created.'); },
-            onError: () => toast.error('Please check the highlighted fields.'),
-        });
+function create() {
+    form.post(route('backend.entities.store'), { onSuccess: () => { creating.value = false; toast.success('Entity created.'); } });
 }
 function remove(entity) {
-    if (!window.confirm('Delete “' + entity.title + '”? Its profile and uploaded image will also be removed.')) return;
-    deletion.delete(route('backend.entities.destroy', entity.id), {
-        preserveScroll: true,
-        onSuccess: () => { if (editingId.value === entity.id) reset(); toast.success('Entity deleted.'); },
-        onError: () => toast.error('Unable to delete this entity.'),
-    });
+    if (!window.confirm('Delete “' + entity.name + '”? It will be removed from the entity list.')) return;
+    action.delete(route('backend.entities.destroy', entity.id), { preserveScroll: true, onSuccess: () => toast.success('Entity deleted.'), onError: () => toast.error('Unable to delete entity.') });
+}
+function toggle(entity) {
+    action.patch(route('backend.entities.active', entity.id), { preserveScroll: true, onError: () => toast.error('Unable to change status.') });
 }
 </script>
-
 <template>
     <AuthenticatedLayout>
-        <Head title="Entities" />
-        <div class="p-4 md:p-8">
-            <div class="flex items-center justify-between gap-4 mb-6">
-                <div><h2 class="text-xl font-semibold text-gray-800">Manage Entities</h2><p class="text-sm text-gray-500">Add, edit or remove entities</p></div>
-                <span class="text-sm text-blue-600 bg-blue-50 px-4 py-2 rounded-xl">{{ entities.total }} entities</span>
+        <Head title="Entity Management" />
+        <div class="p-4 md:p-8 bg-gray-50 min-h-full">
+            <div class="grid grid-cols-1 sm:grid-cols-2 xl:grid-cols-4 gap-5 mb-6">
+                <div v-for="card in cards" :key="card.key" class="bg-white rounded-2xl p-5 shadow-sm border border-gray-100 flex items-center justify-between">
+                    <div><p class="text-gray-500 text-sm">{{ card.label }}</p><p class="text-3xl font-bold text-gray-800 mt-1">{{ stats[card.key] }}</p></div>
+                    <div class="w-12 h-12 rounded-xl flex items-center justify-center" :class="card.color"><i :class="'fas fa-' + card.icon" aria-hidden="true"></i></div>
+                </div>
             </div>
-            <form @submit.prevent="save" class="bg-white rounded-2xl shadow-sm border border-gray-100 p-6 mb-8">
-                <h3 class="font-semibold text-gray-800 mb-4">{{ editingId ? 'Edit entity' : 'Add new entity' }}</h3>
-                <fieldset :disabled="busy" class="grid grid-cols-1 md:grid-cols-2 gap-5">
-                    <div>
-                        <label for="entity-title" class="block text-sm font-medium text-gray-700 mb-2">Title <span class="text-red-500">*</span></label>
-                        <input id="entity-title" v-model="form.title" required maxlength="255" class="w-full border-gray-200 rounded-xl px-4 py-3" />
-                        <InputError :message="form.errors.title" class="mt-2" />
-                    </div>
-                    <div>
-                        <label for="entity-badge" class="block text-sm font-medium text-gray-700 mb-2">Badge</label>
-                        <input id="entity-badge" v-model="form.badge" maxlength="255" placeholder="e.g. Partner" class="w-full border-gray-200 rounded-xl px-4 py-3" />
-                        <InputError :message="form.errors.badge" class="mt-2" />
-                    </div>
-                    <div class="md:col-span-2">
-                        <label for="entity-bio" class="block text-sm font-medium text-gray-700 mb-2">Bio</label>
-                        <textarea id="entity-bio" v-model="form.bio" maxlength="255" rows="2" placeholder="A short introduction" class="w-full border-gray-200 rounded-xl px-4 py-3"></textarea>
-                        <InputError :message="form.errors.bio" class="mt-2" />
-                    </div>
-                    <div class="md:col-span-2">
-                        <label for="entity-description" class="block text-sm font-medium text-gray-700 mb-2">Description</label>
-                        <textarea id="entity-description" v-model="form.description" maxlength="10000" rows="5" class="w-full border-gray-200 rounded-xl px-4 py-3"></textarea>
-                        <InputError :message="form.errors.description" class="mt-2" />
-                    </div>
-                    <div class="md:col-span-2">
-                        <p class="block text-sm font-medium text-gray-700 mb-2">Image</p>
-                        <ImageUpload v-model="form.image" :current-url="currentImage" :error="form.errors.image" accepted-type="image/jpeg,image/png,image/webp,image/gif" helper-text="JPG, PNG, WebP or GIF, up to 5 MB" />
-                    </div>
-                </fieldset>
-                <div class="mt-6 flex justify-end gap-3">
-                    <button v-if="editingId" type="button" :disabled="busy" @click="reset" class="px-5 py-3 rounded-xl bg-gray-100 text-gray-700 disabled:opacity-50">Cancel</button>
-                    <button type="submit" :disabled="busy" class="px-6 py-3 rounded-xl bg-blue-600 hover:bg-blue-700 text-white font-semibold disabled:opacity-50">{{ form.processing ? 'Saving...' : editingId ? 'Update Entity' : 'Save Entity' }}</button>
-                </div>
+            <div class="flex flex-wrap items-center justify-between gap-4 mb-6">
+                <div><h2 class="text-xl font-semibold text-gray-800"><i class="fas fa-building text-blue-500 mr-2" aria-hidden="true"></i>Entity Management</h2><p class="text-sm text-gray-500">Manage all GAGE entities from one place</p></div>
+                <button type="button" @click="form.reset(); form.clearErrors(); creating = true" class="px-4 py-2 bg-blue-600 text-white rounded-xl text-sm font-medium"><i class="fas fa-plus mr-2" aria-hidden="true"></i>New Entity</button>
+            </div>
+            <form @submit.prevent="filter" class="bg-white rounded-2xl border border-gray-100 p-4 mb-6 flex flex-wrap gap-3">
+                <input v-model="search" aria-label="Search entities" placeholder="Search entities..." maxlength="255" class="flex-1 min-w-[180px] border-gray-200 rounded-xl text-sm" />
+                <select v-model="category" aria-label="Category filter" class="border-gray-200 rounded-xl text-sm capitalize"><option value="">All Categories</option><option v-for="item in categories" :key="item" :value="item">{{ item }}</option></select>
+                <button class="px-4 py-2 bg-gray-800 text-white rounded-xl text-sm"><i class="fas fa-filter mr-2" aria-hidden="true"></i>Filter</button>
             </form>
-            <section class="bg-white rounded-2xl shadow-sm border border-gray-100 overflow-hidden">
-                <div class="px-6 py-4 border-b border-gray-100 flex justify-between items-center">
-                    <h3 class="font-semibold text-gray-800">All entities</h3>
-                    <span class="text-xs text-gray-500 bg-gray-100 px-3 py-1 rounded-full">{{ entities.total }} items</span>
-                </div>
-                <div class="overflow-x-auto">
-                    <table class="w-full min-w-[650px] text-left">
-                        <thead class="bg-gray-50 border-b border-gray-200"><tr>
-                            <th v-for="heading in ['Image', 'Title', 'Bio', 'Badge', 'Actions']" :key="heading" scope="col" class="px-6 py-4 text-xs font-semibold text-gray-600 uppercase" :class="{ 'text-right': heading === 'Actions' }">{{ heading }}</th>
-                        </tr></thead>
-                        <tbody class="divide-y divide-gray-100">
-                            <tr v-for="entity in entities.data" :key="entity.id">
-                                <td class="px-6 py-4"><img v-if="entity.image_url" :src="entity.image_url" :alt="entity.title" class="w-14 h-14 object-cover rounded-lg" /><span v-else class="text-gray-400">—</span></td>
-                                <td class="px-6 py-4 text-gray-900">{{ entity.title }}</td>
-                                <td class="px-6 py-4 text-sm text-gray-600 max-w-xs break-words">{{ entity.bio || '—' }}</td>
-                                <td class="px-6 py-4"><span v-if="entity.badge" class="px-3 py-1 rounded-full text-xs bg-blue-50 text-blue-700">{{ entity.badge }}</span><span v-else class="text-gray-400">—</span></td>
-                                <td class="px-6 py-4 text-right whitespace-nowrap">
-                                    <button type="button" :disabled="busy" @click="edit(entity)" :aria-label="'Edit ' + entity.title" class="p-2 text-blue-600 disabled:opacity-50"><i class="fas fa-edit" aria-hidden="true"></i></button>
-                                    <button type="button" :disabled="busy" @click="remove(entity)" :aria-label="'Delete ' + entity.title" class="p-2 text-red-500 disabled:opacity-50"><i class="fas fa-trash-alt" aria-hidden="true"></i></button>
-                                </td>
-                            </tr>
-                            <tr v-if="!entities.data.length"><td colspan="5" class="p-10 text-center text-gray-500">No entities yet. Add your first entity above.</td></tr>
-                        </tbody>
-                    </table>
-                </div>
-                <div class="px-6 py-4 border-t border-gray-100 flex flex-wrap justify-between items-center gap-3 text-sm text-gray-500">
-                    <span>Showing {{ entities.from ?? 0 }}–{{ entities.to ?? 0 }} of {{ entities.total }} entities</span>
-                    <nav aria-label="Entity pages" class="flex gap-2">
-                        <template v-for="link in entities.links" :key="link.label">
-                            <Link v-if="link.url && !busy" :href="link.url" :aria-current="link.active ? 'page' : undefined" class="px-3 py-1 border rounded-lg" :class="link.active ? 'bg-blue-600 text-white border-blue-600' : 'border-gray-200'" v-html="link.label" />
-                            <span v-else class="px-3 py-1 border border-gray-100 rounded-lg text-gray-400" v-html="link.label"></span>
-                        </template>
-                    </nav>
-                </div>
-            </section>
+            <div class="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-5">
+                <article v-for="entity in entities.data" :key="entity.id" class="bg-white rounded-2xl shadow-sm border border-gray-100 p-5 hover:shadow-md">
+                    <div class="flex items-start justify-between mb-3">
+                        <div class="w-12 h-12 bg-gray-100 rounded-xl flex items-center justify-center text-2xl overflow-hidden">
+                            <img v-if="entity.image_url" :src="entity.image_url" :alt="entity.name" class="w-full h-full object-cover" />
+                            <i v-else-if="entity.meta?.icon_type === 'fontawesome'" :class="['fas', entity.meta.icon]" aria-hidden="true"></i>
+                            <span v-else>{{ entity.meta?.icon || '🏢' }}</span>
+                        </div>
+                        <div class="flex gap-1"><span v-if="entity.is_featured" aria-label="Featured" class="px-2 py-1 bg-yellow-100 text-yellow-700 rounded-full text-xs">★</span><span class="px-3 py-1 rounded-full text-xs" :class="entity.is_active ? 'bg-green-100 text-green-700' : 'bg-red-100 text-red-700'">{{ entity.is_active ? 'Active' : 'Inactive' }}</span></div>
+                    </div>
+                    <h3 class="font-bold text-gray-800">{{ entity.name }}</h3>
+                    <p class="text-xs text-gray-500 mt-1">{{ entity.meta?.tagline }}</p>
+                    <span class="inline-block mt-3 px-3 py-1 rounded-full bg-blue-100 text-blue-700 text-xs capitalize">{{ entity.category }}</span>
+                    <p class="text-sm text-gray-600 mt-3 line-clamp-2">{{ entity.meta?.short_description }}</p>
+                    <div class="mt-4 pt-4 border-t border-gray-100 flex justify-between items-center">
+                        <Link :href="route('backend.entities.edit', entity.id)" class="text-sm text-blue-600 font-medium"><i class="fas fa-edit mr-1" aria-hidden="true"></i>Edit</Link>
+                        <div class="flex gap-3">
+                            <button type="button" :disabled="action.processing" @click="toggle(entity)" :aria-label="(entity.is_active ? 'Deactivate ' : 'Activate ') + entity.name" class="text-gray-400 hover:text-yellow-600 disabled:opacity-50"><i class="fas fa-power-off" aria-hidden="true"></i></button>
+                            <button type="button" :disabled="action.processing" @click="remove(entity)" :aria-label="'Delete ' + entity.name" class="text-gray-400 hover:text-red-600 disabled:opacity-50"><i class="fas fa-trash-alt" aria-hidden="true"></i></button>
+                        </div>
+                    </div>
+                </article>
+            </div>
+            <p v-if="!entities.data.length" class="bg-white rounded-2xl p-12 text-center text-gray-500">No entities found.</p>
+            <nav v-if="entities.last_page > 1" aria-label="Entity pages" class="flex flex-wrap gap-2 mt-6">
+                <template v-for="link in entities.links" :key="link.label"><Link v-if="link.url" :href="link.url" class="px-3 py-2 rounded-lg border text-sm" :class="link.active ? 'bg-blue-600 text-white' : 'bg-white text-gray-600'" :aria-current="link.active ? 'page' : undefined" v-html="link.label" /><span v-else class="px-3 py-2 text-gray-400 text-sm" v-html="link.label"></span></template>
+            </nav>
         </div>
+        <Modal :show="creating" max-width="md" :closeable="!form.processing" @close="creating = false">
+            <form @submit.prevent="create" class="p-6">
+                <h3 class="text-lg font-bold text-gray-800 mb-4">Create New Entity</h3>
+                <fieldset :disabled="form.processing" class="space-y-4">
+                    <label class="block text-sm text-gray-700">Name<input v-model="form.name" required maxlength="255" autofocus placeholder="GAGE New Entity" class="mt-2 w-full border-gray-200 rounded-xl text-sm" /><InputError :message="form.errors.name" /></label>
+                    <label class="block text-sm text-gray-700">Slug (optional)<input v-model="form.slug" maxlength="255" placeholder="Generated from the name" class="mt-2 w-full border-gray-200 rounded-xl text-sm" /><InputError :message="form.errors.slug" /></label>
+                    <label class="block text-sm text-gray-700">Category<select v-model="form.category" class="mt-2 w-full border-gray-200 rounded-xl text-sm capitalize"><option v-for="item in categories" :key="item" :value="item">{{ item }}</option></select><InputError :message="form.errors.category" /></label>
+                </fieldset>
+                <div class="flex justify-end gap-3 pt-5"><button type="button" :disabled="form.processing" @click="creating = false" class="px-4 py-2 bg-gray-200 rounded-xl text-sm">Cancel</button><button :disabled="form.processing" class="px-4 py-2 bg-blue-600 text-white rounded-xl text-sm">{{ form.processing ? 'Creating...' : 'Create' }}</button></div>
+            </form>
+        </Modal>
     </AuthenticatedLayout>
 </template>

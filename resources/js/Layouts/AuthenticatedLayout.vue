@@ -124,7 +124,7 @@ const markAllAsRead = () => {
                 <Link :href="route('backend.entities.index')"
                     class="sidebar-item flex items-center space-x-3 px-4 py-3 rounded-lg text-gray-300 transition-colors">
                     <i class="fas fa-building w-5" aria-hidden="true"></i>
-                    <span>Entities</span>
+                    <span>Entity</span>
                 </Link>
                 <div>
                     <button type="button"
