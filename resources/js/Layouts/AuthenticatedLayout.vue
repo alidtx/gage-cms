@@ -126,6 +126,11 @@ const markAllAsRead = () => {
                     <i class="fas fa-building w-5" aria-hidden="true"></i>
                     <span>Entity</span>
                 </Link>
+                <Link :href="route('backend.island-reach-location.index')"
+                    class="sidebar-item flex items-center space-x-3 px-4 py-3 rounded-lg text-gray-300 transition-colors">
+                    <i class="fas fa-building w-5" aria-hidden="true"></i>
+                    <span>Island Settings</span>
+                </Link>
                 <div>
                     <button type="button"
                         class="dropdown-trigger sidebar-item w-full flex items-center space-x-3 px-4 py-3 rounded-lg text-gray-300 transition-colors"

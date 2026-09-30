@@ -57,6 +57,9 @@ Route::middleware('auth')
 
         Route::get('/island-reach-location', [IslandReachSettingController::class, 'index'])
             ->name('island-reach-location.index');
+            
+        Route::put('/island-reach-location/{islandReachSetting?}', [IslandReachSettingController::class, 'update'])
+    ->name('island-reach-location.update');
 
         Route::get('/news-category', [NewsCategoryController::class, 'index'])
             ->name('news-category.index');
