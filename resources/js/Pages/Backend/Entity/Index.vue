@@ -34,7 +34,7 @@ function toggle(entity) {
 <template>
     <AuthenticatedLayout>
         <Head title="Entity Management" />
-        <div class="p-4 md:p-8 bg-gray-50 min-h-full">
+        <div class="p-4 md:p-8  min-h-full">
             <div class="grid grid-cols-1 sm:grid-cols-2 xl:grid-cols-4 gap-5 mb-6">
                 <div v-for="card in cards" :key="card.key" class="bg-white rounded-2xl p-5 shadow-sm border border-gray-100 flex items-center justify-between">
                     <div><p class="text-gray-500 text-sm">{{ card.label }}</p><p class="text-3xl font-bold text-gray-800 mt-1">{{ stats[card.key] }}</p></div>

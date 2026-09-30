@@ -3,6 +3,7 @@
 use App\Http\Controllers\Backend\BasicSeoController;
 use App\Http\Controllers\Backend\EntityController;
 use App\Http\Controllers\Backend\GlobalSettingController;
+use App\Http\Controllers\Backend\IslandReachSettingController;
 use App\Http\Controllers\Backend\NewsCategoryController;
 use App\Http\Controllers\Backend\NewsController;
 use App\Http\Controllers\Backend\ProfileController;
@@ -53,6 +54,9 @@ Route::middleware('auth')
 
         Route::put('global-settings/{globalSetting}', [GlobalSettingController::class, 'update'])
             ->name('global-settings.update');
+
+        Route::get('/island-reach-location', [IslandReachSettingController::class, 'index'])
+            ->name('island-reach-location.index');
 
         Route::get('/news-category', [NewsCategoryController::class, 'index'])
             ->name('news-category.index');
