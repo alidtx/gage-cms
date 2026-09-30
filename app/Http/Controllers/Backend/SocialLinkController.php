@@ -3,64 +3,50 @@
 namespace App\Http\Controllers\Backend;
 
 use App\Http\Controllers\Controller;
+use App\Http\Requests\Backend\UpdateSocialLinkRequest;
 use App\Models\SocialLink;
-use Illuminate\Http\Request;
+use Inertia\Inertia;
 
 class SocialLinkController extends Controller
 {
     /**
-     * Display a listing of the resource.
+     * Show the social links settings page.
      */
     public function index()
     {
-        //
+        $socialLink = SocialLink::first();
+
+        if (! $socialLink) {
+            $socialLink = new SocialLink([
+                'facebook'  => '',
+                'linkedin'  => '',
+                'youtube'   => '',
+                'instagram' => '',
+                'whatsapp'  => '',
+            ]);
+            $socialLink->id = null;
+        }
+
+        return Inertia::render('Backend/SocialLink/Index', [
+            'socialLink' => $socialLink,
+        ]);
     }
 
     /**
-     * Show the form for creating a new resource.
+     * Update the social links (singleton).
      */
-    public function create()
+    public function update(UpdateSocialLinkRequest $request, ?SocialLink $socialLink = null)
     {
-        //
-    }
+        $validated = $request->validated();
 
-    /**
-     * Store a newly created resource in storage.
-     */
-    public function store(Request $request)
-    {
-        //
-    }
+        if ($socialLink && $socialLink->exists) {
+            $socialLink->update($validated);
+        } else {
+            $socialLink = SocialLink::create($validated);
+        }
 
-    /**
-     * Display the specified resource.
-     */
-    public function show(SocialLink $socialLink)
-    {
-        //
-    }
-
-    /**
-     * Show the form for editing the specified resource.
-     */
-    public function edit(SocialLink $socialLink)
-    {
-        //
-    }
-
-    /**
-     * Update the specified resource in storage.
-     */
-    public function update(Request $request, SocialLink $socialLink)
-    {
-        //
-    }
-
-    /**
-     * Remove the specified resource from storage.
-     */
-    public function destroy(SocialLink $socialLink)
-    {
-        //
+        return redirect()
+            ->route('backend.social-link.index')
+            ->with('success', 'Social links updated successfully.');
     }
 }

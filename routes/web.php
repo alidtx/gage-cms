@@ -8,6 +8,8 @@ use App\Http\Controllers\Backend\NewsCategoryController;
 use App\Http\Controllers\Backend\NewsController;
 use App\Http\Controllers\Backend\ProfileController;
 use App\Http\Controllers\Backend\SiteMapController;
+use App\Http\Controllers\Backend\SocialAnalyticController;
+use App\Http\Controllers\Backend\SocialLinkController;
 use Illuminate\Foundation\Application;
 use Illuminate\Support\Facades\Route;
 use Inertia\Inertia;
@@ -57,9 +59,15 @@ Route::middleware('auth')
 
         Route::get('/island-reach-location', [IslandReachSettingController::class, 'index'])
             ->name('island-reach-location.index');
-            
+
         Route::put('/island-reach-location/{islandReachSetting?}', [IslandReachSettingController::class, 'update'])
     ->name('island-reach-location.update');
+
+        Route::get('/social-link', [SocialLinkController::class, 'index'])
+            ->name('social-link.index');
+
+        Route::put('/social-link/{socialLink?}', [SocialLinkController::class, 'update'])
+            ->name('social-link.update');
 
         Route::get('/news-category', [NewsCategoryController::class, 'index'])
             ->name('news-category.index');
