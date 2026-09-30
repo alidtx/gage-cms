@@ -60,8 +60,14 @@ Route::middleware('auth')
         Route::get('/island-reach-location', [IslandReachSettingController::class, 'index'])
             ->name('island-reach-location.index');
 
-        Route::put('/island-reach-location/{islandReachSetting?}', [IslandReachSettingController::class, 'update'])
-    ->name('island-reach-location.update');
+        Route::post('/island-reach-location', [IslandReachSettingController::class, 'store'])
+            ->name('island-reach-location.store');
+
+        Route::put('/island-reach-location/{islandReachSetting}', [IslandReachSettingController::class, 'update'])
+            ->name('island-reach-location.update');
+
+        Route::delete('/island-reach-location/{islandReachSetting}', [IslandReachSettingController::class, 'destroy'])
+            ->name('island-reach-location.destroy');
 
         Route::get('/social-link', [SocialLinkController::class, 'index'])
             ->name('social-link.index');
@@ -109,4 +115,4 @@ Route::prefix('frontend')
         // Other frontend routes...
     });
 
-require __DIR__.'/auth.php';
+require __DIR__ . '/auth.php';

@@ -3,7 +3,7 @@
 namespace App\Http\Controllers\Backend;
 
 use App\Http\Controllers\Controller;
-use App\Http\Requests\Backend\UpdateSocialLinkRequest;
+use App\Http\Requests\UpdateSocialLinkRequest;
 use App\Models\SocialLink;
 use Inertia\Inertia;
 
