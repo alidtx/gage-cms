@@ -15,7 +15,7 @@ function contentDefaults(value) {
     data.hero.badge = { text: '', icon: '', ...data.hero.badge };
     data.hero.primary_cta = { text: '', href: '', ...data.hero.primary_cta };
     data.hero.trust_badges ??= [];
-    for (const field of ['sections', 'team', 'partners']) data[field] ??= [];
+    for (const field of ['sections', 'team', 'partners', 'faqs']) data[field] ??= [];
     data.contact = { phone: '', email: '', address: '', facebook: '', linkedin: '', instagram: '', ...data.contact };
     return data;
 }
@@ -27,7 +27,7 @@ const form = useForm({
     image: null,
 });
 const tab = ref('hero');
-const tabs = ['hero', 'sections', 'team', 'partners', 'contact', 'seo', 'raw'];
+const tabs = ['hero', 'sections', 'team', 'partners', 'contact', 'faq', 'seo', 'raw'];
 const raw = ref('');
 const rawError = ref('');
 const preview = ref(false);
@@ -48,8 +48,11 @@ function applyJson() {
         for (const key of ['hero', 'contact']) {
             if (value[key] !== undefined && (!value[key] || typeof value[key] !== 'object' || Array.isArray(value[key]))) throw new Error(key + ' must be an object.');
         }
-        for (const key of ['sections', 'team', 'partners']) {
+        for (const key of ['sections', 'team', 'partners', 'faqs']) {
             if (value[key] !== undefined && (!Array.isArray(value[key]) || value[key].some(item => !item || typeof item !== 'object' || Array.isArray(item)))) throw new Error(key + ' must be an array of objects.');
+        }
+        for (const faq of value.faqs || []) {
+            if (typeof faq.question !== 'string' || typeof faq.answer !== 'string') throw new Error('Each FAQ must contain a question and answer as text.');
         }
         for (const section of value.sections || []) {
             if (section.items !== undefined && (!Array.isArray(section.items) || section.items.some(item => !item || typeof item !== 'object' || Array.isArray(item)))) throw new Error('Section items must be objects.');
@@ -115,7 +118,7 @@ function showPreview() {
                 <div class="grid grid-cols-1 lg:grid-cols-3 gap-6 items-start">
                     <section class="lg:col-span-2 bg-white rounded-2xl border border-gray-100 shadow-sm overflow-hidden">
                         <div role="tablist" aria-label="Page content" class="flex overflow-x-auto border-b border-gray-200 bg-gray-50">
-                            <button v-for="item in tabs" :key="item" type="button" role="tab" :aria-selected="tab === item" @click="changeTab(item)" class="px-4 py-3 text-sm font-semibold capitalize whitespace-nowrap border-b-2" :class="tab === item ? 'text-blue-600 border-blue-600 bg-white' : 'text-gray-500 border-transparent'">{{ item === 'raw' ? 'Raw JSON' : item === 'seo' ? 'SEO' : item }}</button>
+                            <button v-for="item in tabs" :key="item" type="button" role="tab" :aria-selected="tab === item" @click="changeTab(item)" class="px-4 py-3 text-sm font-semibold capitalize whitespace-nowrap border-b-2" :class="tab === item ? 'text-blue-600 border-blue-600 bg-white' : 'text-gray-500 border-transparent'">{{ item === 'raw' ? 'Raw JSON' : item === 'seo' ? 'SEO' : item === 'faq' ? 'FAQ' : item }}</button>
                         </div>
                         <div class="p-6 space-y-4" role="tabpanel" :aria-label="tab">
                             <template v-if="tab === 'hero'">
@@ -155,6 +158,14 @@ function showPreview() {
                                 <div class="grid sm:grid-cols-2 gap-4"><Field v-model="form.content.contact.phone" label="Phone" /><Field v-model="form.content.contact.email" label="Email" type="email" /></div><Field v-model="form.content.contact.address" label="Address" multiline />
                                 <Field v-for="social in ['facebook', 'linkedin', 'instagram']" :key="social" v-model="form.content.contact[social]" :label="social + ' URL'" />
                             </template>
+                            <template v-else-if="tab === 'faq'">
+                                <div class="flex items-center justify-between gap-4"><p class="text-sm text-gray-500">Frequently asked questions for this page.</p><button type="button" @click="form.content.faqs.push({ question: '', answer: '' })" class="text-sm font-semibold text-blue-600">+ Add FAQ</button></div>
+                                <div v-for="(faq, index) in form.content.faqs" :key="index" class="border border-gray-200 rounded-xl p-4 space-y-3">
+                                    <div class="flex justify-between items-center"><h4 class="font-semibold text-gray-700">FAQ {{ index + 1 }}</h4><div class="flex gap-3 text-sm"><button type="button" :disabled="index === 0" @click="move(form.content.faqs, index, -1)" aria-label="Move FAQ up" class="disabled:opacity-30">↑</button><button type="button" :disabled="index === form.content.faqs.length - 1" @click="move(form.content.faqs, index, 1)" aria-label="Move FAQ down" class="disabled:opacity-30">↓</button><button type="button" @click="form.content.faqs.splice(index, 1)" class="text-red-500">Remove</button></div></div>
+                                    <Field v-model="faq.question" label="Question" /><Field v-model="faq.answer" label="Answer" multiline />
+                                </div>
+                                <p v-if="!form.content.faqs.length" class="text-sm text-gray-400 text-center py-6">No FAQs yet. Add your first question above.</p>
+                            </template>
                             <template v-else-if="tab === 'seo'">
                                 <div class="bg-purple-50/40 border border-purple-100 rounded-xl p-5 space-y-4"><Field v-model="form.meta.meta_title" label="Meta Title (50–60 characters recommended)" /><Field v-model="form.meta.meta_description" label="Meta Description (120–160 characters recommended)" multiline /><Field v-model="form.meta.meta_keywords" label="Meta Keywords" /><div class="grid sm:grid-cols-2 gap-4"><Field v-model="form.meta.primary_color" label="Primary Color" type="color" /><Field v-model="form.meta.secondary_color" label="Secondary Color" type="color" /></div></div>
                             </template>
@@ -179,6 +190,7 @@ function showPreview() {
                 <p class="text-sm text-gray-500">{{ form.content.hero.badge.text }}</p><h2 class="text-3xl font-bold">{{ form.content.hero.title_line_1 }} <span :style="{ color: /^#[0-9a-f]{6}$/i.test(form.meta.primary_color) ? form.meta.primary_color : '#2563eb' }">{{ form.content.hero.title_highlight }}</span></h2><p>{{ form.content.hero.subtitle }}</p>
                 <span v-if="form.content.hero.primary_cta.text" class="inline-block rounded-xl bg-blue-600 text-white px-4 py-2">{{ form.content.hero.primary_cta.text }}</span>
                 <div v-for="(section, index) in form.content.sections" :key="index" class="border-t pt-4"><h3 class="text-xl font-semibold">{{ section.title }}</h3><p>{{ section.subtitle }}</p><div v-for="(item, i) in section.items" :key="i" class="mt-3"><h4 class="font-medium">{{ item.title }}</h4><p class="text-gray-600">{{ item.description }}</p></div></div>
+                <section v-if="form.content.faqs.length" class="border-t pt-4 space-y-3"><h3 class="text-xl font-semibold">Frequently Asked Questions</h3><details v-for="(faq, index) in form.content.faqs" :key="index" class="border border-gray-200 rounded-xl p-4"><summary class="cursor-pointer font-medium text-gray-800">{{ faq.question }}</summary><p class="mt-3 text-gray-600 whitespace-pre-line">{{ faq.answer }}</p></details></section>
                 <div v-if="form.content.team.length" class="border-t pt-4"><h3 class="font-semibold">Team</h3><p v-for="(member, i) in form.content.team" :key="i">{{ member.name }} — {{ member.role }}</p></div>
                 <div v-if="form.content.partners.length" class="border-t pt-4"><h3 class="font-semibold">Partners</h3><p>{{ form.content.partners.map(partner => partner.name).join(', ') }}</p></div>
                 <div class="border-t pt-4"><p>{{ form.content.contact.phone }} {{ form.content.contact.email }}</p><p>{{ form.content.contact.address }}</p></div>

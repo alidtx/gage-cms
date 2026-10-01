@@ -14,6 +14,21 @@ class PageContentTest extends TestCase
 {
     use RefreshDatabase;
 
+    public function test_faqs_can_be_saved_reordered_removed_and_validated(): void
+    {
+        $page = PageContent::factory()->create();
+        $this->actingAs(User::factory()->create());
+        $data = ['name' => $page->name, 'slug' => $page->page];
+        $faqs = [['question' => 'How does it work?', 'answer' => 'Contact our team.'], ['question' => 'Where?', 'answer' => 'Maldives.']];
+        foreach ([$faqs, array_reverse($faqs), [$faqs[0]], []] as $items) {
+            $this->put('/backend/pages/'.$page->id, [...$data, 'content' => json_encode(['faqs' => $items])])->assertSessionHasNoErrors();
+            $this->assertSame($items, $page->fresh()->content['faqs']);
+        }
+        $this->put('/backend/pages/'.$page->id, [...$data, 'content' => ['faqs' => [['question' => '', 'answer' => []]]]])
+            ->assertSessionHasErrors(['content.faqs.0.question', 'content.faqs.0.answer']);
+        $this->assertSame([], $page->fresh()->content['faqs']);
+    }
+
     public function test_create_and_edit_page_without_category_and_preserve_content(): void
     {
         $this->actingAs(User::factory()->create())->post('/backend/pages', ['name' => 'About Us'])
