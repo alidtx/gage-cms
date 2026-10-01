@@ -14,6 +14,20 @@ class PageContentTest extends TestCase
 {
     use RefreshDatabase;
 
+    public function test_custom_section_and_item_fields_persist_and_can_be_removed(): void
+    {
+        $page = PageContent::factory()->create();
+        $this->actingAs(User::factory()->create());
+        $sections = [['key' => 'services', 'title' => 'Services', 'button_label' => 'Learn more', 'columns' => 3,
+            'items' => [['title' => 'Support', 'price' => 25, 'available' => true, 'note' => 'Any time']]]];
+        $data = ['name' => $page->name, 'slug' => $page->page];
+        $this->put('/backend/pages/'.$page->id, [...$data, 'content' => json_encode(['sections' => $sections])])->assertSessionHasNoErrors();
+        $this->assertSame($sections, $page->fresh()->content['sections']);
+        unset($sections[0]['button_label'], $sections[0]['items'][0]['price']);
+        $this->put('/backend/pages/'.$page->id, [...$data, 'content' => json_encode(['sections' => $sections])])->assertSessionHasNoErrors();
+        $this->assertSame($sections, $page->fresh()->content['sections']);
+    }
+
     public function test_single_map_location_can_be_updated_and_invalid_maps_are_rejected(): void
     {
         $page = PageContent::factory()->create();
