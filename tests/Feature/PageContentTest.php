@@ -14,6 +14,23 @@ class PageContentTest extends TestCase
 {
     use RefreshDatabase;
 
+    public function test_single_map_location_can_be_updated_and_invalid_maps_are_rejected(): void
+    {
+        $page = PageContent::factory()->create();
+        $this->actingAs(User::factory()->create());
+        $data = ['name' => $page->name, 'slug' => $page->page];
+        $map = ['name' => 'Headquarters', 'address' => 'Male, Maldives', 'embed_url' => 'https://www.google.com/maps/embed?pb=test', 'directions_url' => 'https://maps.google.com/?q=Male'];
+        foreach (['Headquarters', 'Updated Office'] as $name) {
+            $map['name'] = $name;
+            $this->put('/backend/pages/'.$page->id, [...$data, 'content' => json_encode(['map' => $map])])->assertSessionHasNoErrors();
+            $this->assertSame($map, $page->fresh()->content['map']);
+        }
+        $this->put('/backend/pages/'.$page->id, [...$data, 'content' => ['map' => [$map, $map]]])->assertSessionHasErrors('content.map');
+        $this->put('/backend/pages/'.$page->id, [...$data, 'content' => ['map' => ['embed_url' => 'https://example.com/embed', 'directions_url' => 'javascript:alert(1)']]])
+            ->assertSessionHasErrors(['content.map.embed_url', 'content.map.directions_url']);
+        $this->assertSame($map, $page->fresh()->content['map']);
+    }
+
     public function test_faqs_can_be_saved_reordered_removed_and_validated(): void
     {
         $page = PageContent::factory()->create();

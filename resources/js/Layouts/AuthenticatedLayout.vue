@@ -111,7 +111,7 @@ const markAllAsRead = () => {
                     <span>Dashboard</span>
                     <span class="ml-auto bg-blue-500 text-white text-xs px-2 py-0.5 rounded-full">12</span>
                 </Link>
-                 <!-- <Link :href="route('backend.news-category.index')"
+                 <Link :href="route('backend.news-category.index')"
                     class="sidebar-item flex items-center space-x-3 px-4 py-3 rounded-lg text-gray-300 transition-colors">
                     <i class="fas fa-newspaper w-5"></i>
                     <span>News Category</span>
@@ -120,7 +120,7 @@ const markAllAsRead = () => {
                     class="sidebar-item flex items-center space-x-3 px-4 py-3 rounded-lg text-gray-300 transition-colors">
                     <i class="fas fa-newspaper w-5"></i>
                     <span>News</span>
-                </Link> -->
+                </Link>
                 <Link :href="route('backend.entities.index')"
                     class="sidebar-item flex items-center space-x-3 px-4 py-3 rounded-lg text-gray-300 transition-colors">
                     <i class="fas fa-building w-5" aria-hidden="true"></i>
@@ -129,7 +129,7 @@ const markAllAsRead = () => {
                 <Link :href="route('backend.contact-submissions.index')" class="sidebar-item flex items-center space-x-3 px-4 py-3 rounded-lg text-gray-300 transition-colors">
                     <i class="fas fa-envelope w-5" aria-hidden="true"></i><span>Contact Form</span>
                 </Link>
-                <!-- <Link :href="route('backend.island-reach-location.index')"
+                <Link :href="route('backend.island-reach-location.index')"
                     class="sidebar-item flex items-center space-x-3 px-4 py-3 rounded-lg text-gray-300 transition-colors">
                     <i class="fas fa-building w-5" aria-hidden="true"></i>
                     <span>Island Settings</span>
@@ -139,7 +139,7 @@ const markAllAsRead = () => {
                     class="sidebar-item flex items-center space-x-3 px-4 py-3 rounded-lg text-gray-300 transition-colors">
                     <i class="fas fa-building w-5" aria-hidden="true"></i>
                     <span>Social Link</span>
-                </Link> -->
+                </Link>
                 <div>
                     <button type="button"
                         class="dropdown-trigger sidebar-item w-full flex items-center space-x-3 px-4 py-3 rounded-lg text-gray-300 transition-colors"

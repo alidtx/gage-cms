@@ -3,6 +3,7 @@ import AuthenticatedLayout from '@/Layouts/AuthenticatedLayout.vue';
 import ImageUpload from '@/Components/ImageUpload.vue';
 import Modal from '@/Components/Modal.vue';
 import Field from '../Entity/EntityField.vue';
+import MapPreview from './MapPreview.vue';
 import { Head, Link, useForm } from '@inertiajs/vue3';
 import { computed, ref } from 'vue';
 import { toast } from 'vue3-toastify';
@@ -17,6 +18,7 @@ function contentDefaults(value) {
     data.hero.trust_badges ??= [];
     for (const field of ['sections', 'team', 'partners', 'faqs']) data[field] ??= [];
     data.contact = { phone: '', email: '', address: '', facebook: '', linkedin: '', instagram: '', ...data.contact };
+    data.map = { name: '', address: '', embed_url: '', directions_url: '', ...data.map };
     return data;
 }
 const form = useForm({
@@ -27,7 +29,7 @@ const form = useForm({
     image: null,
 });
 const tab = ref('hero');
-const tabs = ['hero', 'sections', 'team', 'partners', 'contact', 'faq', 'seo', 'raw'];
+const tabs = ['hero', 'sections', 'team', 'partners', 'contact', 'maps', 'faq', 'seo', 'raw'];
 const raw = ref('');
 const rawError = ref('');
 const preview = ref(false);
@@ -45,12 +47,13 @@ function applyJson() {
     try {
         const value = JSON.parse(raw.value);
         if (!value || Array.isArray(value) || typeof value !== 'object') throw new Error('Content must be a JSON object.');
-        for (const key of ['hero', 'contact']) {
+        for (const key of ['hero', 'contact', 'map']) {
             if (value[key] !== undefined && (!value[key] || typeof value[key] !== 'object' || Array.isArray(value[key]))) throw new Error(key + ' must be an object.');
         }
         for (const key of ['sections', 'team', 'partners', 'faqs']) {
             if (value[key] !== undefined && (!Array.isArray(value[key]) || value[key].some(item => !item || typeof item !== 'object' || Array.isArray(item)))) throw new Error(key + ' must be an array of objects.');
         }
+        if (value.map && Object.entries(value.map).some(([key, item]) => !['name', 'address', 'embed_url', 'directions_url'].includes(key) || (item !== null && typeof item !== 'string'))) throw new Error('Map must contain one location with text fields: name, address, embed_url, directions_url.');
         for (const faq of value.faqs || []) {
             if (typeof faq.question !== 'string' || typeof faq.answer !== 'string') throw new Error('Each FAQ must contain a question and answer as text.');
         }
@@ -158,6 +161,15 @@ function showPreview() {
                                 <div class="grid sm:grid-cols-2 gap-4"><Field v-model="form.content.contact.phone" label="Phone" /><Field v-model="form.content.contact.email" label="Email" type="email" /></div><Field v-model="form.content.contact.address" label="Address" multiline />
                                 <Field v-for="social in ['facebook', 'linkedin', 'instagram']" :key="social" v-model="form.content.contact[social]" :label="social + ' URL'" />
                             </template>
+                            <template v-else-if="tab === 'maps'">
+                                <p class="text-sm text-gray-500">Update the single map location for this page.</p>
+                                <Field v-model="form.content.map.name" label="Location name" />
+                                <Field v-model="form.content.map.address" label="Address" multiline />
+                                <Field v-model="form.content.map.embed_url" label="Google Maps embed URL" />
+                                <p class="text-xs text-gray-500">In Google Maps, choose Share → Embed a map. Paste only the URL inside the iframe’s src attribute.</p>
+                                <Field v-model="form.content.map.directions_url" label="Get Directions URL (HTTPS)" />
+                                <MapPreview :location="form.content.map" />
+                            </template>
                             <template v-else-if="tab === 'faq'">
                                 <div class="flex items-center justify-between gap-4"><p class="text-sm text-gray-500">Frequently asked questions for this page.</p><button type="button" @click="form.content.faqs.push({ question: '', answer: '' })" class="text-sm font-semibold text-blue-600">+ Add FAQ</button></div>
                                 <div v-for="(faq, index) in form.content.faqs" :key="index" class="border border-gray-200 rounded-xl p-4 space-y-3">
@@ -193,6 +205,7 @@ function showPreview() {
                 <section v-if="form.content.faqs.length" class="border-t pt-4 space-y-3"><h3 class="text-xl font-semibold">Frequently Asked Questions</h3><details v-for="(faq, index) in form.content.faqs" :key="index" class="border border-gray-200 rounded-xl p-4"><summary class="cursor-pointer font-medium text-gray-800">{{ faq.question }}</summary><p class="mt-3 text-gray-600 whitespace-pre-line">{{ faq.answer }}</p></details></section>
                 <div v-if="form.content.team.length" class="border-t pt-4"><h3 class="font-semibold">Team</h3><p v-for="(member, i) in form.content.team" :key="i">{{ member.name }} — {{ member.role }}</p></div>
                 <div v-if="form.content.partners.length" class="border-t pt-4"><h3 class="font-semibold">Partners</h3><p>{{ form.content.partners.map(partner => partner.name).join(', ') }}</p></div>
+                <MapPreview v-if="form.content.map.name || form.content.map.embed_url" :location="form.content.map" />
                 <div class="border-t pt-4"><p>{{ form.content.contact.phone }} {{ form.content.contact.email }}</p><p>{{ form.content.contact.address }}</p></div>
             </div>
         </Modal>
