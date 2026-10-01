@@ -95,7 +95,7 @@ function showPreview() {
 <template>
     <AuthenticatedLayout>
         <Head :title="'Edit ' + pageContent.name" />
-        <form @submit.prevent="save" class="p-4 md:p-8 bg-gray-50 min-h-full">
+        <form @submit.prevent="save" class="p-4 md:p-8  min-h-full">
             <div class="flex flex-wrap items-center justify-between gap-4 mb-6">
                 <div class="flex items-center gap-4">
                     <Link :href="route('backend.pages.index')" aria-label="Back to pages" class="w-10 h-10 rounded-xl bg-white border border-gray-200 flex items-center justify-center"><i class="fas fa-arrow-left" aria-hidden="true"></i></Link>
