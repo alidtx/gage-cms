@@ -3,65 +3,30 @@
 namespace App\Http\Controllers\Backend;
 
 use App\Http\Controllers\Controller;
-
 use App\Models\ContactSubmission;
-use Illuminate\Http\Request;
+use Illuminate\Http\RedirectResponse;
+use Inertia\Inertia;
+use Inertia\Response;
 
 class ContactSubmissionController extends Controller
 {
-    /**
-     * Display a listing of the resource.
-     */
-    public function index()
+    public function index(): Response
     {
-        //
+        return Inertia::render('Backend/ContactSubmission/Index', [
+            'submissions' => ContactSubmission::select(['id', 'full_name', 'email_address', 'subject', 'created_at'])
+                ->latest('id')->paginate(15),
+        ]);
     }
 
-    /**
-     * Show the form for creating a new resource.
-     */
-    public function create()
+    public function show(ContactSubmission $contactSubmission): Response
     {
-        //
+        return Inertia::render('Backend/ContactSubmission/Show', ['submission' => $contactSubmission]);
     }
 
-    /**
-     * Store a newly created resource in storage.
-     */
-    public function store(Request $request)
+    public function destroy(ContactSubmission $contactSubmission): RedirectResponse
     {
-        //
-    }
+        $contactSubmission->delete();
 
-    /**
-     * Display the specified resource.
-     */
-    public function show(ContactSubmission $contactSubmission)
-    {
-        //
-    }
-
-    /**
-     * Show the form for editing the specified resource.
-     */
-    public function edit(ContactSubmission $contactSubmission)
-    {
-        //
-    }
-
-    /**
-     * Update the specified resource in storage.
-     */
-    public function update(Request $request, ContactSubmission $contactSubmission)
-    {
-        //
-    }
-
-    /**
-     * Remove the specified resource from storage.
-     */
-    public function destroy(ContactSubmission $contactSubmission)
-    {
-        //
+        return to_route('backend.contact-submissions.index');
     }
 }

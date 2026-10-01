@@ -2,9 +2,12 @@
 
 namespace App\Models;
 
+use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
 class ContactSubmission extends Model
 {
-    //
+    use HasFactory;
+
+    protected $fillable = ['full_name', 'email_address', 'phone_number', 'subject', 'message'];
 }

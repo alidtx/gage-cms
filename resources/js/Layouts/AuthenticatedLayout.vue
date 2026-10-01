@@ -126,6 +126,9 @@ const markAllAsRead = () => {
                     <i class="fas fa-building w-5" aria-hidden="true"></i>
                     <span>Entity</span>
                 </Link>
+                <Link :href="route('backend.contact-submissions.index')" class="sidebar-item flex items-center space-x-3 px-4 py-3 rounded-lg text-gray-300 transition-colors">
+                    <i class="fas fa-envelope w-5" aria-hidden="true"></i><span>Contact Form</span>
+                </Link>
                 <!-- <Link :href="route('backend.island-reach-location.index')"
                     class="sidebar-item flex items-center space-x-3 px-4 py-3 rounded-lg text-gray-300 transition-colors">
                     <i class="fas fa-building w-5" aria-hidden="true"></i>

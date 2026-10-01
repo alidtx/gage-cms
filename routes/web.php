@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\Backend\BasicSeoController;
+use App\Http\Controllers\Backend\ContactSubmissionController;
 use App\Http\Controllers\Backend\EntityController;
 use App\Http\Controllers\Backend\GlobalSettingController;
 use App\Http\Controllers\Backend\IslandReachSettingController;
@@ -10,6 +11,7 @@ use App\Http\Controllers\Backend\PageContentController;
 use App\Http\Controllers\Backend\ProfileController;
 use App\Http\Controllers\Backend\SiteMapController;
 use App\Http\Controllers\Backend\SocialLinkController;
+use App\Http\Controllers\ContactFormController;
 use Illuminate\Foundation\Application;
 use Illuminate\Support\Facades\Route;
 use Inertia\Inertia;
@@ -26,6 +28,9 @@ Route::get('/', function () {
 Route::get('/dashboard', function () {
     return Inertia::render('Dashboard');
 })->middleware(['auth', 'verified'])->name('dashboard');
+
+Route::get('/contact', [ContactFormController::class, 'create'])->name('contact.create');
+Route::post('/contact', [ContactFormController::class, 'store'])->middleware('throttle:5,1')->name('contact.store');
 
 // Backend routes
 Route::get('/sitemap.xml', [SiteMapController::class, 'xml'])->name('sitemap.xml');
@@ -80,6 +85,7 @@ Route::middleware('auth')
         Route::get('/entities/{entity}/image', [EntityController::class, 'image'])->name('entities.image');
         Route::patch('/entities/{entity}/active', [EntityController::class, 'toggleActive'])->name('entities.active');
         Route::resource('entities', EntityController::class)->only(['index', 'edit', 'store', 'update', 'destroy']);
+        Route::resource('contact-submissions', ContactSubmissionController::class)->parameters(['contact-submissions' => 'contactSubmission'])->only(['index', 'show', 'destroy']);
         Route::get('/pages/{pageContent}/image', [PageContentController::class, 'image'])->name('pages.image');
         Route::patch('/pages/{pageContent}/active', [PageContentController::class, 'toggleActive'])->name('pages.active');
         Route::resource('pages', PageContentController::class)->parameters(['pages' => 'pageContent'])->only(['index', 'edit', 'store', 'update', 'destroy']);
