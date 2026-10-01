@@ -14,6 +14,44 @@ class EntityTest extends TestCase
 {
     use RefreshDatabase;
 
+    public function test_service_details_images_replacement_and_removal_are_saved(): void
+    {
+        Storage::fake('public');
+        $entity = Entity::factory()->create();
+        $this->actingAs(User::factory()->create());
+        $service = ['badge' => 'CORE SERVICE', 'title' => 'Security Systems', 'description' => 'Protection for your property.', 'features' => ['CCTV', 'Access control']];
+        $data = ['name' => $entity->name, 'slug' => $entity->slug, 'category' => $entity->category, '_method' => 'put'];
+        $this->post('/backend/entities/'.$entity->id, [...$data, 'content' => json_encode(['services' => [$service]]),
+            'service_images' => [UploadedFile::fake()->image('service.png')]])->assertSessionHasNoErrors();
+        $saved = $entity->fresh()->content['services'][0];
+        $this->assertSame($service['features'], $saved['features']);
+        $this->assertSame($service['title'], $saved['title']);
+        $oldPath = substr($saved['image'], strlen('/storage/'));
+        Storage::disk('public')->assertExists($oldPath);
+        $this->post('/backend/entities/'.$entity->id, [...$data, 'content' => json_encode(['services' => [$saved]])])->assertSessionHasNoErrors();
+        Storage::disk('public')->assertExists($oldPath);
+        $this->post('/backend/entities/'.$entity->id, [...$data, 'content' => json_encode(['services' => [$saved]]),
+            'service_images' => [UploadedFile::fake()->image('replacement.jpg')]])->assertSessionHasNoErrors();
+        Storage::disk('public')->assertMissing($oldPath);
+        $newPath = substr($entity->fresh()->content['services'][0]['image'], strlen('/storage/'));
+        Storage::disk('public')->assertExists($newPath);
+        $this->post('/backend/entities/'.$entity->id, [...$data, 'content' => json_encode(['services' => []])])->assertSessionHasNoErrors();
+        Storage::disk('public')->assertMissing($newPath);
+        $this->assertSame([], $entity->fresh()->content['services']);
+    }
+
+    public function test_invalid_service_details_and_image_are_rejected(): void
+    {
+        Storage::fake('public');
+        $entity = Entity::factory()->create();
+        $this->actingAs(User::factory()->create())->post('/backend/entities/'.$entity->id, [
+            '_method' => 'put', 'name' => $entity->name, 'slug' => $entity->slug, 'category' => $entity->category,
+            'content' => json_encode(['services' => [['title' => '', 'features' => ['']]]]),
+            'service_images' => [UploadedFile::fake()->create('bad.svg', 10, 'image/svg+xml')],
+        ])->assertSessionHasErrors(['content.services.0.title', 'content.services.0.features.0', 'service_images.0']);
+        $this->assertSame([], Storage::disk('public')->allFiles());
+    }
+
     public function test_create_edit_and_save_content_and_metadata(): void
     {
         $this->actingAs(User::factory()->create())->post('/backend/entities', [

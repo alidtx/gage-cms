@@ -8,14 +8,16 @@ import { computed, ref } from 'vue';
 import { toast } from 'vue3-toastify';
 
 const props = defineProps({ entity: Object, categories: Array });
+let nextServiceKey = 0;
 const copy = value => JSON.parse(JSON.stringify(value));
 function contentDefaults(value) {
-    const data = copy(value || {});
+    const data = copy(value && !Array.isArray(value) ? value : {});
     data.hero = { title_line_1: '', title_highlight: '', subtitle: '', ...data.hero };
     data.hero.badge = { text: '', icon: '', ...data.hero.badge };
     data.hero.primary_cta = { text: '', href: '', ...data.hero.primary_cta };
     data.hero.trust_badges ??= [];
-    for (const field of ['sections', 'team', 'partners']) data[field] ??= [];
+    for (const field of ['sections', 'services', 'team', 'partners']) data[field] ??= [];
+    data.services.forEach(service => { service._key = ++nextServiceKey; });
     data.contact = { phone: '', email: '', address: '', facebook: '', linkedin: '', instagram: '', ...data.contact };
     return data;
 }
@@ -27,16 +29,20 @@ const form = useForm({
     image: null,
 });
 const tab = ref('hero');
-const tabs = ['hero', 'sections', 'team', 'partners', 'contact', 'seo', 'raw'];
+const tabs = ['hero', 'service', 'sections', 'team', 'partners', 'contact', 'seo', 'raw'];
 const raw = ref('');
 const rawError = ref('');
 const preview = ref(false);
-const liveJson = computed(() => JSON.stringify(form.content, null, 2));
+const liveJson = computed(() => JSON.stringify(form.content, (key, value) => ['_image', '_key'].includes(key) ? undefined : value, 2));
 const trustBadges = computed({
     get: () => form.content.hero.trust_badges.join(', '),
     set: value => { form.content.hero.trust_badges = value.split(',').map(item => item.trim()).filter(Boolean); },
 });
 function changeTab(next) {
+    if (next === 'raw' && form.content.services.some(service => service._image)) {
+        toast.error('Save your uploaded service images before editing Raw JSON.');
+        return;
+    }
     if (tab.value === 'raw' && next !== 'raw' && !applyJson()) return;
     if (next === 'raw') raw.value = liveJson.value;
     tab.value = next;
@@ -48,8 +54,14 @@ function applyJson() {
         for (const key of ['hero', 'contact']) {
             if (value[key] !== undefined && (!value[key] || typeof value[key] !== 'object' || Array.isArray(value[key]))) throw new Error(key + ' must be an object.');
         }
-        for (const key of ['sections', 'team', 'partners']) {
+        for (const key of ['sections', 'services', 'team', 'partners']) {
             if (value[key] !== undefined && (!Array.isArray(value[key]) || value[key].some(item => !item || typeof item !== 'object' || Array.isArray(item)))) throw new Error(key + ' must be an array of objects.');
+        }
+        for (const service of value.services || []) {
+            if (service.features !== undefined && (!Array.isArray(service.features) || service.features.some(feature => typeof feature !== 'string'))) throw new Error('Service features must be a list of text.');
+            for (const key of ['title', 'badge', 'description', 'image']) {
+                if (service[key] != null && typeof service[key] !== 'string') throw new Error('Service ' + key + ' must be text.');
+            }
         }
         for (const section of value.sections || []) {
             if (section.items !== undefined && (!Array.isArray(section.items) || section.items.some(item => !item || typeof item !== 'object' || Array.isArray(item)))) throw new Error('Section items must be objects.');
@@ -68,13 +80,16 @@ function applyJson() {
 }
 function save() {
     if (form.processing || (tab.value === 'raw' && !applyJson())) return;
-    form.transform(data => ({ ...data, _method: 'put', content: JSON.stringify(data.content), meta: JSON.stringify(data.meta) }))
+    form.transform(data => ({ ...data, _method: 'put', content: liveJson.value, meta: JSON.stringify(data.meta),
+        service_images: Object.fromEntries(data.content.services.map((service, index) => [index, service._image]).filter(([, file]) => file instanceof File)),
+    }))
         .post(route('backend.entities.update', props.entity.id), {
             forceFormData: true, preserveScroll: true,
-            onSuccess: () => { form.image = null; form.defaults(); toast.success('Entity saved.'); },
+            onSuccess: () => { form.image = null; form.content = contentDefaults(props.entity.content); form.defaults(); toast.success('Entity saved.'); },
             onError: () => toast.error('Please check the highlighted errors.'),
         });
 }
+function addService() { form.content.services.push({ _key: ++nextServiceKey, badge: 'CORE SERVICE', title: '', description: '', features: [], image: '' }); }
 function move(items, index, offset) {
     const target = index + offset;
     if (target < 0 || target >= items.length) return;
@@ -125,6 +140,22 @@ function showPreview() {
                                 <div class="bg-gray-50 rounded-xl border border-gray-200 p-4 grid sm:grid-cols-2 gap-4"><Field v-model="form.content.hero.primary_cta.text" label="Primary CTA text" /><Field v-model="form.content.hero.primary_cta.href" label="Primary CTA link" /></div>
                                 <Field v-model="trustBadges" label="Trust badges (comma-separated)" />
                                 <div><p class="text-sm font-medium text-gray-700 mb-2">Background Image</p><ImageUpload v-model="form.image" :current-url="entity.image_url" :error="form.errors.image" helper-text="JPG, PNG, WebP or GIF, up to 5 MB" /></div>
+                            </template>
+                            <template v-else-if="tab === 'service'">
+                                <div class="flex items-center justify-between gap-4">
+                                    <p class="text-sm text-gray-500">Services offered by this entity.</p>
+                                    <button type="button" @click="addService" class="text-blue-600 text-sm font-semibold">+ Add Service</button>
+                                </div>
+                                <div v-for="(service, index) in form.content.services" :key="service._key" class="border border-gray-200 rounded-xl p-4 space-y-4">
+                                    <div class="flex justify-between items-center gap-3"><h4 class="font-semibold text-gray-800">Service {{ String(index + 1).padStart(2, '0') }}</h4><div class="flex gap-3 text-sm"><button type="button" :disabled="index === 0" @click="move(form.content.services, index, -1)" class="disabled:opacity-30" aria-label="Move service up">↑</button><button type="button" :disabled="index === form.content.services.length - 1" @click="move(form.content.services, index, 1)" class="disabled:opacity-30" aria-label="Move service down">↓</button><button type="button" @click="form.content.services.splice(index, 1)" class="text-red-500">Remove</button></div></div>
+                                    <ImageUpload v-model="service._image" :current-url="service.image || null" :error="form.errors['service_images.' + index]" accepted-type="image/jpeg,image/png,image/webp,image/gif" helper-text="Service image: JPG, PNG, WebP or GIF, up to 5 MB" />
+                                    <div class="grid sm:grid-cols-2 gap-4"><Field v-model="service.badge" label="Badge (e.g. CORE SERVICE)" /><Field v-model="service.title" label="Service title" /></div>
+                                    <Field v-model="service.description" label="Description" multiline />
+                                    <div class="space-y-2"><div class="flex justify-between text-sm"><span class="font-medium text-gray-700">Features</span><button type="button" @click="(service.features ??= []).push('')" class="text-blue-600">+ Add Feature</button></div>
+                                        <div v-for="(feature, featureIndex) in service.features" :key="featureIndex" class="flex items-center gap-2"><span class="text-red-500" aria-hidden="true">✓</span><input v-model="service.features[featureIndex]" :aria-label="'Feature ' + (featureIndex + 1)" maxlength="500" class="flex-1 min-w-0 border-gray-200 rounded-lg text-sm" /><button type="button" @click="service.features.splice(featureIndex, 1)" :aria-label="'Remove feature ' + (featureIndex + 1)" class="text-red-500">×</button></div>
+                                    </div>
+                                </div>
+                                <p v-if="!form.content.services.length" class="py-6 text-center text-gray-400 text-sm">No services yet. Add your first service above.</p>
                             </template>
                             <template v-else-if="tab === 'sections'">
                                 <div class="flex justify-between gap-4 items-center"><p class="text-sm text-gray-500">Dynamic content sections for this entity.</p><button type="button" @click="form.content.sections.push({ key: '', type: 'cards', title: '', subtitle: '', items: [] })" class="text-sm text-blue-600 font-semibold">+ Add Section</button></div>
@@ -180,6 +211,12 @@ function showPreview() {
                 <p class="text-sm text-gray-500">{{ form.content.hero.badge.text }}</p><h2 class="text-3xl font-bold">{{ form.content.hero.title_line_1 }} <span :style="{ color: /^#[0-9a-f]{6}$/i.test(form.meta.primary_color) ? form.meta.primary_color : '#2563eb' }">{{ form.content.hero.title_highlight }}</span></h2><p>{{ form.content.hero.subtitle }}</p>
                 <span v-if="form.content.hero.primary_cta.text" class="inline-block rounded-xl bg-blue-600 text-white px-4 py-2">{{ form.content.hero.primary_cta.text }}</span>
                 <div v-for="(section, index) in form.content.sections" :key="index" class="border-t pt-4"><h3 class="text-xl font-semibold">{{ section.title }}</h3><p>{{ section.subtitle }}</p><div v-for="(item, i) in section.items" :key="i" class="mt-3"><h4 class="font-medium">{{ item.title }}</h4><p class="text-gray-600">{{ item.description }}</p></div></div>
+                <section v-for="(service, index) in form.content.services" :key="service._key" class="border-t pt-6 space-y-4">
+                    <img v-if="service.image" :src="service.image" :alt="service.title" class="w-full max-h-64 object-cover rounded-xl" />
+                    <div class="flex justify-between items-center"><span class="rounded-full bg-red-50 text-red-600 px-4 py-1 text-sm">{{ service.badge }}</span><span class="text-4xl text-red-200">{{ String(index + 1).padStart(2, '0') }}</span></div>
+                    <h3 class="text-3xl font-bold text-gray-900">{{ service.title }}</h3><p class="text-gray-600 whitespace-pre-line">{{ service.description }}</p>
+                    <ul class="space-y-2"><li v-for="(feature, featureIndex) in service.features" :key="featureIndex" class="flex gap-3 text-gray-600"><span class="text-red-600">✓</span>{{ feature }}</li></ul>
+                </section>
                 <div v-if="form.content.team.length" class="border-t pt-4"><h3 class="font-semibold">Team</h3><p v-for="(member, i) in form.content.team" :key="i">{{ member.name }} — {{ member.role }}</p></div>
                 <div v-if="form.content.partners.length" class="border-t pt-4"><h3 class="font-semibold">Partners</h3><p>{{ form.content.partners.map(partner => partner.name).join(', ') }}</p></div>
                 <div class="border-t pt-4"><p>{{ form.content.contact.phone }} {{ form.content.contact.email }}</p><p>{{ form.content.contact.address }}</p></div>
