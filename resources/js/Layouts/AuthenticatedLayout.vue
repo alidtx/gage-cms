@@ -2,7 +2,7 @@
 import { ref, onMounted, onUnmounted } from 'vue';
 import { Link } from '@inertiajs/vue3';
 
-const openDropdown = ref(route().current('backend.sitemap.*') ? 'content' : null);
+const openDropdown = ref(route().current('backend.sitemap.*') || route().current('backend.pages.*') ? 'content' : null);
 
 const toggleDropdown = (key) => {
     openDropdown.value = openDropdown.value === key ? null : key;
@@ -147,11 +147,11 @@ const markAllAsRead = () => {
                             :class="{ 'rotate-90': isOpen('content') }"></i>
                     </button>
                     <div class="dropdown-panel" :class="{ 'open': isOpen('content') }">
-                        <a href="#pages"
+                        <Link :href="route('backend.pages.index')"
                             class="sub-item flex items-center space-x-3 px-4 py-2.5 rounded-lg text-gray-400 text-sm transition-colors">
                             <i class="fas fa-file-alt w-4"></i>
                             <span>All Pages</span>
-                        </a>  
+                        </Link>
                     </div>
                 </div>
 

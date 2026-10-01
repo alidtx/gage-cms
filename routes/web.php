@@ -6,9 +6,9 @@ use App\Http\Controllers\Backend\GlobalSettingController;
 use App\Http\Controllers\Backend\IslandReachSettingController;
 use App\Http\Controllers\Backend\NewsCategoryController;
 use App\Http\Controllers\Backend\NewsController;
+use App\Http\Controllers\Backend\PageContentController;
 use App\Http\Controllers\Backend\ProfileController;
 use App\Http\Controllers\Backend\SiteMapController;
-use App\Http\Controllers\Backend\SocialAnalyticController;
 use App\Http\Controllers\Backend\SocialLinkController;
 use Illuminate\Foundation\Application;
 use Illuminate\Support\Facades\Route;
@@ -80,6 +80,9 @@ Route::middleware('auth')
         Route::get('/entities/{entity}/image', [EntityController::class, 'image'])->name('entities.image');
         Route::patch('/entities/{entity}/active', [EntityController::class, 'toggleActive'])->name('entities.active');
         Route::resource('entities', EntityController::class)->only(['index', 'edit', 'store', 'update', 'destroy']);
+        Route::get('/pages/{pageContent}/image', [PageContentController::class, 'image'])->name('pages.image');
+        Route::patch('/pages/{pageContent}/active', [PageContentController::class, 'toggleActive'])->name('pages.active');
+        Route::resource('pages', PageContentController::class)->parameters(['pages' => 'pageContent'])->only(['index', 'edit', 'store', 'update', 'destroy']);
         Route::post('/news-category', [NewsCategoryController::class, 'store'])->name('news-category.store');
         Route::put('/news-category/{newsCategory}', [NewsCategoryController::class, 'update'])->name('news-category.update');
         Route::delete('/news-category/{newsCategory}', [NewsCategoryController::class, 'destroy'])->name('news-category.destroy');
@@ -115,4 +118,4 @@ Route::prefix('frontend')
         // Other frontend routes...
     });
 
-require __DIR__ . '/auth.php';
+require __DIR__.'/auth.php';
