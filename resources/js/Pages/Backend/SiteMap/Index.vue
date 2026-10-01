@@ -123,7 +123,7 @@ function save(regenerate = false) {
                     </button>
                 </div>
             </form>
-            <p class="mt-4 text-sm text-gray-500">Only pages with public URLs are included. Categories showing zero pages are ready for future content. Inclusion does not guarantee search-engine indexing.</p>
+            <!-- <p class="mt-4 text-sm text-gray-500">Only pages with public URLs are included. Categories showing zero pages are ready for future content. Inclusion does not guarantee search-engine indexing.</p> -->
         </div>
     </AuthenticatedLayout>
 </template>
