@@ -110,7 +110,7 @@ const markAllAsRead = () => {
                     <i class="fas fa-chart-pie w-5"></i>
                     <span>Dashboard</span>
                 </Link>
-                 <!-- <Link :href="route('backend.news-category.index')"
+                 <Link :href="route('backend.news-category.index')"
                     class="sidebar-item flex items-center space-x-3 px-4 py-3 rounded-lg text-gray-300 transition-colors">
                     <i class="fas fa-newspaper w-5"></i>
                     <span>News Category</span>
@@ -119,7 +119,7 @@ const markAllAsRead = () => {
                     class="sidebar-item flex items-center space-x-3 px-4 py-3 rounded-lg text-gray-300 transition-colors">
                     <i class="fas fa-newspaper w-5"></i>
                     <span>News</span>
-                </Link> -->
+                </Link>
                 <!-- <Link :href="route('backend.entities.index')"
                     class="sidebar-item flex items-center space-x-3 px-4 py-3 rounded-lg text-gray-300 transition-colors">
                     <i class="fas fa-building w-5" aria-hidden="true"></i>
