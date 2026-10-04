@@ -3,12 +3,13 @@ import AuthenticatedLayout from '@/Layouts/AuthenticatedLayout.vue';
 import Modal from '@/Components/Modal.vue';
 import InputError from '@/Components/InputError.vue';
 import { Head, Link, router, useForm } from '@inertiajs/vue3';
-import { ref } from 'vue';
+import { ref, onMounted } from 'vue';
 import { toast } from 'vue3-toastify';
 const props = defineProps({ entities: Object, categories: Array, stats: Object, filters: Object });
 const search = ref(props.filters.search ?? '');
 const category = ref(props.filters.category ?? '');
 const creating = ref(false);
+onMounted(() => { creating.value = new URLSearchParams(window.location.search).get('create') === '1'; });
 const action = useForm({});
 const form = useForm({ name: '', slug: '', category: 'security' });
 const cards = [

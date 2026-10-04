@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\Backend\BasicSeoController;
 use App\Http\Controllers\Backend\ContactSubmissionController;
+use App\Http\Controllers\Backend\DashboardController;
 use App\Http\Controllers\Backend\EntityController;
 use App\Http\Controllers\Backend\GlobalSettingController;
 use App\Http\Controllers\Backend\IslandReachSettingController;
@@ -25,9 +26,7 @@ Route::get('/', function () {
     ]);
 });
 
-Route::get('/dashboard', function () {
-    return Inertia::render('Dashboard');
-})->middleware(['auth', 'verified'])->name('dashboard');
+Route::get('/dashboard', [DashboardController::class, 'index'])->middleware(['auth', 'verified'])->name('dashboard');
 
 Route::get('/contact', [ContactFormController::class, 'create'])->name('contact.create');
 Route::post('/contact', [ContactFormController::class, 'store'])->middleware('throttle:5,1')->name('contact.store');
