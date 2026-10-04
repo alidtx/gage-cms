@@ -14,6 +14,22 @@ class EntityTest extends TestCase
 {
     use RefreshDatabase;
 
+    public function test_custom_section_and_item_fields_can_be_saved_updated_and_removed(): void
+    {
+        $entity = Entity::factory()->create();
+        $this->actingAs(User::factory()->create());
+        $data = ['name' => $entity->name, 'slug' => $entity->slug, 'category' => $entity->category];
+        $sections = [['key' => 'services', 'title' => 'Services', 'button_label' => 'Learn more', 'columns' => 3,
+            'items' => [['title' => 'Support', 'price' => 25, 'available' => false, 'note' => 'Any time']]]];
+        $this->put('/backend/entities/'.$entity->id, [...$data, 'content' => json_encode(['sections' => $sections])])->assertSessionHasNoErrors();
+        $this->assertSame($sections, $entity->fresh()->content['sections']);
+        $sections[0]['columns'] = 2;
+        $sections[0]['items'][0]['available'] = true;
+        unset($sections[0]['button_label'], $sections[0]['items'][0]['price']);
+        $this->put('/backend/entities/'.$entity->id, [...$data, 'content' => json_encode(['sections' => $sections])])->assertSessionHasNoErrors();
+        $this->assertSame($sections, $entity->fresh()->content['sections']);
+    }
+
     public function test_service_details_images_replacement_and_removal_are_saved(): void
     {
         Storage::fake('public');

@@ -3,6 +3,7 @@ import AuthenticatedLayout from '@/Layouts/AuthenticatedLayout.vue';
 import ImageUpload from '@/Components/ImageUpload.vue';
 import Modal from '@/Components/Modal.vue';
 import Field from './EntityField.vue';
+import CustomFields from '../PageContent/CustomFields.vue';
 import { Head, Link, useForm } from '@inertiajs/vue3';
 import { computed, ref } from 'vue';
 import { toast } from 'vue3-toastify';
@@ -162,9 +163,11 @@ function showPreview() {
                                 <div v-for="(section, index) in form.content.sections" :key="index" class="border border-gray-200 rounded-xl p-4 bg-gray-50 space-y-3">
                                     <div class="flex items-center justify-between"><h4 class="font-semibold text-gray-700">{{ section.title || 'New section' }}</h4><div class="flex gap-3"><button type="button" :disabled="index === 0" @click="move(form.content.sections, index, -1)" aria-label="Move section up" class="disabled:opacity-30">↑</button><button type="button" :disabled="index === form.content.sections.length - 1" @click="move(form.content.sections, index, 1)" aria-label="Move section down" class="disabled:opacity-30">↓</button><button type="button" @click="form.content.sections.splice(index, 1)" class="text-red-500 text-sm">Delete</button></div></div>
                                     <div class="grid sm:grid-cols-2 gap-3"><Field v-model="section.key" label="Key" /><Field v-model="section.type" label="Type" /><Field v-model="section.title" label="Title" /><Field v-model="section.subtitle" label="Subtitle" /></div>
+                                    <CustomFields v-model="form.content.sections[index]" :reserved="['key', 'type', 'title', 'subtitle', 'items']" />
                                     <div class="border-t border-gray-200 pt-3"><div class="flex justify-between text-sm"><span>Items ({{ section.items?.length || 0 }})</span><button type="button" @click="(section.items ??= []).push({ title: '', icon: '', description: '' })" class="text-blue-600">+ Add Item</button></div>
                                         <div v-for="(item, itemIndex) in section.items" :key="itemIndex" class="bg-white rounded-lg border border-gray-200 p-3 mt-3 space-y-2">
                                             <div class="grid sm:grid-cols-2 gap-2"><Field v-model="item.title" label="Title" /><Field v-model="item.icon" label="Icon" /></div><Field v-model="item.description" label="Short description" />
+                                            <CustomFields v-model="section.items[itemIndex]" :reserved="['title', 'icon', 'description']" />
                                             <div class="flex justify-end gap-3 text-xs"><button type="button" @click="move(section.items, itemIndex, -1)" :disabled="itemIndex === 0">Move up</button><button type="button" @click="move(section.items, itemIndex, 1)" :disabled="itemIndex === section.items.length - 1">Move down</button><button type="button" @click="section.items.splice(itemIndex, 1)" class="text-red-500">Remove item</button></div>
                                         </div>
                                     </div>
