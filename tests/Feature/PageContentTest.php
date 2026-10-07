@@ -14,6 +14,38 @@ class PageContentTest extends TestCase
 {
     use RefreshDatabase;
 
+    public function test_hero_video_upload_preservation_replacement_and_removal(): void
+    {
+        Storage::fake('public');
+        $page = PageContent::factory()->create();
+        $this->actingAs(User::factory()->create());
+        $data = ['name' => $page->name, 'slug' => $page->page, '_method' => 'put'];
+        $this->post('/backend/pages/'.$page->id, [...$data, 'hero_video' => UploadedFile::fake()->create('hero.mp4', 100, 'video/mp4')])->assertSessionHasNoErrors();
+        $url = $page->fresh()->content['hero']['video_url'];
+        $path = substr($url, strlen('/storage/'));
+        Storage::disk('public')->assertExists($path);
+        $this->post('/backend/pages/'.$page->id, [...$data, 'content' => '{}'])->assertSessionHasNoErrors();
+        $this->assertSame($url, $page->fresh()->content['hero']['video_url']);
+        $this->post('/backend/pages/'.$page->id, [...$data, 'hero_video' => UploadedFile::fake()->create('new.webm', 100, 'video/webm')])->assertSessionHasNoErrors();
+        Storage::disk('public')->assertMissing($path);
+        $newPath = substr($page->fresh()->content['hero']['video_url'], strlen('/storage/'));
+        Storage::disk('public')->assertExists($newPath);
+        $this->post('/backend/pages/'.$page->id, [...$data, 'remove_hero_video' => true])->assertSessionHasNoErrors();
+        Storage::disk('public')->assertMissing($newPath);
+        $this->assertArrayNotHasKey('video_url', $page->fresh()->content['hero']);
+    }
+
+    public function test_invalid_or_oversized_hero_videos_are_rejected(): void
+    {
+        Storage::fake('public');
+        $page = PageContent::factory()->create();
+        $this->actingAs(User::factory()->create());
+        foreach ([UploadedFile::fake()->create('bad.txt', 10, 'text/plain'), UploadedFile::fake()->create('large.mp4', 20481, 'video/mp4')] as $file) {
+            $this->post('/backend/pages/'.$page->id, ['_method' => 'put', 'name' => $page->name, 'slug' => $page->page, 'hero_video' => $file])->assertSessionHasErrors('hero_video');
+        }
+        $this->assertSame([], Storage::disk('public')->allFiles());
+    }
+
     public function test_custom_section_and_item_fields_persist_and_can_be_removed(): void
     {
         $page = PageContent::factory()->create();

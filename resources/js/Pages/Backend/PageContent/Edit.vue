@@ -6,7 +6,7 @@ import Field from '../Entity/EntityField.vue';
 import MapPreview from './MapPreview.vue';
 import CustomFields from './CustomFields.vue';
 import { Head, Link, useForm } from '@inertiajs/vue3';
-import { computed, ref } from 'vue';
+import { computed, ref, watch, onUnmounted } from 'vue';
 import { toast } from 'vue3-toastify';
 
 const props = defineProps({ pageContent: Object });
@@ -28,7 +28,35 @@ const form = useForm({
     content: contentDefaults(props.pageContent.content),
     meta: { tagline: '', short_description: '', icon: '🏢', icon_type: 'emoji', primary_color: '#2563eb', secondary_color: '#111827', ...props.pageContent.meta },
     image: null,
+    hero_video: null,
+    remove_hero_video: false,
 });
+const videoInput = ref(null);
+const localVideo = ref(null);
+watch(() => form.hero_video, file => {
+    if (localVideo.value) URL.revokeObjectURL(localVideo.value);
+    localVideo.value = file ? URL.createObjectURL(file) : null;
+});
+onUnmounted(() => { if (localVideo.value) URL.revokeObjectURL(localVideo.value); });
+const videoUrl = computed(() => localVideo.value || (!form.remove_hero_video ? props.pageContent.content?.hero?.video_url : null));
+function selectVideo(event) {
+    const file = event.target.files?.[0];
+    if (!file) return;
+    form.clearErrors('hero_video');
+    if (!['video/mp4', 'video/webm'].includes(file.type) || file.size > 20 * 1024 * 1024) {
+        form.setError('hero_video', 'Choose an MP4 or WebM video up to 20 MB.');
+        event.target.value = '';
+        return;
+    }
+    form.hero_video = file;
+    form.remove_hero_video = false;
+}
+function removeVideo() {
+    form.hero_video = null;
+    form.remove_hero_video = true;
+    form.clearErrors('hero_video');
+    if (videoInput.value) videoInput.value.value = '';
+}
 const tab = ref('hero');
 const tabs = ['hero', 'sections', 'team', 'partners', 'contact', 'maps', 'faq', 'seo', 'raw'];
 const raw = ref('');
@@ -78,7 +106,7 @@ function save() {
     form.transform(data => ({ ...data, _method: 'put', content: JSON.stringify(data.content), meta: JSON.stringify(data.meta) }))
         .post(route('backend.pages.update', props.pageContent.id), {
             forceFormData: true, preserveScroll: true,
-            onSuccess: () => { form.image = null; form.defaults(); toast.success('Page saved.'); },
+            onSuccess: () => { form.image = null; form.hero_video = null; form.remove_hero_video = false; form.content = contentDefaults(props.pageContent.content); if (videoInput.value) videoInput.value.value = ''; form.defaults(); toast.success('Page saved.'); },
             onError: () => toast.error('Please check the highlighted errors.'),
         });
 }
@@ -131,6 +159,15 @@ function showPreview() {
                                 <div class="bg-gray-50 rounded-xl border border-gray-200 p-4 grid sm:grid-cols-2 gap-4"><Field v-model="form.content.hero.primary_cta.text" label="Primary CTA text" /><Field v-model="form.content.hero.primary_cta.href" label="Primary CTA link" /></div>
                                 <Field v-model="trustBadges" label="Trust badges (comma-separated)" />
                                 <div><p class="text-sm font-medium text-gray-700 mb-2">Background Image</p><ImageUpload v-model="form.image" :current-url="pageContent.image_url" :error="form.errors.image" helper-text="JPG, PNG, WebP or GIF, up to 5 MB" /></div>
+                                <div class="space-y-3">
+                                    <label for="hero-video" class="block text-sm font-medium text-gray-700">Background Video</label>
+                                    <video v-if="videoUrl" :src="videoUrl" controls preload="metadata" class="w-full max-h-64 rounded-xl bg-gray-900"></video>
+                                    <input id="hero-video" ref="videoInput" type="file" accept="video/mp4,video/webm" @change="selectVideo" class="block w-full text-sm text-gray-600" />
+                                    <p class="text-xs text-gray-500">MP4 or WebM, up to 20 MB. Save Changes to upload.</p>
+                                    <p v-if="form.errors.hero_video" role="alert" class="text-sm text-red-600">{{ form.errors.hero_video }}</p>
+                                    <button v-if="videoUrl" type="button" @click="removeVideo" class="text-sm text-red-600">Remove video</button>
+                                    <p v-if="form.progress" role="status" class="text-sm text-blue-600">Uploading: {{ form.progress.percentage }}%</p>
+                                </div>
                             </template>
                             <template v-else-if="tab === 'sections'">
                                 <div class="flex justify-between gap-4 items-center"><p class="text-sm text-gray-500">Dynamic content sections for this page.</p><button type="button" @click="form.content.sections.push({ key: '', type: 'cards', title: '', subtitle: '', items: [] })" class="text-sm text-blue-600 font-semibold">+ Add Section</button></div>
@@ -201,7 +238,8 @@ function showPreview() {
         <Modal :show="preview" max-width="2xl" @close="preview = false">
             <div class="p-6 space-y-5">
                 <div class="flex justify-between items-center"><h3 class="font-semibold">Page content preview</h3><button type="button" @click="preview = false" aria-label="Close preview">✕</button></div>
-                <img v-if="pageContent.image_url" :src="pageContent.image_url" alt="" class="w-full max-h-64 object-cover rounded-xl" />
+                <video v-if="videoUrl" :src="videoUrl" :poster="pageContent.image_url || undefined" controls preload="metadata" class="w-full max-h-64 rounded-xl"></video>
+                <img v-else-if="pageContent.image_url" :src="pageContent.image_url" alt="" class="w-full max-h-64 object-cover rounded-xl" />
                 <p class="text-sm text-gray-500">{{ form.content.hero.badge.text }}</p><h2 class="text-3xl font-bold">{{ form.content.hero.title_line_1 }} <span :style="{ color: /^#[0-9a-f]{6}$/i.test(form.meta.primary_color) ? form.meta.primary_color : '#2563eb' }">{{ form.content.hero.title_highlight }}</span></h2><p>{{ form.content.hero.subtitle }}</p>
                 <span v-if="form.content.hero.primary_cta.text" class="inline-block rounded-xl bg-blue-600 text-white px-4 py-2">{{ form.content.hero.primary_cta.text }}</span>
                 <div v-for="(section, index) in form.content.sections" :key="index" class="border-t pt-4"><h3 class="text-xl font-semibold">{{ section.title }}</h3><p>{{ section.subtitle }}</p><div v-for="(item, i) in section.items" :key="i" class="mt-3"><h4 class="font-medium">{{ item.title }}</h4><p class="text-gray-600">{{ item.description }}</p></div></div>
@@ -214,4 +252,3 @@ function showPreview() {
         </Modal>
     </AuthenticatedLayout>
 </template>
-

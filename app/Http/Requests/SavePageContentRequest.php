@@ -38,6 +38,8 @@ class SavePageContentRequest extends FormRequest
             'is_featured' => ['sometimes', 'boolean'],
             'sort_order' => ['sometimes', 'integer', 'min:0', 'max:2147483647'],
             'image' => ['nullable', 'image', 'mimes:jpg,jpeg,png,webp,gif', 'max:5120'],
+            'hero_video' => ['nullable', 'file', 'mimetypes:video/mp4,video/webm', 'max:20480'],
+            'remove_hero_video' => ['sometimes', 'boolean'],
             'content' => ['nullable', 'array'],
             'content.map' => ['sometimes', 'array:name,address,embed_url,directions_url'],
             'content.map.name' => ['nullable', 'string', 'max:255'],
