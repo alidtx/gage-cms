@@ -3,64 +3,55 @@
 namespace App\Http\Controllers\Backend;
 
 use App\Http\Controllers\Controller;
+use App\Http\Requests\SaveServiceRequest;
+use App\Models\Entity;
 use App\Models\Service;
-use Illuminate\Http\Request;
+use App\Services\ServiceManager;
+use Illuminate\Http\RedirectResponse;
+use Illuminate\Support\Facades\Storage;
+use Inertia\Inertia;
+use Inertia\Response;
+use Symfony\Component\HttpFoundation\StreamedResponse;
 
 class ServiceController extends Controller
 {
-    /**
-     * Display a listing of the resource.
-     */
-    public function index()
+    public function index(): Response
     {
-        //
+        return Inertia::render('Backend/Service/Index', [
+            'services' => Service::with('entity:id,name')->latest('id')->paginate(12)->through(fn (Service $service) => [
+                ...$service->toArray(),
+                'image_url' => $service->media_id ? route('backend.services.image', $service, false).'?v='.$service->media_id : null,
+            ]),
+            'entities' => Entity::orderBy('name')->get(['id', 'name']),
+        ]);
     }
 
-    /**
-     * Show the form for creating a new resource.
-     */
-    public function create()
+    public function store(SaveServiceRequest $request, ServiceManager $manager): RedirectResponse
     {
-        //
+        $manager->save(new Service, $request->validated());
+
+        return to_route('backend.services.index');
     }
 
-    /**
-     * Store a newly created resource in storage.
-     */
-    public function store(Request $request)
+    public function update(SaveServiceRequest $request, Service $service, ServiceManager $manager): RedirectResponse
     {
-        //
+        $manager->save($service, $request->validated());
+
+        return to_route('backend.services.index');
     }
 
-    /**
-     * Display the specified resource.
-     */
-    public function show(Service $service)
+    public function destroy(Service $service, ServiceManager $manager): RedirectResponse
     {
-        //
+        $manager->delete($service);
+
+        return to_route('backend.services.index');
     }
 
-    /**
-     * Show the form for editing the specified resource.
-     */
-    public function edit(Service $service)
+    public function image(Service $service): StreamedResponse
     {
-        //
-    }
+        $media = $service->media;
+        abort_unless($media && Storage::exists($media->src), 404);
 
-    /**
-     * Update the specified resource in storage.
-     */
-    public function update(Request $request, Service $service)
-    {
-        //
-    }
-
-    /**
-     * Remove the specified resource from storage.
-     */
-    public function destroy(Service $service)
-    {
-        //
+        return Storage::response($media->src, null, ['Cache-Control' => 'no-store, private']);
     }
 }

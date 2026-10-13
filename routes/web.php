@@ -10,6 +10,7 @@ use App\Http\Controllers\Backend\NewsCategoryController;
 use App\Http\Controllers\Backend\NewsController;
 use App\Http\Controllers\Backend\PageContentController;
 use App\Http\Controllers\Backend\ProfileController;
+use App\Http\Controllers\Backend\ServiceController;
 use App\Http\Controllers\Backend\SiteMapController;
 use App\Http\Controllers\Backend\SocialLinkController;
 use App\Http\Controllers\ContactFormController;
@@ -84,6 +85,8 @@ Route::middleware('auth')
         Route::get('/entities/{entity}/image', [EntityController::class, 'image'])->name('entities.image');
         Route::patch('/entities/{entity}/active', [EntityController::class, 'toggleActive'])->name('entities.active');
         Route::resource('entities', EntityController::class)->only(['index', 'edit', 'store', 'update', 'destroy']);
+        Route::get('/services/{service}/image', [ServiceController::class, 'image'])->name('services.image');
+        Route::resource('services', ServiceController::class)->only(['index', 'store', 'update', 'destroy']);
         Route::resource('contact-submissions', ContactSubmissionController::class)->parameters(['contact-submissions' => 'contactSubmission'])->only(['index', 'show', 'destroy']);
         Route::get('/pages/{pageContent}/image', [PageContentController::class, 'image'])->name('pages.image');
         Route::patch('/pages/{pageContent}/active', [PageContentController::class, 'toggleActive'])->name('pages.active');
