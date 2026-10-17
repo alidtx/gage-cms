@@ -9,7 +9,7 @@
                         </svg>
                     </a>
                     <div class="dropdown-panel">
-                        <a href="{{ route('frontend.home') }}#security">GAGE Security</a>
+                        <a href="{{ route('frontend.gage-security') }}">GAGE Security</a>
                         <a href="{{ route('frontend.home') }}#fire">GAGE Fire Safety</a>
                         <a href="{{ route('frontend.home') }}#institute">GAGE Training Institute</a>
                         <a href="{{ route('frontend.home') }}#technology">GAGE Technology</a>

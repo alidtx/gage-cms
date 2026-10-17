@@ -21,6 +21,7 @@ use Illuminate\Support\Facades\Route;
 Route::get('/', [FrontendController::class, 'home'])->name('frontend.home');
 Route::get('/about', [FrontendController::class, 'about'])->name('frontend.about');
 Route::get('/news', [FrontendController::class, 'news'])->name('frontend.news');
+Route::get('/gage-security', [FrontendController::class, 'gageSecurity'])->name('frontend.gage-security');
 Route::get('/seo-images/{media}', SeoImageController::class)->name('frontend.seo-image');
 
 Route::get('/dashboard', [DashboardController::class, 'index'])->middleware(['auth', 'verified'])->name('dashboard');
