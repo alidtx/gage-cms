@@ -14,9 +14,11 @@ use App\Http\Controllers\Backend\ServiceController;
 use App\Http\Controllers\Backend\SiteMapController;
 use App\Http\Controllers\Backend\SocialLinkController;
 use App\Http\Controllers\ContactFormController;
+use App\Http\Controllers\Frontend\SeoImageController;
 use Illuminate\Support\Facades\Route;
 
 Route::view('/', 'frontend.pages.home')->name('frontend.home');
+Route::get('/seo-images/{media}', SeoImageController::class)->name('frontend.seo-image');
 
 Route::get('/dashboard', [DashboardController::class, 'index'])->middleware(['auth', 'verified'])->name('dashboard');
 

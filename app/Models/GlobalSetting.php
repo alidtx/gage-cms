@@ -22,12 +22,12 @@ class GlobalSetting extends Model
     public function defaultOgImage(): MorphOne
     {
         return $this->morphOne(Media::class, 'fileable')
-            ->where('name', 'Default OG Image');
+            ->where('name', 'Default OG Image')->latest('id');
     }
 
     public function defaultTwitterImage(): MorphOne
     {
         return $this->morphOne(Media::class, 'fileable')
-            ->where('name', 'Default Twitter Image');
+            ->where('name', 'Default Twitter Image')->latest('id');
     }
 }

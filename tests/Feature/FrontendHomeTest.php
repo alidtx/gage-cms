@@ -2,10 +2,13 @@
 
 namespace Tests\Feature;
 
+use Illuminate\Foundation\Testing\RefreshDatabase;
 use Tests\TestCase;
 
 class FrontendHomeTest extends TestCase
 {
+    use RefreshDatabase;
+
     public function test_home_renders_blade_content_and_seo_metadata(): void
     {
         $response = $this->get('/?utm_source=test');

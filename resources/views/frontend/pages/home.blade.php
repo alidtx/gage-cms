@@ -1,6 +1,4 @@
 @extends('frontend.layouts.app')
-@section('title', 'GAGE | Experts in Safety & Security')
-@section('description', 'Security, fire safety, training and technology across the Maldives. GAGE has protected people, properties and businesses since 2010.')
 @section('content')
 @include('frontend.components.hero')
 
