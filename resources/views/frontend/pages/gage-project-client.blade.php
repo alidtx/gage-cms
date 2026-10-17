@@ -80,7 +80,7 @@
                 aria-label="Six Senses Maldives Resort"><input type="radio" name="project-location" id="project-31"
                 class="project-location sr-only" aria-label="Robinson Maldives Resort">
             <div class="project-map relative self-start overflow-hidden rounded-[16px] bg-[#002e40]"><img
-                    src="./public/assets/projects-atoll-map.png"
+                    src="{{ asset('assets/projects-atoll-map.png') }}"
                     alt="Illustrated Maldives atoll map with approximate fire safety project locations"
                     class="block w-full"><label for="project-0" class="project-pin project-pin-0"
                     style="left:45%;top:6%" title="JA Manafaru Resort"><span class="sr-only">JA Manafaru
@@ -376,323 +376,323 @@
             their protection.</p>
         <div class="mt-12 grid grid-cols-2 gap-5 sm:grid-cols-3 lg:grid-cols-6" aria-label="Client logos">
             <div class="flex h-[88px] items-center justify-center rounded-xl border border-[#dfe2e7] bg-white px-5 py-3">
-                <img src="./public/assets/projects-page-3.png" alt="Vakkaru Maldives"
+                <img src="{{ asset('assets/projects-page-3.png') }}" alt="Vakkaru Maldives"
                     class="max-h-full max-w-full object-contain" loading="lazy">
             </div>
             <div class="flex h-[88px] items-center justify-center rounded-xl border border-[#dfe2e7] bg-white px-5 py-3">
-                <img src="./public/assets/projects-page-74.png" alt="Finolhu Villas"
+                <img src="{{ asset('assets/projects-page-74.png') }}" alt="Finolhu Villas"
                     class="max-h-full max-w-full object-contain" loading="lazy">
             </div>
             <div class="flex h-[88px] items-center justify-center rounded-xl border border-[#dfe2e7] bg-white px-5 py-3">
-                <img src="./public/assets/projects-page-2.jpg" alt="Fari Campus"
+                <img src="{{ asset('assets/projects-page-2.jpg') }}" alt="Fari Campus"
                     class="max-h-full max-w-full object-contain" loading="lazy">
             </div>
             <div class="flex h-[88px] items-center justify-center rounded-xl border border-[#dfe2e7] bg-white px-5 py-3">
-                <img src="./public/assets/projects-page-78.png" alt="NOOE Maldives"
+                <img src="{{ asset('assets/projects-page-78.png') }}" alt="NOOE Maldives"
                     class="max-h-full max-w-full object-contain" loading="lazy">
             </div>
             <div class="flex h-[88px] items-center justify-center rounded-xl border border-[#dfe2e7] bg-white px-5 py-3">
-                <img src="./public/assets/projects-page-4.jpg" alt="Outrigger"
+                <img src="{{ asset('assets/projects-page-4.jpg') }}" alt="Outrigger"
                     class="max-h-full max-w-full object-contain" loading="lazy">
             </div>
             <div class="flex h-[88px] items-center justify-center rounded-xl border border-[#dfe2e7] bg-white px-5 py-3">
-                <img src="./public/assets/projects-page-6.jpg" alt="Meliá Whale Lagoon"
+                <img src="{{ asset('assets/projects-page-6.jpg') }}" alt="Meliá Whale Lagoon"
                     class="max-h-full max-w-full object-contain" loading="lazy">
             </div>
             <div class="flex h-[88px] items-center justify-center rounded-xl border border-[#dfe2e7] bg-white px-5 py-3">
-                <img src="./public/assets/projects-page-7.png" alt="JA Manafaru"
+                <img src="{{ asset('assets/projects-page-7.png') }}" alt="JA Manafaru"
                     class="max-h-full max-w-full object-contain" loading="lazy">
             </div>
             <div class="flex h-[88px] items-center justify-center rounded-xl border border-[#dfe2e7] bg-white px-5 py-3">
-                <img src="./public/assets/projects-page-79.png" alt="Cinnamon Velifushi"
+                <img src="{{ asset('assets/projects-page-79.png') }}" alt="Cinnamon Velifushi"
                     class="max-h-full max-w-full object-contain" loading="lazy">
             </div>
             <div class="flex h-[88px] items-center justify-center rounded-xl border border-[#dfe2e7] bg-white px-5 py-3">
-                <img src="./public/assets/projects-page-67.jpg" alt="W Maldives"
+                <img src="{{ asset('assets/projects-page-67.jpg') }}" alt="W Maldives"
                     class="max-h-full max-w-full object-contain" loading="lazy">
             </div>
             <div class="flex h-[88px] items-center justify-center rounded-xl border border-[#dfe2e7] bg-white px-5 py-3">
-                <img src="./public/assets/projects-page-5.jpg" alt="Club Med Kani"
+                <img src="{{ asset('assets/projects-page-5.jpg') }}" alt="Club Med Kani"
                     class="max-h-full max-w-full object-contain" loading="lazy">
             </div>
             <div class="flex h-[88px] items-center justify-center rounded-xl border border-[#dfe2e7] bg-white px-5 py-3">
-                <img src="./public/assets/projects-page-10.png" alt="La Vie"
+                <img src="{{ asset('assets/projects-page-10.png') }}" alt="La Vie"
                     class="max-h-full max-w-full object-contain" loading="lazy">
             </div>
             <div class="flex h-[88px] items-center justify-center rounded-xl border border-[#dfe2e7] bg-white px-5 py-3">
-                <img src="./public/assets/projects-page-8.jpg" alt="You & Me Maldives"
+                <img src="{{ asset('assets/projects-page-8.jpg') }}" alt="You & Me Maldives"
                     class="max-h-full max-w-full object-contain" loading="lazy">
             </div>
             <div class="flex h-[88px] items-center justify-center rounded-xl border border-[#dfe2e7] bg-white px-5 py-3">
-                <img src="./public/assets/projects-page-9.png" alt="Maxx Royal"
+                <img src="{{ asset('assets/projects-page-9.png') }}" alt="Maxx Royal"
                     class="max-h-full max-w-full object-contain" loading="lazy">
             </div>
             <div class="flex h-[88px] items-center justify-center rounded-xl border border-[#dfe2e7] bg-white px-5 py-3">
-                <img src="./public/assets/projects-page-11.png" alt="GAGE client logo"
+                <img src="{{ asset('assets/projects-page-11.png') }}" alt="GAGE client logo"
                     class="max-h-full max-w-full object-contain" loading="lazy">
             </div>
             <div class="flex h-[88px] items-center justify-center rounded-xl border border-[#dfe2e7] bg-white px-5 py-3">
-                <img src="./public/assets/projects-page-56.png" alt="Baglioni"
+                <img src="{{ asset('assets/projects-page-56.png') }}" alt="Baglioni"
                     class="max-h-full max-w-full object-contain" loading="lazy">
             </div>
             <div class="flex h-[88px] items-center justify-center rounded-xl border border-[#dfe2e7] bg-white px-5 py-3">
-                <img src="./public/assets/projects-page-47.jpg" alt="GAGE client logo"
+                <img src="{{ asset('assets/projects-page-47.jpg') }}" alt="GAGE client logo"
                     class="max-h-full max-w-full object-contain" loading="lazy">
             </div>
             <div class="flex h-[88px] items-center justify-center rounded-xl border border-[#dfe2e7] bg-white px-5 py-3">
-                <img src="./public/assets/projects-page-13.jpg" alt="Robinson"
+                <img src="{{ asset('assets/projects-page-13.jpg') }}" alt="Robinson"
                     class="max-h-full max-w-full object-contain" loading="lazy">
             </div>
             <div class="flex h-[88px] items-center justify-center rounded-xl border border-[#dfe2e7] bg-white px-5 py-3">
-                <img src="./public/assets/projects-page-14.png" alt="GAGE client logo"
+                <img src="{{ asset('assets/projects-page-14.png') }}" alt="GAGE client logo"
                     class="max-h-full max-w-full object-contain" loading="lazy">
             </div>
             <div class="flex h-[88px] items-center justify-center rounded-xl border border-[#dfe2e7] bg-white px-5 py-3">
-                <img src="./public/assets/projects-page-15.jpg" alt="GAGE client logo"
+                <img src="{{ asset('assets/projects-page-15.jpg') }}" alt="GAGE client logo"
                     class="max-h-full max-w-full object-contain" loading="lazy">
             </div>
             <div class="flex h-[88px] items-center justify-center rounded-xl border border-[#dfe2e7] bg-white px-5 py-3">
-                <img src="./public/assets/projects-page-16.jpg" alt="GAGE client logo"
+                <img src="{{ asset('assets/projects-page-16.jpg') }}" alt="GAGE client logo"
                     class="max-h-full max-w-full object-contain" loading="lazy">
             </div>
             <div class="flex h-[88px] items-center justify-center rounded-xl border border-[#dfe2e7] bg-white px-5 py-3">
-                <img src="./public/assets/projects-page-17.jpg" alt="GAGE client logo"
+                <img src="{{ asset('assets/projects-page-17.jpg') }}" alt="GAGE client logo"
                     class="max-h-full max-w-full object-contain" loading="lazy">
             </div>
             <div class="flex h-[88px] items-center justify-center rounded-xl border border-[#dfe2e7] bg-white px-5 py-3">
-                <img src="./public/assets/projects-page-19.png" alt="GAGE client logo"
+                <img src="{{ asset('assets/projects-page-19.png') }}" alt="GAGE client logo"
                     class="max-h-full max-w-full object-contain" loading="lazy">
             </div>
             <div class="flex h-[88px] items-center justify-center rounded-xl border border-[#dfe2e7] bg-white px-5 py-3">
-                <img src="./public/assets/projects-page-45.jpg" alt="GAGE client logo"
+                <img src="{{ asset('assets/projects-page-45.jpg') }}" alt="GAGE client logo"
                     class="max-h-full max-w-full object-contain" loading="lazy">
             </div>
             <div class="flex h-[88px] items-center justify-center rounded-xl border border-[#dfe2e7] bg-white px-5 py-3">
-                <img src="./public/assets/projects-page-20.png" alt="GAGE client logo"
+                <img src="{{ asset('assets/projects-page-20.png') }}" alt="GAGE client logo"
                     class="max-h-full max-w-full object-contain" loading="lazy">
             </div>
             <div class="flex h-[88px] items-center justify-center rounded-xl border border-[#dfe2e7] bg-white px-5 py-3">
-                <img src="./public/assets/projects-page-21.jpg" alt="GAGE client logo"
+                <img src="{{ asset('assets/projects-page-21.jpg') }}" alt="GAGE client logo"
                     class="max-h-full max-w-full object-contain" loading="lazy">
             </div>
             <div class="flex h-[88px] items-center justify-center rounded-xl border border-[#dfe2e7] bg-white px-5 py-3">
-                <img src="./public/assets/projects-page-22.jpg" alt="GAGE client logo"
+                <img src="{{ asset('assets/projects-page-22.jpg') }}" alt="GAGE client logo"
                     class="max-h-full max-w-full object-contain" loading="lazy">
             </div>
             <div class="flex h-[88px] items-center justify-center rounded-xl border border-[#dfe2e7] bg-white px-5 py-3">
-                <img src="./public/assets/projects-page-24.png" alt="GAGE client logo"
+                <img src="{{ asset('assets/projects-page-24.png') }}" alt="GAGE client logo"
                     class="max-h-full max-w-full object-contain" loading="lazy">
             </div>
             <div class="flex h-[88px] items-center justify-center rounded-xl border border-[#dfe2e7] bg-white px-5 py-3">
-                <img src="./public/assets/projects-page-25.png" alt="GAGE client logo"
+                <img src="{{ asset('assets/projects-page-25.png') }}" alt="GAGE client logo"
                     class="max-h-full max-w-full object-contain" loading="lazy">
             </div>
             <div class="flex h-[88px] items-center justify-center rounded-xl border border-[#dfe2e7] bg-white px-5 py-3">
-                <img src="./public/assets/projects-page-26.jpg" alt="GAGE client logo"
+                <img src="{{ asset('assets/projects-page-26.jpg') }}" alt="GAGE client logo"
                     class="max-h-full max-w-full object-contain" loading="lazy">
             </div>
             <div class="flex h-[88px] items-center justify-center rounded-xl border border-[#dfe2e7] bg-white px-5 py-3">
-                <img src="./public/assets/projects-page-18.jpg" alt="GAGE client logo"
+                <img src="{{ asset('assets/projects-page-18.jpg') }}" alt="GAGE client logo"
                     class="max-h-full max-w-full object-contain" loading="lazy">
             </div>
             <div class="flex h-[88px] items-center justify-center rounded-xl border border-[#dfe2e7] bg-white px-5 py-3">
-                <img src="./public/assets/projects-page-27.png" alt="GAGE client logo"
+                <img src="{{ asset('assets/projects-page-27.png') }}" alt="GAGE client logo"
                     class="max-h-full max-w-full object-contain" loading="lazy">
             </div>
             <div class="flex h-[88px] items-center justify-center rounded-xl border border-[#dfe2e7] bg-white px-5 py-3">
-                <img src="./public/assets/projects-page-28.jpg" alt="GAGE client logo"
+                <img src="{{ asset('assets/projects-page-28.jpg') }}" alt="GAGE client logo"
                     class="max-h-full max-w-full object-contain" loading="lazy">
             </div>
             <div class="flex h-[88px] items-center justify-center rounded-xl border border-[#dfe2e7] bg-white px-5 py-3">
-                <img src="./public/assets/projects-page-75.jpg" alt="GAGE client logo"
+                <img src="{{ asset('assets/projects-page-75.jpg') }}" alt="GAGE client logo"
                     class="max-h-full max-w-full object-contain" loading="lazy">
             </div>
             <div class="flex h-[88px] items-center justify-center rounded-xl border border-[#dfe2e7] bg-white px-5 py-3">
-                <img src="./public/assets/projects-page-23.png" alt="GAGE client logo"
+                <img src="{{ asset('assets/projects-page-23.png') }}" alt="GAGE client logo"
                     class="max-h-full max-w-full object-contain" loading="lazy">
             </div>
             <div class="flex h-[88px] items-center justify-center rounded-xl border border-[#dfe2e7] bg-white px-5 py-3">
-                <img src="./public/assets/projects-page-34.jpg" alt="GAGE client logo"
+                <img src="{{ asset('assets/projects-page-34.jpg') }}" alt="GAGE client logo"
                     class="max-h-full max-w-full object-contain" loading="lazy">
             </div>
             <div class="flex h-[88px] items-center justify-center rounded-xl border border-[#dfe2e7] bg-white px-5 py-3">
-                <img src="./public/assets/projects-page-48.jpg" alt="GAGE client logo"
+                <img src="{{ asset('assets/projects-page-48.jpg') }}" alt="GAGE client logo"
                     class="max-h-full max-w-full object-contain" loading="lazy">
             </div>
             <div class="flex h-[88px] items-center justify-center rounded-xl border border-[#dfe2e7] bg-white px-5 py-3">
-                <img src="./public/assets/projects-page-76.png" alt="GAGE client logo"
+                <img src="{{ asset('assets/projects-page-76.png') }}" alt="GAGE client logo"
                     class="max-h-full max-w-full object-contain" loading="lazy">
             </div>
             <div class="flex h-[88px] items-center justify-center rounded-xl border border-[#dfe2e7] bg-white px-5 py-3">
-                <img src="./public/assets/projects-page-30.jpg" alt="GAGE client logo"
+                <img src="{{ asset('assets/projects-page-30.jpg') }}" alt="GAGE client logo"
                     class="max-h-full max-w-full object-contain" loading="lazy">
             </div>
             <div class="flex h-[88px] items-center justify-center rounded-xl border border-[#dfe2e7] bg-white px-5 py-3">
-                <img src="./public/assets/projects-page-31.png" alt="GAGE client logo"
+                <img src="{{ asset('assets/projects-page-31.png') }}" alt="GAGE client logo"
                     class="max-h-full max-w-full object-contain" loading="lazy">
             </div>
             <div class="flex h-[88px] items-center justify-center rounded-xl border border-[#dfe2e7] bg-white px-5 py-3">
-                <img src="./public/assets/projects-page-29.png" alt="GAGE client logo"
+                <img src="{{ asset('assets/projects-page-29.png') }}" alt="GAGE client logo"
                     class="max-h-full max-w-full object-contain" loading="lazy">
             </div>
             <div class="flex h-[88px] items-center justify-center rounded-xl border border-[#dfe2e7] bg-white px-5 py-3">
-                <img src="./public/assets/projects-page-32.png" alt="GAGE client logo"
+                <img src="{{ asset('assets/projects-page-32.png') }}" alt="GAGE client logo"
                     class="max-h-full max-w-full object-contain" loading="lazy">
             </div>
             <div class="flex h-[88px] items-center justify-center rounded-xl border border-[#dfe2e7] bg-white px-5 py-3">
-                <img src="./public/assets/projects-page-33.jpg" alt="GAGE client logo"
+                <img src="{{ asset('assets/projects-page-33.jpg') }}" alt="GAGE client logo"
                     class="max-h-full max-w-full object-contain" loading="lazy">
             </div>
             <div class="flex h-[88px] items-center justify-center rounded-xl border border-[#dfe2e7] bg-white px-5 py-3">
-                <img src="./public/assets/projects-page-35.jpg" alt="GAGE client logo"
+                <img src="{{ asset('assets/projects-page-35.jpg') }}" alt="GAGE client logo"
                     class="max-h-full max-w-full object-contain" loading="lazy">
             </div>
             <div class="flex h-[88px] items-center justify-center rounded-xl border border-[#dfe2e7] bg-white px-5 py-3">
-                <img src="./public/assets/projects-page-36.png" alt="GAGE client logo"
+                <img src="{{ asset('assets/projects-page-36.png') }}" alt="GAGE client logo"
                     class="max-h-full max-w-full object-contain" loading="lazy">
             </div>
             <div class="flex h-[88px] items-center justify-center rounded-xl border border-[#dfe2e7] bg-white px-5 py-3">
-                <img src="./public/assets/projects-page-37.png" alt="GAGE client logo"
+                <img src="{{ asset('assets/projects-page-37.png') }}" alt="GAGE client logo"
                     class="max-h-full max-w-full object-contain" loading="lazy">
             </div>
             <div class="flex h-[88px] items-center justify-center rounded-xl border border-[#dfe2e7] bg-white px-5 py-3">
-                <img src="./public/assets/projects-page-38.png" alt="GAGE client logo"
+                <img src="{{ asset('assets/projects-page-38.png') }}" alt="GAGE client logo"
                     class="max-h-full max-w-full object-contain" loading="lazy">
             </div>
             <div class="flex h-[88px] items-center justify-center rounded-xl border border-[#dfe2e7] bg-white px-5 py-3">
-                <img src="./public/assets/projects-page-39.jpg" alt="GAGE client logo"
+                <img src="{{ asset('assets/projects-page-39.jpg') }}" alt="GAGE client logo"
                     class="max-h-full max-w-full object-contain" loading="lazy">
             </div>
             <div class="flex h-[88px] items-center justify-center rounded-xl border border-[#dfe2e7] bg-white px-5 py-3">
-                <img src="./public/assets/projects-page-40.jpg" alt="GAGE client logo"
+                <img src="{{ asset('assets/projects-page-40.jpg') }}" alt="GAGE client logo"
                     class="max-h-full max-w-full object-contain" loading="lazy">
             </div>
             <div class="flex h-[88px] items-center justify-center rounded-xl border border-[#dfe2e7] bg-white px-5 py-3">
-                <img src="./public/assets/projects-page-1.jpg" alt="GAGE client logo"
+                <img src="{{ asset('assets/projects-page-1.jpg') }}" alt="GAGE client logo"
                     class="max-h-full max-w-full object-contain" loading="lazy">
             </div>
             <div class="flex h-[88px] items-center justify-center rounded-xl border border-[#dfe2e7] bg-white px-5 py-3">
-                <img src="./public/assets/projects-page-12.jpg" alt="GAGE client logo"
+                <img src="{{ asset('assets/projects-page-12.jpg') }}" alt="GAGE client logo"
                     class="max-h-full max-w-full object-contain" loading="lazy">
             </div>
             <div class="flex h-[88px] items-center justify-center rounded-xl border border-[#dfe2e7] bg-white px-5 py-3">
-                <img src="./public/assets/projects-page-41.jpg" alt="GAGE client logo"
+                <img src="{{ asset('assets/projects-page-41.jpg') }}" alt="GAGE client logo"
                     class="max-h-full max-w-full object-contain" loading="lazy">
             </div>
             <div class="flex h-[88px] items-center justify-center rounded-xl border border-[#dfe2e7] bg-white px-5 py-3">
-                <img src="./public/assets/projects-page-0.jpg" alt="GAGE client logo"
+                <img src="{{ asset('assets/projects-page-0.jpg') }}" alt="GAGE client logo"
                     class="max-h-full max-w-full object-contain" loading="lazy">
             </div>
             <div class="flex h-[88px] items-center justify-center rounded-xl border border-[#dfe2e7] bg-white px-5 py-3">
-                <img src="./public/assets/projects-page-42.jpg" alt="GAGE client logo"
+                <img src="{{ asset('assets/projects-page-42.jpg') }}" alt="GAGE client logo"
                     class="max-h-full max-w-full object-contain" loading="lazy">
             </div>
             <div class="flex h-[88px] items-center justify-center rounded-xl border border-[#dfe2e7] bg-white px-5 py-3">
-                <img src="./public/assets/projects-page-43.jpg" alt="GAGE client logo"
+                <img src="{{ asset('assets/projects-page-43.jpg') }}" alt="GAGE client logo"
                     class="max-h-full max-w-full object-contain" loading="lazy">
             </div>
             <div class="flex h-[88px] items-center justify-center rounded-xl border border-[#dfe2e7] bg-white px-5 py-3">
-                <img src="./public/assets/projects-page-44.png" alt="GAGE client logo"
+                <img src="{{ asset('assets/projects-page-44.png') }}" alt="GAGE client logo"
                     class="max-h-full max-w-full object-contain" loading="lazy">
             </div>
             <div class="flex h-[88px] items-center justify-center rounded-xl border border-[#dfe2e7] bg-white px-5 py-3">
-                <img src="./public/assets/projects-page-46.png" alt="GAGE client logo"
+                <img src="{{ asset('assets/projects-page-46.png') }}" alt="GAGE client logo"
                     class="max-h-full max-w-full object-contain" loading="lazy">
             </div>
             <div class="flex h-[88px] items-center justify-center rounded-xl border border-[#dfe2e7] bg-white px-5 py-3">
-                <img src="./public/assets/projects-page-64.jpg" alt="GAGE client logo"
+                <img src="{{ asset('assets/projects-page-64.jpg') }}" alt="GAGE client logo"
                     class="max-h-full max-w-full object-contain" loading="lazy">
             </div>
             <div class="flex h-[88px] items-center justify-center rounded-xl border border-[#dfe2e7] bg-white px-5 py-3">
-                <img src="./public/assets/projects-page-65.png" alt="GAGE client logo"
+                <img src="{{ asset('assets/projects-page-65.png') }}" alt="GAGE client logo"
                     class="max-h-full max-w-full object-contain" loading="lazy">
             </div>
             <div class="flex h-[88px] items-center justify-center rounded-xl border border-[#dfe2e7] bg-white px-5 py-3">
-                <img src="./public/assets/projects-page-66.png" alt="DBM"
+                <img src="{{ asset('assets/projects-page-66.png') }}" alt="DBM"
                     class="max-h-full max-w-full object-contain" loading="lazy">
             </div>
             <div class="flex h-[88px] items-center justify-center rounded-xl border border-[#dfe2e7] bg-white px-5 py-3">
-                <img src="./public/assets/projects-page-68.png" alt="GAGE client logo"
+                <img src="{{ asset('assets/projects-page-68.png') }}" alt="GAGE client logo"
                     class="max-h-full max-w-full object-contain" loading="lazy">
             </div>
             <div class="flex h-[88px] items-center justify-center rounded-xl border border-[#dfe2e7] bg-white px-5 py-3">
-                <img src="./public/assets/projects-page-69.png" alt="GAGE client logo"
+                <img src="{{ asset('assets/projects-page-69.png') }}" alt="GAGE client logo"
                     class="max-h-full max-w-full object-contain" loading="lazy">
             </div>
             <div class="flex h-[88px] items-center justify-center rounded-xl border border-[#dfe2e7] bg-white px-5 py-3">
-                <img src="./public/assets/projects-page-70.png" alt="Ooredoo"
+                <img src="{{ asset('assets/projects-page-70.png') }}" alt="Ooredoo"
                     class="max-h-full max-w-full object-contain" loading="lazy">
             </div>
             <div class="flex h-[88px] items-center justify-center rounded-xl border border-[#dfe2e7] bg-white px-5 py-3">
-                <img src="./public/assets/projects-page-71.png" alt="GAGE client logo"
+                <img src="{{ asset('assets/projects-page-71.png') }}" alt="GAGE client logo"
                     class="max-h-full max-w-full object-contain" loading="lazy">
             </div>
             <div class="flex h-[88px] items-center justify-center rounded-xl border border-[#dfe2e7] bg-white px-5 py-3">
-                <img src="./public/assets/projects-page-50.png" alt="GAGE client logo"
+                <img src="{{ asset('assets/projects-page-50.png') }}" alt="GAGE client logo"
                     class="max-h-full max-w-full object-contain" loading="lazy">
             </div>
             <div class="flex h-[88px] items-center justify-center rounded-xl border border-[#dfe2e7] bg-white px-5 py-3">
-                <img src="./public/assets/projects-page-72.jpg" alt="GAGE client logo"
+                <img src="{{ asset('assets/projects-page-72.jpg') }}" alt="GAGE client logo"
                     class="max-h-full max-w-full object-contain" loading="lazy">
             </div>
             <div class="flex h-[88px] items-center justify-center rounded-xl border border-[#dfe2e7] bg-white px-5 py-3">
-                <img src="./public/assets/projects-page-63.jpg" alt="GAGE client logo"
+                <img src="{{ asset('assets/projects-page-63.jpg') }}" alt="GAGE client logo"
                     class="max-h-full max-w-full object-contain" loading="lazy">
             </div>
             <div class="flex h-[88px] items-center justify-center rounded-xl border border-[#dfe2e7] bg-white px-5 py-3">
-                <img src="./public/assets/projects-page-62.jpg" alt="GAGE client logo"
+                <img src="{{ asset('assets/projects-page-62.jpg') }}" alt="GAGE client logo"
                     class="max-h-full max-w-full object-contain" loading="lazy">
             </div>
             <div class="flex h-[88px] items-center justify-center rounded-xl border border-[#dfe2e7] bg-white px-5 py-3">
-                <img src="./public/assets/projects-page-77.jpg" alt="Maldives Islamic Bank"
+                <img src="{{ asset('assets/projects-page-77.jpg') }}" alt="Maldives Islamic Bank"
                     class="max-h-full max-w-full object-contain" loading="lazy">
             </div>
             <div class="flex h-[88px] items-center justify-center rounded-xl border border-[#dfe2e7] bg-white px-5 py-3">
-                <img src="./public/assets/projects-page-61.png" alt="GAGE client logo"
+                <img src="{{ asset('assets/projects-page-61.png') }}" alt="GAGE client logo"
                     class="max-h-full max-w-full object-contain" loading="lazy">
             </div>
             <div class="flex h-[88px] items-center justify-center rounded-xl border border-[#dfe2e7] bg-white px-5 py-3">
-                <img src="./public/assets/projects-page-60.png" alt="GAGE client logo"
+                <img src="{{ asset('assets/projects-page-60.png') }}" alt="GAGE client logo"
                     class="max-h-full max-w-full object-contain" loading="lazy">
             </div>
             <div class="flex h-[88px] items-center justify-center rounded-xl border border-[#dfe2e7] bg-white px-5 py-3">
-                <img src="./public/assets/projects-page-59.jpg" alt="GAGE client logo"
+                <img src="{{ asset('assets/projects-page-59.jpg') }}" alt="GAGE client logo"
                     class="max-h-full max-w-full object-contain" loading="lazy">
             </div>
             <div class="flex h-[88px] items-center justify-center rounded-xl border border-[#dfe2e7] bg-white px-5 py-3">
-                <img src="./public/assets/projects-page-58.jpg" alt="GAGE client logo"
+                <img src="{{ asset('assets/projects-page-58.jpg') }}" alt="GAGE client logo"
                     class="max-h-full max-w-full object-contain" loading="lazy">
             </div>
             <div class="flex h-[88px] items-center justify-center rounded-xl border border-[#dfe2e7] bg-white px-5 py-3">
-                <img src="./public/assets/projects-page-57.jpg" alt="GAGE client logo"
+                <img src="{{ asset('assets/projects-page-57.jpg') }}" alt="GAGE client logo"
                     class="max-h-full max-w-full object-contain" loading="lazy">
             </div>
             <div class="flex h-[88px] items-center justify-center rounded-xl border border-[#dfe2e7] bg-white px-5 py-3">
-                <img src="./public/assets/projects-page-55.jpg" alt="GAGE client logo"
+                <img src="{{ asset('assets/projects-page-55.jpg') }}" alt="GAGE client logo"
                     class="max-h-full max-w-full object-contain" loading="lazy">
             </div>
             <div class="flex h-[88px] items-center justify-center rounded-xl border border-[#dfe2e7] bg-white px-5 py-3">
-                <img src="./public/assets/projects-page-54.jpg" alt="MCB"
+                <img src="{{ asset('assets/projects-page-54.jpg') }}" alt="MCB"
                     class="max-h-full max-w-full object-contain" loading="lazy">
             </div>
             <div class="flex h-[88px] items-center justify-center rounded-xl border border-[#dfe2e7] bg-white px-5 py-3">
-                <img src="./public/assets/projects-page-53.jpg" alt="Habib Bank"
+                <img src="{{ asset('assets/projects-page-53.jpg') }}" alt="Habib Bank"
                     class="max-h-full max-w-full object-contain" loading="lazy">
             </div>
             <div class="flex h-[88px] items-center justify-center rounded-xl border border-[#dfe2e7] bg-white px-5 py-3">
-                <img src="./public/assets/projects-page-52.jpg" alt="GAGE client logo"
+                <img src="{{ asset('assets/projects-page-52.jpg') }}" alt="GAGE client logo"
                     class="max-h-full max-w-full object-contain" loading="lazy">
             </div>
             <div class="flex h-[88px] items-center justify-center rounded-xl border border-[#dfe2e7] bg-white px-5 py-3">
-                <img src="./public/assets/projects-page-73.jpg" alt="GAGE client logo"
+                <img src="{{ asset('assets/projects-page-73.jpg') }}" alt="GAGE client logo"
                     class="max-h-full max-w-full object-contain" loading="lazy">
             </div>
             <div class="flex h-[88px] items-center justify-center rounded-xl border border-[#dfe2e7] bg-white px-5 py-3">
-                <img src="./public/assets/projects-page-49.png" alt="GAGE client logo"
+                <img src="{{ asset('assets/projects-page-49.png') }}" alt="GAGE client logo"
                     class="max-h-full max-w-full object-contain" loading="lazy">
             </div>
             <div class="flex h-[88px] items-center justify-center rounded-xl border border-[#dfe2e7] bg-white px-5 py-3">
-                <img src="./public/assets/projects-page-51.png" alt="GAGE client logo"
+                <img src="{{ asset('assets/projects-page-51.png') }}" alt="GAGE client logo"
                     class="max-h-full max-w-full object-contain" loading="lazy">
             </div>
         </div>

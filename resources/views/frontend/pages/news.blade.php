@@ -32,7 +32,7 @@
         </fieldset>
         <article
             class="news-item featured-news grid items-center gap-10 border-b border-[#dfe2e7] pb-16 lg:grid-cols-[1.5fr_1fr] lg:gap-12"
-            data-category="group"><img src="./public/assets/news-0.jpg"
+            data-category="group"><img src="{{ asset('assets/news-0.jpg') }}"
                 alt="GAGE celebrates sixteen years with a geometric turquoise 16"
                 class="aspect-[1.6] w-full rounded-[14px] object-cover" fetchpriority="high">
             <div>
@@ -50,7 +50,7 @@
             </div>
         </article>
         <div class="news-grid mt-16 grid gap-x-6 gap-y-16 md:grid-cols-3">
-            <article class="news-item flex flex-col" data-category="group"><img src="./public/assets/news-1.jpg"
+            <article class="news-item flex flex-col" data-category="group"><img src="{{ asset('assets/news-1.jpg') }}"
                     alt="Smart intrusion and fire safety, live at Living Expo 2026"
                     class="aspect-[1.7] w-full rounded-[14px] object-cover" loading="lazy">
                 <p class="mt-6 text-[11px] font-extrabold tracking-wide" style="color:#000">● GAGE GROUP · [DD MONTH 2026]
@@ -65,7 +65,7 @@
                         <path d="M5 12h14m-6-6 6 6-6 6" />
                     </svg></button>
             </article>
-            <article class="news-item flex flex-col" data-category="group"><img src="./public/assets/news-2.png"
+            <article class="news-item flex flex-col" data-category="group"><img src="{{ asset('assets/news-2.png') }}"
                     alt="GAGE named a GOLD100 awardee for the third year running"
                     class="aspect-[1.7] w-full rounded-[14px] object-cover" loading="lazy">
                 <p class="mt-6 text-[11px] font-extrabold tracking-wide" style="color:#000">● GAGE GROUP · [DD MONTH YYYY]
@@ -80,7 +80,7 @@
                         <path d="M5 12h14m-6-6 6 6-6 6" />
                     </svg></button>
             </article>
-            <article class="news-item flex flex-col" data-category="group"><img src="./public/assets/news-3.jpg"
+            <article class="news-item flex flex-col" data-category="group"><img src="{{ asset('assets/news-3.jpg') }}"
                     alt="GAGE appointed Safety & Security Partner for TechEng 2025"
                     class="aspect-[1.7] w-full rounded-[14px] object-cover" loading="lazy">
                 <p class="mt-6 text-[11px] font-extrabold tracking-wide" style="color:#000">● GAGE GROUP · [DD MONTH 2025]
@@ -95,7 +95,7 @@
                         <path d="M5 12h14m-6-6 6 6-6 6" />
                     </svg></button>
             </article>
-            <article class="news-item flex flex-col" data-category="group"><img src="./public/assets/news-4.jpg"
+            <article class="news-item flex flex-col" data-category="group"><img src="{{ asset('assets/news-4.jpg') }}"
                     alt="Fifteen years of GAGE — and a new look for our four companies"
                     class="aspect-[1.7] w-full rounded-[14px] object-cover" loading="lazy">
                 <p class="mt-6 text-[11px] font-extrabold tracking-wide" style="color:#000">● GAGE GROUP · 21 JULY 2025
@@ -110,7 +110,7 @@
                         <path d="M5 12h14m-6-6 6 6-6 6" />
                     </svg></button>
             </article>
-            <article class="news-item flex flex-col" data-category="fire"><img src="./public/assets/news-5.jpg"
+            <article class="news-item flex flex-col" data-category="fire"><img src="{{ asset('assets/news-5.jpg') }}"
                     alt="Thulusdoo Training Facility coming soon" class="aspect-[1.7] w-full rounded-[14px] object-cover"
                     loading="lazy">
                 <p class="mt-6 text-[11px] font-extrabold tracking-wide" style="color:#c61026">● GAGE FIRE SAFETY · [DD
@@ -124,7 +124,7 @@
                         <path d="M5 12h14m-6-6 6 6-6 6" />
                     </svg></button>
             </article>
-            <article class="news-item flex flex-col" data-category="training"><img src="./public/assets/news-6.jpg"
+            <article class="news-item flex flex-col" data-category="training"><img src="{{ asset('assets/news-6.jpg') }}"
                     alt="Applications open for our Security Officer certificate"
                     class="aspect-[1.7] w-full rounded-[14px] object-cover" loading="lazy">
                 <p class="mt-6 text-[11px] font-extrabold tracking-wide" style="color:#2430ce">● GAGE TRAINING INSTITUTE ·
