@@ -1,6 +1,5 @@
 @extends('frontend.layouts.app')
 @section('content')
-@include('frontend.components.hero')
     <section class="bg-black text-white">
         <div class="container pb-[140px] pt-10">
             <nav aria-label="Breadcrumb" class="mb-10 flex gap-3 text-xs text-[#b9bec4]"><a href="./index.html">Home</a><span

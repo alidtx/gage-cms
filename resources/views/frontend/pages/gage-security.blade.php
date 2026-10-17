@@ -1,6 +1,30 @@
 @extends('frontend.layouts.app')
 @section('content')
-@include('frontend.components.hero')
+    <section class="bg-black text-white">
+        <div class="container pb-20 pt-10">
+            <nav aria-label="Breadcrumb" class="mb-10 flex flex-wrap gap-2 text-xs leading-6 text-[#b9bec4]"><a
+                    href="{{ route('frontend.home') }}">Home</a><span aria-hidden="true">›</span><a href="{{ route('frontend.home') }}#companies">Our
+                    Companies</a><span aria-hidden="true">›</span><span class="font-bold text-white">GAGE Security</span>
+            </nav>
+            <div class="grid items-center gap-12 lg:grid-cols-[1.2fr_1fr] lg:gap-24">
+                <div><img src="./public/assets/security-hero-logo.png" alt="GAGE Security" class="w-[170px]">
+                    <h1 class="mt-6 text-[40px] font-bold leading-[1.12] tracking-[-1px] sm:text-[56px]">Dependable<br>
+                        protection for people<br class="hidden lg:block"> and property.</h1>
+                    <p class="mt-6 max-w-[620px] text-lg leading-[1.7] text-[#b9bec4]">Through a seamless blend of elite
+                        manpower, specialised event security and advanced surveillance technology, GAGE Security safeguards
+                        the places and people that matter most — with precision and discretion.</p>
+                    <div class="mt-9 flex flex-wrap gap-3"><a href="./conact.html#enquiry"
+                            class="button button-light">Request a security assessment<svg width="18" height="18"
+                                viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+                                aria-hidden="true">
+                                <path d="M5 12h14m-6-6 6 6-6 6" />
+                            </svg></a><a href="#services" class="button button-outline">View services</a></div>
+                </div><img src="./public/assets/security-page-0.jpg"
+                    alt="GAGE security officers protecting a Maldives resort at dusk"
+                    class="aspect-[.86] w-full rounded-[16px] object-cover" fetchpriority="high">
+            </div>
+        </div>
+    </section>
     <section id="services" class="section container">
         <p class="eyebrow"><span></span>SERVICES</p>
         <h2>Nine ways we keep you protected.</h2>

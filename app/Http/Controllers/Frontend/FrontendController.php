@@ -26,5 +26,9 @@ class FrontendController extends Controller
     {
         return view('frontend.pages.gage-security');
     }
+    public function gageFireSafety(Request $request)
+    {
+        return view('frontend.pages.gage-fire-safety');
+    }
 
 }
