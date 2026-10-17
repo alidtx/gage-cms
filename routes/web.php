@@ -14,14 +14,13 @@ use App\Http\Controllers\Backend\ServiceController;
 use App\Http\Controllers\Backend\SiteMapController;
 use App\Http\Controllers\Backend\SocialLinkController;
 use App\Http\Controllers\ContactFormController;
+use App\Http\Controllers\Frontend\FrontendController;
 use App\Http\Controllers\Frontend\SeoImageController;
 use Illuminate\Support\Facades\Route;
 
-Route::view('/', 'frontend.pages.home')->name('frontend.home');
-Route::view('/about', 'frontend.pages.about', ['pageSeo' => [
-    'title' => 'About GAGE | Experts in Safety & Security',
-    'description' => 'Learn about GAGE, our companies, expertise and commitment to safety and security across the Maldives since 2010.',
-]])->name('frontend.about');
+Route::get('/', [FrontendController::class, 'home'])->name('frontend.home');
+Route::get('/about', [FrontendController::class, 'about'])->name('frontend.about');
+Route::get('/news', [FrontendController::class, 'news'])->name('frontend.news');
 Route::get('/seo-images/{media}', SeoImageController::class)->name('frontend.seo-image');
 
 Route::get('/dashboard', [DashboardController::class, 'index'])->middleware(['auth', 'verified'])->name('dashboard');

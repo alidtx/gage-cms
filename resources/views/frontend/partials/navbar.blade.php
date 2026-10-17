@@ -33,7 +33,7 @@
                     </div>
                 </div>
                 <a href="{{ route('frontend.home') }}#projects">Projects &amp; Clients</a>
-                <a href="{{ route('frontend.home') }}#news">News</a>
+                <a href="{{ route('frontend.news') }}">News</a>
                 <a href="mailto:info@gage.com.mv?subject=Careers%20at%20GAGE">Careers</a>
                 <a href="{{ route('contact.create') }}">Contact</a>
                 <a class="rounded-md bg-black px-6 py-4 text-white" href="{{ route('contact.create') }}">Get Protected Now</a>
