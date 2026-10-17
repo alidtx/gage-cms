@@ -14,18 +14,9 @@ use App\Http\Controllers\Backend\ServiceController;
 use App\Http\Controllers\Backend\SiteMapController;
 use App\Http\Controllers\Backend\SocialLinkController;
 use App\Http\Controllers\ContactFormController;
-use Illuminate\Foundation\Application;
 use Illuminate\Support\Facades\Route;
-use Inertia\Inertia;
 
-Route::get('/', function () {
-    return Inertia::render('Welcome', [
-        'canLogin' => Route::has('login'),
-        'canRegister' => Route::has('register'),
-        'laravelVersion' => Application::VERSION,
-        'phpVersion' => PHP_VERSION,
-    ]);
-});
+Route::view('/', 'frontend.pages.home')->name('frontend.home');
 
 Route::get('/dashboard', [DashboardController::class, 'index'])->middleware(['auth', 'verified'])->name('dashboard');
 
@@ -115,15 +106,6 @@ Route::middleware('auth')
     });
 
 // Frontend routes
-Route::prefix('frontend')
-    ->name('frontend.')
-    ->group(function () {
-
-        Route::get('/', function () {
-            return view('frontend.home');
-        })->name('home');
-
-        // Other frontend routes...
-    });
+Route::permanentRedirect('/frontend', '/');
 
 require __DIR__.'/auth.php';

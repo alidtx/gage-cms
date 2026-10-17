@@ -1,0 +1,15 @@
+/* Small accessibility and progressive-enhancement additions to the supplied design. */
+.ZoomOutAnimation { opacity: 1; transform: none; }
+.gradientColor { background: linear-gradient(to right, #111 0%, #4a4a4a 50%, #8c6b6b 100%); }
+.skip-link { position: fixed; left: 12px; top: -100px; z-index: 100; padding: 12px; background: white; color: black; }
+.skip-link:focus { top: 12px; }
+:focus-visible { outline: 3px solid #bc3340; outline-offset: 4px; }
+[id] { scroll-margin-top: 120px; }
+.nav-dropdown:focus-within .dropdown-panel { visibility: visible; opacity: 1; pointer-events: auto; transform: none; }
+@media (prefers-reduced-motion: no-preference) {
+    .ZoomOutAnimation.show { animation: gage-reveal .6s ease-out; }
+    @keyframes gage-reveal { from { transform: translateY(8px); } to { transform: translateY(0); } }
+}
+@media (prefers-reduced-motion: reduce) {
+    *, *::before, *::after { animation: none !important; transition: none !important; scroll-behavior: auto !important; }
+}
