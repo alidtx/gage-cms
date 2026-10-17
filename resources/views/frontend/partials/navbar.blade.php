@@ -11,7 +11,7 @@
                     <div class="dropdown-panel">
                         <a href="{{ route('frontend.gage-security') }}">GAGE Security</a>
                         <a href="{{ route('frontend.gage-fire-safety') }}">GAGE Fire Safety</a>
-                        <a href="{{ route('frontend.home') }}#institute">GAGE Training Institute</a>
+                        <a href="{{ route('frontend.gage-training-instruction') }}">GAGE Training Institute</a>
                         <a href="{{ route('frontend.home') }}#technology">GAGE Technology</a>
                         <a href="https://shop.gage.com.mv">GAGE Store ↗</a>
                     </div>
