@@ -25,6 +25,7 @@ Route::get('/gage-security', [FrontendController::class, 'gageSecurity'])->name(
 Route::get('/gage-fire-safety', [FrontendController::class, 'gageFireSafety'])->name('frontend.gage-fire-safety');
 Route::get('/gage-training-instruction', [FrontendController::class, 'gageTrainingInstruction'])->name('frontend.gage-training-instruction');
 Route::get('/gage-technology', [FrontendController::class, 'gageTechnology'])->name('frontend.gage-technology');
+Route::get('/gage-project-client', [FrontendController::class, 'gageProjectClient'])->name('frontend.gage-project-client');
 Route::get('/seo-images/{media}', SeoImageController::class)->name('frontend.seo-image');
 
 Route::get('/dashboard', [DashboardController::class, 'index'])->middleware(['auth', 'verified'])->name('dashboard');

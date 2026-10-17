@@ -32,7 +32,7 @@
                         <a href="{{ route('frontend.home') }}#solutions">Public Facilities</a>
                     </div>
                 </div>
-                <a href="{{ route('frontend.home') }}#projects">Projects &amp; Clients</a>
+                <a href="{{ route('frontend.gage-project-client')}}">Projects &amp; Clients</a>
                 <a href="{{ route('frontend.news') }}">News</a>
                 <a href="mailto:info@gage.com.mv?subject=Careers%20at%20GAGE">Careers</a>
                 <a href="{{ route('contact.create') }}">Contact</a>
