@@ -1,5 +1,5 @@
 <nav aria-label="Main navigation" class="main-nav flex">
-                <a href="{{ route('frontend.home') }}#about">About</a>
+                <a href="{{ route('frontend.about') }}" @if(request()->routeIs('frontend.about')) aria-current="page" @endif>About</a>
                 <div class="nav-dropdown">
                     <a href="{{ route('frontend.home') }}#companies">Our Companies <svg aria-hidden="true" focusable="false" xmlns="http://www.w3.org/2000/svg" width="13" height="13"
                             viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"

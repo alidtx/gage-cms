@@ -120,7 +120,7 @@
                     <h3 class="text-[11px] tracking-[1.5px] text-[#9aa0a7]">COMPANY</h3>
                     <ul class="mt-6 space-y-4 text-sm text-[#b9bec4]">
                         <li>
-                            <a href="{{ route('frontend.home') }}#about">About</a>
+                            <a href="{{ route('frontend.about') }}">About</a>
                         </li>
                         <li>
                             <a href="{{ route('frontend.home') }}#projects">Projects &amp; Clients</a>

@@ -18,6 +18,10 @@ use App\Http\Controllers\Frontend\SeoImageController;
 use Illuminate\Support\Facades\Route;
 
 Route::view('/', 'frontend.pages.home')->name('frontend.home');
+Route::view('/about', 'frontend.pages.about', ['pageSeo' => [
+    'title' => 'About GAGE | Experts in Safety & Security',
+    'description' => 'Learn about GAGE, our companies, expertise and commitment to safety and security across the Maldives since 2010.',
+]])->name('frontend.about');
 Route::get('/seo-images/{media}', SeoImageController::class)->name('frontend.seo-image');
 
 Route::get('/dashboard', [DashboardController::class, 'index'])->middleware(['auth', 'verified'])->name('dashboard');
