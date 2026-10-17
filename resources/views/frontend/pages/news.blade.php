@@ -1,14 +1,15 @@
 @extends('frontend.layouts.app')
 @section('content')
-    <section class="bg-black text-white">
-        <div class="container pb-[140px] pt-10">
-            @include('frontend.components.breadcrumb', ['title' => 'News', 'class' => 'mb-10 flex gap-3 text-xs text-[#b9bec4]'])
-            <p class="eyebrow"><span></span>NEWS</p>
-            <h1 class="mt-7 text-[42px] font-bold leading-[1.12] tracking-[-1px] sm:text-[56px]">News & updates.</h1>
-            <p class="mt-6 text-lg leading-[1.7] text-[#b9bec4]">Announcements, events and stories from across the GAGE
-                companies.</p>
-        </div>
-    </section>
+    @include('frontend.components.hero', ['hero' => [
+    'variant' => 'text',
+    'section_class' => 'bg-black text-white',
+    'container_class' => 'container pb-[140px] pt-10',
+    'heading_class' => 'mt-7 text-[42px] font-bold leading-[1.12] tracking-[-1px] sm:text-[56px]',
+    'heading' => [['text' => 'News & updates.']],
+    'description' => 'Announcements, events and stories from across the GAGE companies.',
+    'description_class' => 'mt-6 text-lg leading-[1.7] text-[#b9bec4]',
+    'eyebrow' => 'NEWS',
+    'eyebrow_class' => 'eyebrow', 'breadcrumb' => ['title' => 'News', 'class' => 'mb-10 flex gap-3 text-xs text-[#b9bec4]']]])
     <section id="news-list" class="news-listing container pb-[120px] pt-16">
         <fieldset class="mb-14 flex flex-wrap gap-3">
             <legend class="sr-only">Filter news by GAGE company</legend>

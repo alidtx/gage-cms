@@ -1,28 +1,17 @@
 @extends('frontend.layouts.app')
 @section('content')
-        <section class="bg-[#c61026] text-white">
-            <div class="container pb-20 pt-10">
-                @include('frontend.components.breadcrumb', ['title' => 'GAGE Fire Safety', 'class' => 'mb-10 flex flex-wrap gap-2 text-xs leading-6 text-white/70', 'parents' => [['label' => 'Our Companies', 'url' => route('frontend.home').'#companies']]])
-                <div class="grid items-center gap-12 lg:grid-cols-[1.2fr_1fr] lg:gap-24">
-                    <div><img src="./public/assets/fire-hero-logo.png" alt="GAGE Fire Safety" class="w-[170px]">
-                        <h1 class="mt-6 text-[40px] font-bold leading-[1.12] tracking-[-1px] sm:text-[56px]">Protecting
-                            lives.<br>Safeguarding assets.</h1>
-                        <p class="mt-6 max-w-[620px] text-lg leading-[1.7] text-white/80">From initial system design to
-                            installation, routine maintenance and accredited training, GAGE Fire Safety offers complete
-                            fire protection — keeping every facility protected, regulation-ready and response-ready.</p>
-                        <div class="mt-9 flex flex-wrap gap-3"><a href="./conact.html#enquiry"
-                                class="button button-light !text-[#c61026]">Request a fire safety quote<svg width="17"
-                                    height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
-                                    aria-hidden="true">
-                                    <path d="M5 12h14m-6-6 6 6-6 6" />
-                                </svg></a><a href="#servicing" class="button button-outline">Book extinguisher
-                                servicing</a></div>
-                    </div><img src="./public/assets/fire-page-0.jpg"
-                        alt="GAGE Fire Safety technicians inspecting a fire protection control panel"
-                        class="aspect-[.97] w-full rounded-[16px] object-cover" fetchpriority="high">
-                </div>
-            </div>
-        </section>
+        @include('frontend.components.hero', ['hero' => [
+    'variant' => 'split',
+    'section_class' => 'bg-[#c61026] text-white',
+    'container_class' => 'container pb-20 pt-10',
+    'grid_class' => 'grid items-center gap-12 lg:grid-cols-[1.2fr_1fr] lg:gap-24',
+    'heading_class' => 'mt-6 text-[40px] font-bold leading-[1.12] tracking-[-1px] sm:text-[56px]',
+    'heading' => [['text' => 'Protecting lives.', 'break_class' => ''], ['text' => 'Safeguarding assets.']],
+    'description' => 'From initial system design to installation, routine maintenance and accredited training, GAGE Fire Safety offers complete fire protection — keeping every facility protected, regulation-ready and response-ready.',
+    'description_class' => 'mt-6 max-w-[620px] text-lg leading-[1.7] text-white/80',
+    'logo' => ['src' => 'assets/fire-hero-logo.png', 'alt' => 'GAGE Fire Safety'],
+    'image' => ['src' => 'assets/fire-page-0.jpg', 'width' => 763, 'height' => 763, 'alt' => 'GAGE Fire Safety technicians inspecting a fire protection control panel', 'class' => 'aspect-[.97] w-full rounded-[16px] object-cover'],
+    'buttons' => [['label' => 'Request a fire safety quote', 'url' => '/contact#enquiry', 'class' => 'button button-light !text-[#c61026]', 'arrow' => 'yes'], ['label' => 'Book extinguisher servicing', 'url' => '#servicing', 'class' => 'button button-outline', 'arrow' => 'no']], 'breadcrumb' => ['title' => 'GAGE Fire Safety', 'class' => 'mb-10 flex flex-wrap gap-2 text-xs leading-6 text-white/70', 'parents' => [['label' => 'Our Companies', 'url' => route('frontend.home').'#companies']]]]])
         <section class="section container grid items-start gap-12 lg:grid-cols-2 lg:gap-24">
             <div>
                 <p class="eyebrow fire-eyebrow"><span></span>WHO WE ARE</p>

@@ -1,17 +1,16 @@
 @extends('frontend.layouts.app')
 @section('content')
 
-        <section class="bg-black text-white">
-            <div class="container pb-20 pt-10 lg:pb-24">
-                @include('frontend.components.breadcrumb', ['title' => 'Contact', 'class' => 'mb-10 flex gap-3 text-xs text-[#b9bec4]'])
-                <p class="eyebrow"><span></span>CONTACT US</p>
-                <h1 class="mt-7 max-w-[1060px] text-[38px] font-bold leading-[1.12] tracking-[-1px] sm:text-[56px]">
-                    Let’s talk about what you need to<br class="hidden lg:block"> protect.</h1>
-                <p class="mt-6 max-w-[1050px] text-lg leading-[1.7] text-[#b9bec4]">Send us an enquiry or request a
-                    quote. Tell us a little about your property and what you need — we’ll make<br
-                        class="hidden xl:block"> sure the right GAGE team gets back to you.</p>
-            </div>
-        </section>
+        @include('frontend.components.hero', ['hero' => [
+    'variant' => 'text',
+    'section_class' => 'bg-black text-white',
+    'container_class' => 'container pb-20 pt-10 lg:pb-24',
+    'heading_class' => 'mt-7 max-w-[1060px] text-[38px] font-bold leading-[1.12] tracking-[-1px] sm:text-[56px]',
+    'heading' => [['text' => 'Let’s talk about what you need to', 'break_class' => 'hidden lg:block'], ['text' => 'protect.']],
+    'description' => 'Send us an enquiry or request a quote. Tell us a little about your property and what you need — we’ll make sure the right GAGE team gets back to you.',
+    'description_class' => 'mt-6 max-w-[1050px] text-lg leading-[1.7] text-[#b9bec4]',
+    'eyebrow' => 'CONTACT US',
+    'eyebrow_class' => 'eyebrow', 'breadcrumb' => ['title' => 'Contact', 'class' => 'mb-10 flex gap-3 text-xs text-[#b9bec4]']]])
         <section class="container py-24 lg:py-24">
             <div class="grid items-stretch gap-6 lg:grid-cols-[2fr_1fr]">
                 <form id="enquiry" class="rounded-[20px] border border-[#dfe2e7] p-6 sm:p-12"

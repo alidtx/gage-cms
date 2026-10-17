@@ -1,16 +1,15 @@
 @extends('frontend.layouts.app')
 @section('content')
-    <section class="bg-black text-white">
-        <div class="container pb-20 pt-10">
-            @include('frontend.components.breadcrumb', ['title' => 'Projects & Clients', 'class' => 'flex gap-2 text-xs text-white/70'])
-            <p class="eyebrow mt-12"><span></span>PROJECTS &amp; CLIENTS</p>
-            <h1 class="mt-6 max-w-[1100px] text-[38px] font-extrabold leading-[1.15] tracking-[-1px] sm:text-[56px]">
-                Protecting the Maldives, atoll by<br class="hidden lg:block"> atoll.</h1>
-            <p class="mt-6 max-w-[1080px] text-lg leading-[1.7] text-white/80">From private islands in Noonu to
-                banks and hospitals in Hulhumalé, GAGE companies protect some of the country’s most important
-                places. Explore where we work and who we work with.</p>
-        </div>
-    </section>
+    @include('frontend.components.hero', ['hero' => [
+    'variant' => 'text',
+    'section_class' => 'bg-black text-white',
+    'container_class' => 'container pb-20 pt-10',
+    'heading_class' => 'mt-6 max-w-[1100px] text-[38px] font-extrabold leading-[1.15] tracking-[-1px] sm:text-[56px]',
+    'heading' => [['text' => 'Protecting the Maldives, atoll by', 'break_class' => 'hidden lg:block'], ['text' => 'atoll.']],
+    'description' => 'From private islands in Noonu to banks and hospitals in Hulhumalé, GAGE companies protect some of the country’s most important places. Explore where we work and who we work with.',
+    'description_class' => 'mt-6 max-w-[1080px] text-lg leading-[1.7] text-white/80',
+    'eyebrow' => 'PROJECTS & CLIENTS',
+    'eyebrow_class' => 'eyebrow mt-12', 'breadcrumb' => ['title' => 'Projects & Clients', 'class' => 'flex gap-2 text-xs text-white/70']]])
     <section class="section container projects-browser">
         <div class="flex flex-wrap items-center gap-3" role="group" aria-label="Show work by company"><span
                 class="mr-2 text-sm font-bold">Show work by</span><input class="project-filter sr-only" type="radio"

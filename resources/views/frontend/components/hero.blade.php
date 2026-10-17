@@ -1,32 +1,48 @@
-
-        <section class="bg-black text-white ZoomOutAnimation">
-            <div class="container grid items-center gap-12 py-16 lg:grid-cols-2 lg:gap-24">
-                <div>
-                    <p class="eyebrow">
-                        <span>
-                        </span>EXPERTS IN SAFETY &amp; SECURITY
-                    </p>
-                    <h1 class="mt-7 text-[44px] font-bold leading-[1.06] tracking-[-1.6px] sm:text-[68px]">
-                        Protecting<br>Maldives since<br>2010.</h1>
-                    <p class="mt-7 max-w-[560px] text-lg leading-[1.65] text-[#b9bec4]">Security, fire safety, training
-                        and technology from one trusted partner — for resorts, banks, diplomatic missions and businesses
-                        across the Maldives.</p>
-                    <div class="mt-10 flex flex-wrap gap-3">
-                        <a href="{{ route('contact.create') }}" class="button button-light">Get Protected Now<svg
-                                xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24"
-                                fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
-                                stroke-linejoin="round" class="lucide lucide-arrow-right">
-                                <path d="M5 12h14">
-                                </path>
-                                <path d="m12 5 7 7-7 7">
-                                </path>
-                            </svg>
+@php
+    $variant = $hero['variant'] ?? 'text';
+    $isSplit = in_array($variant, ['home', 'split'], true) && !empty($hero['image']);
+    $containerClass = $hero['container_class'] ?? ($variant === 'home' ? 'container py-16' : 'container pb-20 pt-10');
+    $gridClass = $hero['grid_class'] ?? 'grid items-center gap-12 lg:grid-cols-2 lg:gap-24';
+    // The home variant historically places its grid on the container itself.
+    $containerIsGrid = str_contains($containerClass, 'grid');
+@endphp
+<section class="{{ $hero['section_class'] ?? 'bg-black text-white' }}">
+    <div class="{{ $containerClass }}">
+        @if(!empty($hero['breadcrumb']))
+            @include('frontend.components.breadcrumb', $hero['breadcrumb'])
+        @endif
+        @if($isSplit && !$containerIsGrid)<div class="{{ $gridClass }}">@endif
+        <div>
+            @if(!empty($hero['logo']))
+                <img src="{{ asset($hero['logo']['src']) }}" alt="{{ $hero['logo']['alt'] ?? '' }}" class="w-[170px]" decoding="async">
+            @endif
+            @if(!empty($hero['eyebrow']))
+                <p class="{{ $hero['eyebrow_class'] ?? 'eyebrow' }}"><span aria-hidden="true"></span>{{ $hero['eyebrow'] }}</p>
+            @endif
+            <h1 class="{{ $hero['heading_class'] ?? 'mt-6 text-[40px] font-bold leading-[1.12] sm:text-[56px]' }}">@foreach($hero['heading'] as $line){{ $line['text'] }}@if(!$loop->last)<br class="{{ $line['break_class'] ?? '' }}"> @endif
+            @endforeach</h1>
+            @if(!empty($hero['description']))
+                <p class="{{ $hero['description_class'] ?? 'mt-6 text-lg leading-[1.7] text-white/80' }}">{{ $hero['description'] }}</p>
+            @endif
+            @if(!empty($hero['buttons']))
+                <div class="{{ $variant === 'home' ? 'mt-10' : 'mt-9' }} flex flex-wrap gap-3">
+                    @foreach($hero['buttons'] as $button)
+                        <a href="{{ str_starts_with($button['url'], '/') ? url($button['url']) : $button['url'] }}" class="{{ $button['class'] ?? 'button button-light' }}">
+                            {{ $button['label'] }}
+                            @if(($button['arrow'] ?? 'yes') === 'yes')
+                                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M5 12h14m-6-6 6 6-6 6" /></svg>
+                            @endif
                         </a>
-                        <a class="button button-outline" href="{{ route('frontend.home') }}#companies">Explore our companies</a>
-                    </div>
+                    @endforeach
                 </div>
-                <img width="864" height="864" decoding="async" class="aspect-[1.05] w-full rounded-[20px] object-cover"
-                    alt="GAGE security professional walking along a Maldives resort jetty at dusk" fetchpriority="high"
-                    src="{{ asset('assets/pdf-1.jpg') }}">
-            </div>
-        </section>
+            @endif
+        </div>
+        @if($isSplit)
+            <img src="{{ asset($hero['image']['src']) }}" alt="{{ $hero['image']['alt'] ?? '' }}"
+                class="{{ $hero['image']['class'] ?? 'aspect-[1.05] w-full rounded-[16px] object-cover' }}"
+                decoding="async" fetchpriority="high"
+                @if(isset($hero['image']['width'])) width="{{ $hero['image']['width'] }}" height="{{ $hero['image']['height'] }}" @endif>
+        @endif
+        @if($isSplit && !$containerIsGrid)</div>@endif
+    </div>
+</section>

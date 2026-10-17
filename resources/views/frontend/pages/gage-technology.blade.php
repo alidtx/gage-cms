@@ -1,32 +1,17 @@
 @extends('frontend.layouts.app')
 @section('content')
-        <section class="bg-[#197379] text-white">
-            <div class="container pb-20 pt-10">
-                @include('frontend.components.breadcrumb', ['title' => 'GAGE Technology', 'class' => 'mb-10 flex flex-wrap gap-2 text-xs leading-6 text-white/70', 'parents' => [['label' => 'Our Companies', 'url' => route('frontend.home').'#companies']]])
-                <div class="grid items-center gap-12 lg:grid-cols-[1.2fr_1fr] lg:gap-24">
-                    <div><img src="./public/assets/technology-hero-logo.png" alt="GAGE Technology" class="w-[170px]">
-                        <h1 class="mt-6 text-[40px] font-bold leading-[1.12] tracking-[-1px] sm:text-[56px]">
-                            Connected,<br>protected,<br>operational.</h1>
-                        <p class="mt-6 max-w-[620px] text-lg leading-[1.7] text-white/80">GAGE Technology delivers
-                            integrated IT, networking, security and communications solutions that keep businesses,
-                            resorts and institutions connected, protected and operational — from system design to
-                            ongoing support.</p>
-                        <div class="mt-9 flex flex-wrap gap-3"><a href="./conact.html#enquiry"
-                                class="button button-light !text-[#197379]">Plan your system<svg width="17" height="17"
-                                    viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
-                                    aria-hidden="true">
-                                    <path d="M5 12h14m-6-6 6 6-6 6" />
-                                </svg></a><a href="#services" class="button button-outline">View services<svg width="17"
-                                    height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
-                                    aria-hidden="true">
-                                    <path d="M5 12h14m-6-6 6 6-6 6" />
-                                </svg></a></div>
-                    </div><img src="./public/assets/technology-page-0.jpg"
-                        alt="GAGE engineer maintaining a network server rack"
-                        class="aspect-[.86] w-full rounded-[16px] object-cover" fetchpriority="high">
-                </div>
-            </div>
-        </section>
+        @include('frontend.components.hero', ['hero' => [
+    'variant' => 'split',
+    'section_class' => 'bg-[#197379] text-white',
+    'container_class' => 'container pb-20 pt-10',
+    'grid_class' => 'grid items-center gap-12 lg:grid-cols-[1.2fr_1fr] lg:gap-24',
+    'heading_class' => 'mt-6 text-[40px] font-bold leading-[1.12] tracking-[-1px] sm:text-[56px]',
+    'heading' => [['text' => 'Connected,', 'break_class' => ''], ['text' => 'protected,', 'break_class' => ''], ['text' => 'operational.']],
+    'description' => 'GAGE Technology delivers integrated IT, networking, security and communications solutions that keep businesses, resorts and institutions connected, protected and operational — from system design to ongoing support.',
+    'description_class' => 'mt-6 max-w-[620px] text-lg leading-[1.7] text-white/80',
+    'logo' => ['src' => 'assets/technology-hero-logo.png', 'alt' => 'GAGE Technology'],
+    'image' => ['src' => 'assets/technology-page-0.jpg', 'width' => 811, 'height' => 1086, 'alt' => 'GAGE engineer maintaining a network server rack', 'class' => 'aspect-[.86] w-full rounded-[16px] object-cover'],
+    'buttons' => [['label' => 'Plan your system', 'url' => '/contact#enquiry', 'class' => 'button button-light !text-[#197379]', 'arrow' => 'yes'], ['label' => 'View services', 'url' => '#services', 'class' => 'button button-outline', 'arrow' => 'yes']], 'breadcrumb' => ['title' => 'GAGE Technology', 'class' => 'mb-10 flex flex-wrap gap-2 text-xs leading-6 text-white/70', 'parents' => [['label' => 'Our Companies', 'url' => route('frontend.home').'#companies']]]]])
         <section class="section container">
             <p class="eyebrow text-[#197379]"><span></span>SEE HOW IT CONNECTS</p>
             <h2>One integrated system, every zone<br class="hidden lg:block"> covered.</h2>

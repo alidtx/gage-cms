@@ -1,32 +1,17 @@
 @extends('frontend.layouts.app')
 @section('content')
-    <section class="bg-[#2430ce] text-white">
-        <div class="container pb-20 pt-10">
-            @include('frontend.components.breadcrumb', ['title' => 'GAGE Training Institute', 'class' => 'mb-10 flex flex-wrap gap-2 text-xs leading-6 text-white/70', 'parents' => [['label' => 'Our Companies', 'url' => route('frontend.home').'#companies']]])
-            <div class="grid items-center gap-12 lg:grid-cols-[1.2fr_1fr] lg:gap-24">
-                <div><img src="./public/assets/training-hero-logo.png" alt="GAGE Institute" class="w-[170px]">
-                    <h1 class="mt-6 text-[40px] font-bold leading-[1.12] tracking-[-1px] sm:text-[56px]">Building
-                        capable<br class="hidden xl:block"> professionals, since<br class="hidden xl:block"> day
-                        one.</h1>
-                    <p class="mt-6 max-w-[620px] text-lg leading-[1.7] text-white/80">We develop capable
-                        professionals in security, safety and emergency response through accredited, hands-on
-                        programmes built for real-world performance.</p>
-                    <div class="mt-9 flex flex-wrap gap-3"><a href="./GTI-Programmes.html"
-                            class="button button-light !text-[#2430ce]">Browse programmes<svg width="17" height="17"
-                                viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
-                                aria-hidden="true">
-                                <path d="M5 12h14m-6-6 6 6-6 6" />
-                            </svg></a><a href="./conact.html#enquiry" class="button button-outline">Enquire about
-                            training<svg width="17" height="17" viewBox="0 0 24 24" fill="none"
-                                stroke="currentColor" stroke-width="2" aria-hidden="true">
-                                <path d="M5 12h14m-6-6 6 6-6 6" />
-                            </svg></a></div>
-                </div><img src="./public/assets/training-page-0.jpg"
-                    alt="Students practising emergency response and CPR with a trainer"
-                    class="aspect-[.9] w-full rounded-[16px] object-cover" loading="lazy">
-            </div>
-        </div>
-    </section>
+    @include('frontend.components.hero', ['hero' => [
+    'variant' => 'split',
+    'section_class' => 'bg-[#2430ce] text-white',
+    'container_class' => 'container pb-20 pt-10',
+    'grid_class' => 'grid items-center gap-12 lg:grid-cols-[1.2fr_1fr] lg:gap-24',
+    'heading_class' => 'mt-6 text-[40px] font-bold leading-[1.12] tracking-[-1px] sm:text-[56px]',
+    'heading' => [['text' => 'Building capable', 'break_class' => 'hidden xl:block'], ['text' => 'professionals, since', 'break_class' => 'hidden xl:block'], ['text' => 'day one.']],
+    'description' => 'We develop capable professionals in security, safety and emergency response through accredited, hands-on programmes built for real-world performance.',
+    'description_class' => 'mt-6 max-w-[620px] text-lg leading-[1.7] text-white/80',
+    'logo' => ['src' => 'assets/training-hero-logo.png', 'alt' => 'GAGE Institute'],
+    'image' => ['src' => 'assets/training-page-0.jpg', 'width' => 734, 'height' => 982, 'alt' => 'Students practising emergency response and CPR with a trainer', 'class' => 'aspect-[.9] w-full rounded-[16px] object-cover'],
+    'buttons' => [['label' => 'Browse programmes', 'url' => '#programmes', 'class' => 'button button-light !text-[#2430ce]', 'arrow' => 'yes'], ['label' => 'Enquire about training', 'url' => '/contact#enquiry', 'class' => 'button button-outline', 'arrow' => 'yes']], 'breadcrumb' => ['title' => 'GAGE Training Institute', 'class' => 'mb-10 flex flex-wrap gap-2 text-xs leading-6 text-white/70', 'parents' => [['label' => 'Our Companies', 'url' => route('frontend.home').'#companies']]]]])
     <section class="section container">
         <div class="grid items-start gap-12 lg:grid-cols-2 lg:gap-24">
             <div>

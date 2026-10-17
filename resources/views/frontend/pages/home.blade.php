@@ -1,7 +1,19 @@
 @extends('frontend.layouts.app')
 @section('content')
-@include('frontend.components.hero')
-
+@include('frontend.components.hero', ['hero' => [
+    'variant' => 'home',
+    'section_class' => 'bg-black text-white ZoomOutAnimation',
+    'eyebrow' => 'EXPERTS IN SAFETY & SECURITY',
+    'heading' => [['text' => 'Protecting'], ['text' => 'Maldives since'], ['text' => '2010.']],
+    'heading_class' => 'mt-7 text-[44px] font-bold leading-[1.06] tracking-[-1.6px] sm:text-[68px]',
+    'description' => 'Security, fire safety, training and technology from one trusted partner — for resorts, banks, diplomatic missions and businesses across the Maldives.',
+    'description_class' => 'mt-7 max-w-[560px] text-lg leading-[1.65] text-[#b9bec4]',
+    'image' => ['src' => 'assets/pdf-1.jpg', 'width' => 864, 'height' => 864, 'alt' => 'GAGE security professional walking along a Maldives resort jetty at dusk', 'class' => 'aspect-[1.05] w-full rounded-[20px] object-cover'],
+    'buttons' => [
+        ['label' => 'Get Protected Now', 'url' => route('contact.create'), 'class' => 'button button-light'],
+        ['label' => 'Explore our companies', 'url' => route('frontend.home').'#companies', 'class' => 'button button-outline', 'arrow' => 'no'],
+    ],
+]])
         <section aria-label="GAGE credentials" class="border-b border-[#dce0e5] ZoomOutAnimation">
             <div class="container grid gap-8 py-10 sm:grid-cols-2 lg:grid-cols-4 lg:gap-0">
                 <div class="flex gap-4 lg:border-r lg:border-[#e3e5e9] lg:px-7 first:pl-0 last:border-0 last:pr-0">

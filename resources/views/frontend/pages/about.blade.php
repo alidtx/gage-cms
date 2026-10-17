@@ -1,23 +1,17 @@
 @extends('frontend.layouts.app')
 @section('content')
-<section class="bg-black text-white ZoomOutAnimation">
-            <div class="container pb-20 pt-10">
-                @include('frontend.components.breadcrumb', ['title' => 'About', 'class' => 'mb-10 flex gap-3 text-xs text-[#b9bec4]'])
-                <div class="grid items-center gap-14 lg:grid-cols-[1.2fr_1fr] lg:gap-24">
-                    <div>
-                        <p class="eyebrow"><span></span>ABOUT GAGE</p>
-                        <h1 class="mt-7 text-[38px] font-bold leading-[1.1] tracking-[-1px] sm:text-[56px]">The
-                            Maldives’ leading<br class="hidden lg:block"> client protection<br class="hidden lg:block">
-                            service provider.</h1>
-                        <p class="mt-6 max-w-[680px] text-lg leading-[1.7] text-[#b9bec4]">Founded in 2010 by former
-                            Commissioner of Police Abdulla Riyaz, GAGE delivers complete safety and security solutions —
-                            trusted by top resorts, banks and diplomatic missions nationwide.</p>
-                    </div><img width="722" height="1130" decoding="async" src="{{ asset('assets/about-0.jpg') }}"
-                        alt="A protective GAGE shield over a Maldives island resort"
-                        class="aspect-[1.45] w-full rounded-[16px] object-cover object-[50%_42%]" fetchpriority="high">
-                </div>
-            </div>
-        </section>
+@include('frontend.components.hero', ['hero' => [
+    'variant' => 'split',
+    'section_class' => 'bg-black text-white ZoomOutAnimation',
+    'container_class' => 'container pb-20 pt-10',
+    'grid_class' => 'grid items-center gap-14 lg:grid-cols-[1.2fr_1fr] lg:gap-24',
+    'heading_class' => 'mt-7 text-[38px] font-bold leading-[1.1] tracking-[-1px] sm:text-[56px]',
+    'heading' => [['text' => 'The Maldives’ leading', 'break_class' => 'hidden lg:block'], ['text' => 'client protection', 'break_class' => 'hidden lg:block'], ['text' => 'service provider.']],
+    'description' => 'Founded in 2010 by former Commissioner of Police Abdulla Riyaz, GAGE delivers complete safety and security solutions — trusted by top resorts, banks and diplomatic missions nationwide.',
+    'description_class' => 'mt-6 max-w-[680px] text-lg leading-[1.7] text-[#b9bec4]',
+    'eyebrow' => 'ABOUT GAGE',
+    'eyebrow_class' => 'eyebrow',
+    'image' => ['src' => 'assets/about-0.jpg', 'width' => 722, 'height' => 1130, 'alt' => 'A protective GAGE shield over a Maldives island resort', 'class' => 'aspect-[1.45] w-full rounded-[16px] object-cover object-[50%_42%]'], 'breadcrumb' => ['title' => 'About', 'class' => 'mb-10 flex gap-3 text-xs text-[#b9bec4]']]])
 
         <section class="section container grid items-start gap-14 lg:grid-cols-2 lg:gap-24">
             <div>
