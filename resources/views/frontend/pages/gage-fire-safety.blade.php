@@ -40,46 +40,10 @@
                         training — with a commitment to quality, compliance and technical excellence.</p>
                 </div>
             </div>
-            <div class="space-y-4">
-                <div class="rounded-[16px] bg-[#fbeff1] p-7">
-                    <h3 class="font-bold text-[#c61026]">Mission</h3>
-                    <p class="mt-3 text-base leading-7 text-muted">To protect lives and assets by delivering reliable,
-                        compliant and effective fire protection solutions.</p>
-                </div>
-                <div class="rounded-[16px] bg-[#fbeff1] p-7">
-                    <h3 class="font-bold text-[#c61026]">Vision</h3>
-                    <p class="mt-3 text-base leading-7 text-muted">To be the most trusted fire safety partner in the
-                        Maldives, setting the standard for quality, expertise and service excellence.</p>
-                </div>
-                <div class="rounded-[16px] border border-[#dfe2e7] p-7">
-                    <h3 class="font-bold text-[#c61026]">Values</h3>
-                    <div class="grid gap-2 sm:grid-cols-2">
-                        <ul class="fire-checks mt-4 space-y-3 text-sm leading-6 text-muted">
-                            <li class="flex items-start gap-3"><span class="fire-check"
-                                    aria-hidden="true">✓</span><span>Safety First</span></li>
-                            <li class="flex items-start gap-3"><span class="fire-check"
-                                    aria-hidden="true">✓</span><span>Quality &amp; Excellence</span></li>
-                            <li class="flex items-start gap-3"><span class="fire-check"
-                                    aria-hidden="true">✓</span><span>Technical Expertise</span></li>
-                        </ul>
-                        <ul class="fire-checks mt-4 space-y-3 text-sm leading-6 text-muted">
-                            <li class="flex items-start gap-3"><span class="fire-check"
-                                    aria-hidden="true">✓</span><span>Integrity &amp; Trust</span></li>
-                            <li class="flex items-start gap-3"><span class="fire-check"
-                                    aria-hidden="true">✓</span><span>Compliance &amp; Responsibility</span></li>
-                            <li class="flex items-start gap-3"><span class="fire-check"
-                                    aria-hidden="true">✓</span><span>Teamwork &amp; Collaboration</span></li>
-                        </ul>
-                    </div>
-                </div>
-                <div class="flex items-center gap-5 rounded-[16px] border border-[#dfe2e7] p-5"><img
-                        src="./public/assets/award-defence.png" alt="MNDF emblem" class="w-24 rounded-lg">
-                    <div>
-                        <h3 class="text-base font-bold">MNDF fire protection design & approval</h3>
-                        <p class="mt-2 text-sm text-muted">Designs and approvals handled for you.</p>
-                    </div>
-                </div>
-            </div>
+            <img src="{{ asset('assets/fire-page-1.jpg') }}"
+                alt="Firefighters practising fire suppression during a training exercise"
+                width="895" height="500" loading="lazy" decoding="async"
+                class="w-full rounded-[16px] object-cover">
         </section>
         <section id="services" class="bg-[#fbeff1]">
             <div class="section container">

@@ -45,29 +45,10 @@
                         matters most.</p>
                 </div>
             </div>
-            <div class="space-y-4">
-                <article class="rounded-[16px] bg-[#f0f1fc] p-8"><span
-                        class="mb-5 inline-flex h-[52px] w-[52px] items-center justify-center rounded-xl bg-[#dfe1fa] text-[#2430ce]"><svg
-                            width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor"
-                            stroke-width="1.6" aria-hidden="true">
-                            <path d="M12 3 4 6v6c0 5 8 9 8 9s8-4 8-9V6Z" />
-                            <path d="m8 12 3 3 5-6" />
-                        </svg></span>
-                    <h3 class="text-base font-bold text-[#2430ce]">Our vision</h3>
-                    <p class="mt-2 text-base leading-7 text-muted">To build a legacy in providing the best client
-                        and candidate services.</p>
-                </article>
-                <article class="rounded-[16px] bg-[#f0f1fc] p-8"><span
-                        class="mb-5 inline-flex h-[52px] w-[52px] items-center justify-center rounded-xl bg-[#dfe1fa] text-[#2430ce]"><svg
-                            width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor"
-                            stroke-width="1.6" aria-hidden="true">
-                            <path d="M12 21s-8-5-8-11a5 5 0 0 1 8-4 5 5 0 0 1 8 4c0 6-8 11-8 11Z" />
-                        </svg></span>
-                    <h3 class="text-base font-bold text-[#2430ce]">Our mission</h3>
-                    <p class="mt-2 text-base leading-7 text-muted">Incessantly working towards being the premier
-                        resource for meeting the needs of the hospitality industry in the country.</p>
-                </article>
-            </div>
+            <img src="{{ asset('assets/training-page-2.jpg') }}"
+                alt="Hospitality professional welcoming a guest at a resort reception"
+                width="613" height="342" loading="lazy" decoding="async"
+                class="w-full rounded-[16px] object-cover">
         </div>
         <div class="mt-[120px] grid items-start gap-12 lg:grid-cols-2 lg:gap-24"><img
                 src="./public/assets/training-page-1.jpg"

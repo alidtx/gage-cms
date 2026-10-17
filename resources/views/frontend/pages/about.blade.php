@@ -36,9 +36,9 @@
                     <p>Today, five specialist companies work as one — protecting people, property and assets across the
                         Maldives.</p>
                 </div>
-            </div><img width="842" height="1521" decoding="async" class="ZoomOutAnimation" src="{{ asset('assets/about-1.jpg') }}"
+            </div><img width="842" height="1521" decoding="async" src="{{ asset('assets/about-1.jpg') }}"
                 alt="GAGE team completing practical safety training on a resort jetty"
-                class="aspect-[1.05] w-full rounded-[16px] object-cover object-[50%_48%]" loading="lazy">
+                class="ZoomOutAnimation about-story-image w-full rounded-[16px] object-cover object-[50%_48%]" loading="lazy">
         </section>
         <section class="bg-black text-white">
             <div class="section container">
