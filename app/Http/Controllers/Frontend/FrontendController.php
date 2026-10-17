@@ -34,5 +34,9 @@ class FrontendController extends Controller
     {
         return view('frontend.pages.gage-training-instruction');
     }
+    public function gageTechnology(Request $request)
+    {
+        return view('frontend.pages.gage-technology');
+    }
 
 }
