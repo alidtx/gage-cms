@@ -3,9 +3,7 @@
 
         <section class="bg-black text-white">
             <div class="container pb-20 pt-10 lg:pb-24">
-                <nav aria-label="Breadcrumb" class="mb-10 flex gap-3 text-xs text-[#b9bec4]"><a
-                        href="{{ route('frontend.home') }}">Home</a><span aria-hidden="true">›</span><span
-                        class="text-white">Contact</span></nav>
+                @include('frontend.components.breadcrumb', ['title' => 'Contact', 'class' => 'mb-10 flex gap-3 text-xs text-[#b9bec4]'])
                 <p class="eyebrow"><span></span>CONTACT US</p>
                 <h1 class="mt-7 max-w-[1060px] text-[38px] font-bold leading-[1.12] tracking-[-1px] sm:text-[56px]">
                     Let’s talk about what you need to<br class="hidden lg:block"> protect.</h1>

@@ -2,8 +2,7 @@
 @section('content')
     <section class="bg-black text-white">
         <div class="container pb-[140px] pt-10">
-            <nav aria-label="Breadcrumb" class="mb-10 flex gap-3 text-xs text-[#b9bec4]"><a href="./index.html">Home</a><span
-                    aria-hidden="true">›</span><span class="text-white">News</span></nav>
+            @include('frontend.components.breadcrumb', ['title' => 'News', 'class' => 'mb-10 flex gap-3 text-xs text-[#b9bec4]'])
             <p class="eyebrow"><span></span>NEWS</p>
             <h1 class="mt-7 text-[42px] font-bold leading-[1.12] tracking-[-1px] sm:text-[56px]">News & updates.</h1>
             <p class="mt-6 text-lg leading-[1.7] text-[#b9bec4]">Announcements, events and stories from across the GAGE

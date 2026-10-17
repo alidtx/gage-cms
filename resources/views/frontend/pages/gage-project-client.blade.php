@@ -2,8 +2,7 @@
 @section('content')
     <section class="bg-black text-white">
         <div class="container pb-20 pt-10">
-            <nav aria-label="Breadcrumb" class="flex gap-2 text-xs text-white/70"><a href="./index.html">Home</a><span
-                    aria-hidden="true">›</span><span class="font-bold text-white">Projects &amp; Clients</span></nav>
+            @include('frontend.components.breadcrumb', ['title' => 'Projects & Clients', 'class' => 'flex gap-2 text-xs text-white/70'])
             <p class="eyebrow mt-12"><span></span>PROJECTS &amp; CLIENTS</p>
             <h1 class="mt-6 max-w-[1100px] text-[38px] font-extrabold leading-[1.15] tracking-[-1px] sm:text-[56px]">
                 Protecting the Maldives, atoll by<br class="hidden lg:block"> atoll.</h1>

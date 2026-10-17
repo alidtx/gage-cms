@@ -2,9 +2,7 @@
 @section('content')
 <section class="bg-black text-white ZoomOutAnimation">
             <div class="container pb-20 pt-10">
-                <nav aria-label="Breadcrumb" class="mb-10 flex gap-3 text-xs text-[#b9bec4]"><a
-                        href="{{ route('frontend.home') }}">Home</a><span aria-hidden="true">›</span><span
-                        class="text-white">About</span></nav>
+                @include('frontend.components.breadcrumb', ['title' => 'About', 'class' => 'mb-10 flex gap-3 text-xs text-[#b9bec4]'])
                 <div class="grid items-center gap-14 lg:grid-cols-[1.2fr_1fr] lg:gap-24">
                     <div>
                         <p class="eyebrow"><span></span>ABOUT GAGE</p>

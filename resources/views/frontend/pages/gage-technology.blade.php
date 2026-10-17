@@ -2,10 +2,7 @@
 @section('content')
         <section class="bg-[#197379] text-white">
             <div class="container pb-20 pt-10">
-                <nav aria-label="Breadcrumb" class="mb-10 flex flex-wrap gap-2 text-xs leading-6 text-white/70"><a
-                        href="./index.html">Home</a><span aria-hidden="true">›</span><a
-                        href="./index.html#companies">Our Companies</a><span aria-hidden="true">›</span><span
-                        class="font-bold text-white">GAGE Technology</span></nav>
+                @include('frontend.components.breadcrumb', ['title' => 'GAGE Technology', 'class' => 'mb-10 flex flex-wrap gap-2 text-xs leading-6 text-white/70', 'parents' => [['label' => 'Our Companies', 'url' => route('frontend.home').'#companies']]])
                 <div class="grid items-center gap-12 lg:grid-cols-[1.2fr_1fr] lg:gap-24">
                     <div><img src="./public/assets/technology-hero-logo.png" alt="GAGE Technology" class="w-[170px]">
                         <h1 class="mt-6 text-[40px] font-bold leading-[1.12] tracking-[-1px] sm:text-[56px]">
