@@ -11,26 +11,6 @@
     'eyebrow' => 'PROJECTS & CLIENTS',
     'eyebrow_class' => 'eyebrow mt-12', 'breadcrumb' => ['title' => 'Projects & Clients', 'class' => 'flex gap-2 text-xs text-white/70']]])
     <section class="section container projects-browser">
-        <div class="flex flex-wrap items-center gap-3" role="group" aria-label="Show work by company"><span
-                class="mr-2 text-sm font-bold">Show work by</span><input class="project-filter sr-only" type="radio"
-                name="project-company" id="company-0"><label for="company-0" class="project-filter-label">All
-                companies</label><input class="project-filter sr-only" type="radio" name="project-company"
-                id="company-1"><label for="company-1" class="project-filter-label">GAGE Security</label><input
-                class="project-filter sr-only" type="radio" name="project-company" id="company-2" checked><label
-                for="company-2" class="project-filter-label">GAGE Fire Safety</label><input class="project-filter sr-only"
-                type="radio" name="project-company" id="company-3"><label for="company-3"
-                class="project-filter-label">GAGE Training Institute</label><input class="project-filter sr-only"
-                type="radio" name="project-company" id="company-4"><label for="company-4"
-                class="project-filter-label">GAGE Technology</label></div>
-        <div class="projects-empty mt-8 rounded-2xl border border-[#dfe2e7] p-10">
-            <h2 class="!mt-0 !text-2xl">More projects coming soon.</h2>
-            <p class="mt-4 text-muted">Project locations for this company have not been added yet. Contact our team
-                to discuss relevant experience for your property.</p><a href="./conact.html#enquiry"
-                class="button mt-6 bg-black text-white">Enquire about a project<svg width="17" height="17"
-                    viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true">
-                    <path d="M5 12h14m-6-6 6 6-6 6" />
-                </svg></a>
-        </div>
         <div class="projects-map-layout mt-8"><input type="radio" name="project-location" id="project-0"
                 class="project-location sr-only" aria-label="JA Manafaru Resort"><input type="radio"
                 name="project-location" id="project-1" class="project-location sr-only"
