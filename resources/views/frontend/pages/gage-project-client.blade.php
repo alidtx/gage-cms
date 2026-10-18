@@ -1,7 +1,7 @@
 @extends('frontend.layouts.app')
 @section('content')
     @include('frontend.components.hero', [
-        'hero' => [
+        'hero' => \App\Services\FrontendHero::merge([
             'variant' => 'text',
             'section_class' => 'bg-black text-white',
             'container_class' => 'container pb-20 pt-10',
@@ -17,7 +17,7 @@
             'eyebrow' => 'PROJECTS & CLIENTS',
             'eyebrow_class' => 'eyebrow mt-12',
             'breadcrumb' => ['title' => 'Projects & Clients', 'class' => 'flex gap-2 text-xs text-white/70'],
-        ],
+        ], $heroContent),
     ])
     <section class="section container projects-browser">
         <div class="projects-map-layout mt-8"><input type="radio" name="project-location" id="project-0"

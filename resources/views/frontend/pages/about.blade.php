@@ -1,7 +1,7 @@
 @extends('frontend.layouts.app')
 @section('content')
     @include('frontend.components.hero', [
-        'hero' => [
+        'hero' => \App\Services\FrontendHero::merge([
             'variant' => 'split',
             'section_class' => 'bg-black text-white ZoomOutAnimation',
             'container_class' => 'container pb-20 pt-10',
@@ -25,7 +25,7 @@
                 'class' => 'aspect-[1.45] w-full rounded-[16px] object-cover object-[50%_42%]',
             ],
             'breadcrumb' => ['title' => 'About', 'class' => 'mb-10 flex gap-3 text-xs text-[#b9bec4]'],
-        ],
+        ], $heroContent),
     ])
 
     <section class="section container grid items-start gap-14 lg:grid-cols-2 lg:gap-24">

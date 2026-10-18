@@ -7,28 +7,12 @@ use Illuminate\Support\Facades\Storage;
 
 class FrontendHero
 {
-    /** @param array<string, mixed> $defaults
-     * @return array<string, mixed>
-     */
-    public function resolve(?string $route, array $defaults): array
+    /** @return array<string, mixed> */
+    public function forPage(string $slug): array
     {
-        $slug = match ($route) {
-            'frontend.home' => 'home',
-            'frontend.about' => 'about',
-            'contact.create' => 'contact',
-            'frontend.news' => 'news',
-            'frontend.gage-project-client' => 'gage-project-client',
-            'frontend.gage-security' => 'gage-security',
-            'frontend.gage-fire-safety' => 'gage-fire-safety',
-            'frontend.gage-training-instruction' => 'gage-training-instruction',
-            'frontend.gage-technology' => 'gage-technology',
-            default => null,
-        };
-        if ($slug === null) {
-            return $defaults;
-        }
+        $defaults = [];
         $page = PageContent::with('media')->where('page', str_replace('-', '_', $slug))->where('is_active', true)->first()
-            ?? PageContent::with('media')->where('page', $slug)->where('is_active', true)->first();
+            ?? PageContent::with('media')->where('page', str_replace('_', '-', $slug))->where('is_active', true)->first();
         if (! $page) {
             return $defaults;
         }
@@ -50,7 +34,7 @@ class FrontendHero
             }
             $label = $text(data_get($content, "$key.text"));
             $href = $text(data_get($content, "$key.href"));
-            unset($defaults['buttons'][$index]);
+            $defaults['buttons'][$index] = null;
             if ($label !== '' && preg_match('~^(?:/(?!/)|#[\w-]*$|https?://|mailto:|tel:)~i', $href) && ! preg_match('/[\x00-\x20\\\\]/', $href)) {
                 $defaults['buttons'][$index] = array_merge($buttons[$index] ?? [], ['label' => $label, 'url' => $href]);
             }
@@ -61,7 +45,6 @@ class FrontendHero
             $defaults['image'] = [
                 'src' => route('frontend.page-hero-image', $page),
                 'alt' => $text(data_get($content, 'image_alt')) ?: $page->name,
-                'class' => $defaults['image']['class'] ?? 'aspect-[1.05] w-full rounded-[16px] object-cover',
             ];
         }
         $video = data_get($content, 'video_url');
@@ -70,5 +53,34 @@ class FrontendHero
         }
 
         return $defaults;
+    }
+
+    /**
+     * Merge supplied content with template styling without loading data.
+     *
+     * @param  array<string, mixed>  $defaults
+     * @param  array<string, mixed>  $content
+     * @return array<string, mixed>
+     */
+    public static function merge(array $defaults, array $content): array
+    {
+        if (isset($content['image'])) {
+            unset($defaults['image']['width'], $defaults['image']['height']);
+            $content['image'] = array_replace($defaults['image'] ?? [], $content['image']);
+        }
+        if (array_key_exists('buttons', $content)) {
+            $buttons = $defaults['buttons'] ?? [];
+            foreach ($content['buttons'] as $index => $button) {
+                if ($button === null) {
+                    unset($buttons[$index]);
+                } else {
+                    $buttons[$index] = array_replace($buttons[$index] ?? [], $button);
+                }
+            }
+            ksort($buttons);
+            $content['buttons'] = array_values($buttons);
+        }
+
+        return array_replace($defaults, $content);
     }
 }

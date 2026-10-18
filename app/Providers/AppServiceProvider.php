@@ -2,7 +2,6 @@
 
 namespace App\Providers;
 
-use App\Services\FrontendHero;
 use App\Services\FrontendSeo;
 use Illuminate\Support\Facades\View;
 use Illuminate\Support\Facades\Vite;
@@ -24,9 +23,6 @@ class AppServiceProvider extends ServiceProvider
     public function boot(): void
     {
         Vite::prefetch(concurrency: 3);
-        View::composer('frontend.components.hero', function (\Illuminate\View\View $view): void {
-            $view->with('hero', app(FrontendHero::class)->resolve(request()->route()?->getName(), $view->getData()['hero'] ?? []));
-        });
         View::composer('frontend.layouts.app', function (\Illuminate\View\View $view): void {
             $view->with('seo', app(FrontendSeo::class)->resolve($view->getData()['pageSeo'] ?? []));
         });

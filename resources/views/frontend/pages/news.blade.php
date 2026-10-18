@@ -1,7 +1,7 @@
 @extends('frontend.layouts.app')
 @section('content')
     @include('frontend.components.hero', [
-        'hero' => [
+        'hero' => \App\Services\FrontendHero::merge([
             'variant' => 'text',
             'section_class' => 'bg-black text-white',
             'container_class' => 'container pb-[140px] pt-10',
@@ -12,7 +12,7 @@
             'eyebrow' => 'NEWS',
             'eyebrow_class' => 'eyebrow',
             'breadcrumb' => ['title' => 'News', 'class' => 'mb-10 flex gap-3 text-xs text-[#b9bec4]'],
-        ],
+        ], $heroContent),
     ])
     <section id="news-list" class="news-listing container pb-[120px] pt-16">
         <nav class="mb-14 flex flex-wrap gap-3" aria-label="News categories">

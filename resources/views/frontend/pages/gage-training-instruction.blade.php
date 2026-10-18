@@ -1,7 +1,7 @@
 @extends('frontend.layouts.app')
 @section('content')
     @include('frontend.components.hero', [
-        'hero' => [
+        'hero' => \App\Services\FrontendHero::merge([
             'variant' => 'split',
             'section_class' => 'company-hero text-white',
             'container_class' => 'container pb-20 pt-10',
@@ -42,7 +42,7 @@
                 'class' => 'mb-10 flex flex-wrap gap-2 text-xs leading-6 text-white/70',
                 'parents' => [['label' => 'Our Companies', 'url' => route('frontend.home') . '#companies']],
             ],
-        ],
+        ], $heroContent),
     ])
     {{-- <section class="section container">
         <div class="grid items-start gap-12 lg:grid-cols-2 lg:gap-24">

@@ -1,7 +1,7 @@
 @extends('frontend.layouts.app')
 @section('content')
     @include('frontend.components.hero', [
-        'hero' => [
+        'hero' => \App\Services\FrontendHero::merge([
             'variant' => 'text',
             'section_class' => 'bg-black text-white',
             'container_class' => 'container pb-20 pt-10 lg:pb-24',
@@ -17,7 +17,7 @@
             'eyebrow' => 'CONTACT US',
             'eyebrow_class' => 'eyebrow',
             'breadcrumb' => ['title' => 'Contact', 'class' => 'mb-10 flex gap-3 text-xs text-[#b9bec4]'],
-        ],
+        ], $heroContent),
     ])
     <section class="container py-24 lg:py-24">
         <div class="grid items-stretch gap-6 lg:grid-cols-[2fr_1fr]">

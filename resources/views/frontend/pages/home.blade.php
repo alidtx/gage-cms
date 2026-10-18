@@ -1,7 +1,7 @@
 @extends('frontend.layouts.app')
 @section('content')
     @include('frontend.components.hero', [
-        'hero' => [
+        'hero' => \App\Services\FrontendHero::merge([
             'variant' => 'home',
             'container_class' => 'container grid items-center gap-12 py-16 lg:grid-cols-2 lg:gap-24',
             'section_class' => 'home-hero bg-black text-white ZoomOutAnimation',
@@ -31,7 +31,7 @@
                     'arrow' => 'no',
                 ],
             ],
-        ],
+        ], $heroContent),
     ])
     <section aria-label="GAGE credentials" class="border-b border-[#dce0e5] ZoomOutAnimation">
         <div class="container grid gap-8 py-10 sm:grid-cols-2 lg:grid-cols-4 lg:gap-0">

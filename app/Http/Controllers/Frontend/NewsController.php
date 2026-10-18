@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use App\Models\News;
 use App\Models\NewsCategory;
 use App\Services\ArticleHtml;
+use App\Services\FrontendHero;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\View\View;
@@ -13,7 +14,7 @@ use Symfony\Component\HttpFoundation\StreamedResponse;
 
 class NewsController extends Controller
 {
-    public function index(Request $request): View
+    public function index(Request $request, FrontendHero $heroes): View
     {
         $filters = $request->validate(['category' => ['nullable', 'string', 'max:255']]);
         $category = ! empty($filters['category'])
@@ -32,7 +33,9 @@ class NewsController extends Controller
             'canonical' => route('frontend.news', array_filter(['category' => $category?->slug, 'page' => $articles->currentPage() > 1 ? $articles->currentPage() : null])),
         ];
 
-        return view('frontend.pages.news', compact('categories', 'category', 'articles', 'featuredArticle', 'pageSeo'));
+        $heroContent = $heroes->forPage('news');
+
+        return view('frontend.pages.news', compact('categories', 'category', 'articles', 'featuredArticle', 'pageSeo', 'heroContent'));
     }
 
     public function show(string $slug, ArticleHtml $html): View
