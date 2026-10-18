@@ -604,91 +604,31 @@
             </div>
         </section>
         <section id="news" class="container pb-[120px] ZoomOutAnimation">
-            <p class="eyebrow">
-                <span>
-                </span>NEWS
-            </p>
+            <p class="eyebrow"><span></span>NEWS</p>
             <div class="flex items-end justify-between gap-5">
                 <h2>Latest from GAGE</h2>
-                <a href="{{ route('frontend.home') }}#news"
-                    class="mb-2 inline-flex items-center gap-2 text-sm font-bold">View all news<svg
-                        xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none"
-                        stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
-                        class="lucide lucide-arrow-right">
-                        <path d="M5 12h14">
-                        </path>
-                        <path d="m12 5 7 7-7 7">
-                        </path>
-                    </svg>
-                </a>
+                <a href="{{ route('frontend.news') }}" class="mb-2 inline-flex items-center gap-2 text-sm font-bold">View all news →</a>
             </div>
             <div class="mt-8 grid gap-7 md:grid-cols-3">
-                <article>
-                    <a class="block w-full overflow-hidden rounded-[14px]" href="{{ route('frontend.home') }}#news">
-                        <img width="607" height="758" decoding="async" alt="GAGE turns 16 and introduces GAGE Technology"
-                            class="aspect-[1.63] w-full object-cover transition-transform duration-500 hover:scale-105"
-                            loading="lazy" src="{{ asset('assets/pdf-8.jpg') }}">
-                    </a>
-                    <p class="mt-6 text-[10px] font-bold tracking-wider">● GAGE GROUP · 21 JULY 2026</p>
-                    <h3 class="mt-3 text-xl font-bold leading-[1.4]">GAGE turns 16 and introduces GAGE Technology</h3>
-                    <p class="mt-3 text-sm leading-[1.65] text-muted">Sixteen years after our founding, we welcome a
-                        fifth company to the group — bringing IT, networking and integrated security systems under the
-                        GAGE name.</p>
-                    <a class="mt-6 inline-flex items-center gap-2 text-sm font-bold" href="{{ route('frontend.home') }}#news">Read more<svg
-                            xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none"
-                            stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
-                            class="lucide lucide-arrow-right">
-                            <path d="M5 12h14">
-                            </path>
-                            <path d="m12 5 7 7-7 7">
-                            </path>
-                        </svg>
-                    </a>
-                </article>
-                <article>
-                    <a class="block w-full overflow-hidden rounded-[14px]" href="{{ route('frontend.home') }}#news">
-                        <img width="620" height="349" decoding="async" alt="Smart intrusion and fire safety, live at Living Expo 2026"
-                            class="aspect-[1.63] w-full object-cover transition-transform duration-500 hover:scale-105"
-                            loading="lazy" src="{{ asset('assets/pdf-9.jpg') }}">
-                    </a>
-                    <p class="mt-6 text-[10px] font-bold tracking-wider">● GAGE GROUP · LIVING EXPO 2026</p>
-                    <h3 class="mt-3 text-xl font-bold leading-[1.4]">Smart intrusion and fire safety, live at Living
-                        Expo 2026</h3>
-                    <p class="mt-3 text-sm leading-[1.65] text-muted">Visitors explored a full home layout of connected
-                        intrusion and fire &amp; life safety devices at the GAGE booth.</p>
-                    <a class="mt-6 inline-flex items-center gap-2 text-sm font-bold" href="{{ route('frontend.home') }}#news">Read more<svg
-                            xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none"
-                            stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
-                            class="lucide lucide-arrow-right">
-                            <path d="M5 12h14">
-                            </path>
-                            <path d="m12 5 7 7-7 7">
-                            </path>
-                        </svg>
-                    </a>
-                </article>
-                <article>
-                    <a class="block w-full overflow-hidden rounded-[14px]" href="{{ route('frontend.home') }}#news">
-                        <img width="580" height="383" decoding="async" alt="GAGE named a GOLD100 awardee for the third year running"
-                            class="aspect-[1.63] w-full object-cover transition-transform duration-500 hover:scale-105"
-                            loading="lazy" src="{{ asset('assets/pdf-10.png') }}">
-                    </a>
-                    <p class="mt-6 text-[10px] font-bold tracking-wider">● GAGE GROUP · GOLD100 AWARDS</p>
-                    <h3 class="mt-3 text-xl font-bold leading-[1.4]">GAGE named a GOLD100 awardee for the third year
-                        running</h3>
-                    <p class="mt-3 text-sm leading-[1.65] text-muted">The Maldives’ most prestigious business award
-                        recognises GAGE’s service standards for a third consecutive year.</p>
-                    <a class="mt-6 inline-flex items-center gap-2 text-sm font-bold" href="{{ route('frontend.home') }}#news">Read more<svg
-                            xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none"
-                            stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
-                            class="lucide lucide-arrow-right">
-                            <path d="M5 12h14">
-                            </path>
-                            <path d="m12 5 7 7-7 7">
-                            </path>
-                        </svg>
-                    </a>
-                </article>
+                @forelse($recentNews as $article)
+                    <article>
+                        <a class="block w-full overflow-hidden rounded-[14px]" href="{{ route('frontend.news.show', $article->slug) }}" aria-label="{{ $article->title }}">
+                            @if($article->featured_image_id)
+                                <img decoding="async" alt="{{ $article->title }}"
+                                    class="aspect-[1.63] w-full object-cover transition-transform duration-500 hover:scale-105"
+                                    loading="lazy" src="{{ route('frontend.news.image', [$article->slug, 'featured']) }}">
+                            @else
+                                <div class="public-news-image public-news-placeholder" aria-hidden="true">GAGE NEWS</div>
+                            @endif
+                        </a>
+                        <p class="mt-6 text-[10px] font-bold tracking-wider">● {{ $article->category->name }} · <time datetime="{{ $article->published_at->toDateString() }}">{{ $article->published_at->format('d F Y') }}</time></p>
+                        <h3 class="mt-3 text-xl font-bold leading-[1.4]"><a href="{{ route('frontend.news.show', $article->slug) }}">{{ $article->title }}</a></h3>
+                        <p class="mt-3 text-sm leading-[1.65] text-muted">{{ $article->excerpt }}</p>
+                        <a class="mt-6 inline-flex items-center gap-2 text-sm font-bold" href="{{ route('frontend.news.show', $article->slug) }}">Read more →</a>
+                    </article>
+                @empty
+                    <p class="text-muted">News and updates will be available soon.</p>
+                @endforelse
             </div>
         </section>
         <section id="contact" class="container pb-[120px] ZoomOutAnimation">

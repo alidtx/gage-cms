@@ -14,6 +14,19 @@ class FrontendNewsTest extends TestCase
 {
     use RefreshDatabase;
 
+    public function test_home_shows_only_three_latest_public_articles(): void
+    {
+        $category = NewsCategory::factory()->create();
+        $older = News::factory()->create(['news_category_id' => $category->id, 'status' => 'published', 'published_at' => now()->subDays(10), 'is_featured' => true]);
+        $recent = collect([3, 2, 1])->map(fn ($days) => News::factory()->create(['news_category_id' => $category->id, 'status' => 'published', 'published_at' => now()->subDays($days)]));
+        $draft = News::factory()->create(['news_category_id' => $category->id, 'status' => 'draft']);
+        $future = News::factory()->create(['news_category_id' => $category->id, 'status' => 'published', 'published_at' => now()->addDay()]);
+        $response = $this->get('/')->assertOk();
+        $this->assertSame($recent->reverse()->pluck('id')->values()->all(), $response->viewData('recentNews')->pluck('id')->all());
+        $response->assertDontSee($older->title)->assertDontSee($draft->title)->assertDontSee($future->title)
+            ->assertSee(route('frontend.news.show', $recent->last()->slug), false);
+    }
+
     public function test_local_publication_time_is_visible_without_publishing_future_articles_early(): void
     {
         $this->travelTo(Carbon::parse('2026-10-18 08:53:00', 'UTC'));

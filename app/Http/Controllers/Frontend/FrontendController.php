@@ -3,13 +3,18 @@
 namespace App\Http\Controllers\Frontend;
 
 use App\Http\Controllers\Controller;
+use App\Models\News;
 use Illuminate\Http\Request;
+use Illuminate\View\View;
 
 class FrontendController extends Controller
 {
-    public function home(Request $request)
+    public function home(Request $request): View
     {
-        return view('frontend.pages.home');
+        $recentNews = News::publiclyVisible()->with('category')
+            ->orderByDesc('published_at')->orderByDesc('id')->limit(3)->get();
+
+        return view('frontend.pages.home', compact('recentNews'));
     }
 
     public function about(Request $request)
