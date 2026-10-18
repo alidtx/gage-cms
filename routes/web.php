@@ -20,7 +20,9 @@ use Illuminate\Support\Facades\Route;
 
 Route::get('/', [FrontendController::class, 'home'])->name('frontend.home');
 Route::get('/about', [FrontendController::class, 'about'])->name('frontend.about');
-Route::get('/news', [FrontendController::class, 'news'])->name('frontend.news');
+Route::get('/news', [App\Http\Controllers\Frontend\NewsController::class, 'index'])->name('frontend.news');
+Route::get('/news/{slug}/image/{type}', [App\Http\Controllers\Frontend\NewsController::class, 'image'])->name('frontend.news.image');
+Route::get('/news/{slug}', [App\Http\Controllers\Frontend\NewsController::class, 'show'])->name('frontend.news.show');
 Route::get('/gage-security', [FrontendController::class, 'gageSecurity'])->name('frontend.gage-security');
 Route::get('/gage-fire-safety', [FrontendController::class, 'gageFireSafety'])->name('frontend.gage-fire-safety');
 Route::get('/gage-training-instruction', [FrontendController::class, 'gageTrainingInstruction'])->name('frontend.gage-training-instruction');

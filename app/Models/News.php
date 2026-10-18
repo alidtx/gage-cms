@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
@@ -19,6 +20,12 @@ class News extends Model
     protected function casts(): array
     {
         return ['published_at' => 'datetime', 'is_featured' => 'boolean'];
+    }
+
+    public function scopePubliclyVisible(Builder $query): Builder
+    {
+        return $query->where('status', 'published')->where('published_at', '<=', now(config('news.publication_timezone')))
+            ->whereHas('category', fn ($category) => $category->where('is_active', true));
     }
 
     public function category(): BelongsTo

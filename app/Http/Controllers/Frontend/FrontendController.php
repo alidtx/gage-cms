@@ -17,11 +17,6 @@ class FrontendController extends Controller
         return view('frontend.pages.about');
     }
 
-    public function news(Request $request)
-    {
-        return view('frontend.pages.news');
-    }
-
     public function gageSecurity(Request $request)
     {
         return view('frontend.pages.gage-security', ['companyTheme' => 'security']);
