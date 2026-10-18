@@ -82,3 +82,16 @@ body:is([data-company-theme="security"], [data-company-theme="fire-safety"], [da
         background-image: linear-gradient(110deg, #ffffffcc, #ffffff30);
     }
 }
+
+/* Show only the location selected from the project list. */
+.project-map .project-pin { visibility: hidden; }
+.project-map .project-pin.is-selected { visibility: visible; }
+.project-map .project-tooltip { display: none; width: min(300px, 80%); min-height: 0; z-index: 3; }
+.project-map.has-selection .project-tooltip { display: block; }
+.project-map-art { transform-origin: var(--map-focus-x, 50%) var(--map-focus-y, 50%); }
+@media (prefers-reduced-motion: no-preference) {
+    .project-map-art.is-zooming { animation: project-map-zoom 650ms ease-out; }
+    .project-pin.is-selected { animation: project-point-appear 450ms ease-out; }
+    @keyframes project-map-zoom { 0%, 100% { transform: scale(1); } 45% { transform: scale(1.06); } }
+    @keyframes project-point-appear { from { opacity: 0; transform: translate(-50%, -50%) scale(.4); } to { opacity: 1; transform: translate(-50%, -50%) scale(1); } }
+}

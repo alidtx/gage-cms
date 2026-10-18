@@ -15,7 +15,7 @@
                 class="project-location sr-only" aria-label="JA Manafaru Resort"><input type="radio"
                 name="project-location" id="project-1" class="project-location sr-only"
                 aria-label="JW Marriott Maldives Resort"><input type="radio" name="project-location" id="project-2"
-                class="project-location sr-only" aria-label="Soneva Jani Resort" checked><input type="radio"
+                class="project-location sr-only" aria-label="Soneva Jani Resort"><input type="radio"
                 name="project-location" id="project-3" class="project-location sr-only"
                 aria-label="Siyam World Resort"><input type="radio" name="project-location" id="project-4"
                 class="project-location sr-only" aria-label="Velaa Private Island Resort"><input type="radio"
@@ -60,8 +60,8 @@
                 aria-label="Six Senses Maldives Resort"><input type="radio" name="project-location" id="project-31"
                 class="project-location sr-only" aria-label="Robinson Maldives Resort">
             <div class="project-map relative self-start overflow-hidden rounded-[16px] bg-[#002e40]" tabindex="0" role="region" aria-label="Project locations map">
-                <div class="relative"><img
-                    src="{{ asset('assets/projects-atoll-map.png') }}"
+                <div class="relative project-map-art"><img
+                    src="{{ asset('assets/projects-atoll-map-clean.png') }}"
                     alt="Illustrated Maldives atoll map with approximate fire safety project locations"
                     class="block w-full"><label for="project-0" class="project-pin project-pin-0"
                     style="left:45%;top:6%" title="JA Manafaru Resort"><span class="sr-only">JA Manafaru
@@ -131,7 +131,7 @@
                         Resort</span></label><label for="project-31" class="project-pin project-pin-31"
                     style="left:55%;top:89%" title="Robinson Maldives Resort"><span class="sr-only">Robinson
                         Maldives Resort</span></label>
-                <div class="project-tooltip absolute rounded-lg bg-white p-4 shadow-lg">
+                <div class="project-tooltip absolute rounded-lg bg-white p-4 shadow-lg" aria-live="polite" aria-atomic="true">
                     <div class="project-tip project-tip-0">
                         <p class="text-sm font-extrabold">JA Manafaru Resort</p>
                         <p class="mt-2 text-xs text-muted">Haa Alifu Atoll</p>

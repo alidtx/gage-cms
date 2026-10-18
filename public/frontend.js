@@ -81,3 +81,31 @@ if ('IntersectionObserver' in window && !window.matchMedia('(prefers-reduced-mot
     });
     document.querySelectorAll('.ZoomOutAnimation').forEach(element => observer.observe(element));
 }
+
+document.querySelectorAll('.projects-map-layout').forEach(layout => {
+    const map = layout.querySelector('.project-map');
+    const art = map?.querySelector('.project-map-art');
+    const tooltip = map?.querySelector('.project-tooltip');
+    if (!art || !tooltip) return;
+    const select = input => {
+        const pin = art.querySelector('.project-pin[for="' + input.id + '"]');
+        if (!pin) return;
+        art.querySelectorAll('.project-pin').forEach(item => item.classList.toggle('is-selected', item === pin));
+        map.classList.add('has-selection');
+        const x = pin.offsetLeft;
+        const y = pin.offsetTop;
+        tooltip.style.left = Math.max(12, Math.min(x + 24, art.clientWidth - tooltip.offsetWidth - 12)) + 'px';
+        tooltip.style.top = Math.max(12, Math.min(y + 24, art.clientHeight - tooltip.offsetHeight - 12)) + 'px';
+        art.style.setProperty('--map-focus-x', pin.style.left);
+        art.style.setProperty('--map-focus-y', pin.style.top);
+        art.classList.remove('is-zooming');
+        void art.offsetWidth;
+        art.classList.add('is-zooming');
+        map.scrollTo({ top: Math.max(0, y - map.clientHeight / 3),
+            behavior: window.matchMedia('(prefers-reduced-motion: reduce)').matches ? 'instant' : 'smooth' });
+    };
+    layout.querySelectorAll('.project-location').forEach(input => {
+        input.addEventListener('change', () => { if (input.checked) select(input); });
+    });
+    art.addEventListener('animationend', () => art.classList.remove('is-zooming'));
+});
