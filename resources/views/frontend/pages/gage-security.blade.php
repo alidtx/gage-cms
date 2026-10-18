@@ -1,17 +1,49 @@
 @extends('frontend.layouts.app')
 @section('content')
-    @include('frontend.components.hero', ['hero' => [
-    'variant' => 'split',
-    'section_class' => 'company-hero text-white',
-    'container_class' => 'container pb-20 pt-10',
-    'grid_class' => 'grid items-center gap-12 lg:grid-cols-[1.2fr_1fr] lg:gap-24',
-    'heading_class' => 'mt-6 text-[40px] font-bold leading-[1.12] tracking-[-1px] sm:text-[56px]',
-    'heading' => [['text' => 'Dependable', 'break_class' => ''], ['text' => 'protection for people', 'break_class' => 'hidden lg:block'], ['text' => 'and property.']],
-    'description' => 'Through a seamless blend of elite manpower, specialised event security and advanced surveillance technology, GAGE Security safeguards the places and people that matter most — with precision and discretion.',
-    'description_class' => 'mt-6 max-w-[620px] text-lg leading-[1.7] text-[#b9bec4]',
-    'logo' => ['src' => 'assets/security-hero-logo.png', 'alt' => 'GAGE Security'],
-    'image' => ['src' => 'assets/security-page-0.jpg', 'width' => 841, 'height' => 1126, 'alt' => 'GAGE security officers protecting a Maldives resort at dusk', 'class' => 'aspect-[.86] w-full rounded-[16px] object-cover'],
-    'buttons' => [['label' => 'Request a security assessment', 'url' => '/contact#enquiry', 'class' => 'button button-light', 'arrow' => 'yes'], ['label' => 'View services', 'url' => '#services', 'class' => 'button button-outline', 'arrow' => 'no']], 'breadcrumb' => ['title' => 'GAGE Security', 'class' => 'mb-10 flex flex-wrap gap-2 text-xs leading-6 text-[#b9bec4]', 'parents' => [['label' => 'Our Companies', 'url' => route('frontend.home').'#companies']]]]])
+    @include('frontend.components.hero', [
+        'hero' => [
+            'variant' => 'split',
+            'section_class' => 'company-hero text-white',
+            'container_class' => 'container pb-20 pt-10',
+            'grid_class' => 'grid items-center gap-12 lg:grid-cols-[1.2fr_1fr] lg:gap-24',
+            'heading_class' => 'mt-6 text-[40px] font-bold leading-[1.12] tracking-[-1px] sm:text-[56px]',
+            'heading' => [
+                ['text' => 'Dependable', 'break_class' => ''],
+                ['text' => 'protection for people', 'break_class' => 'hidden lg:block'],
+                ['text' => 'and property.'],
+            ],
+            'description' =>
+                'Through a seamless blend of elite manpower, specialised event security and advanced surveillance technology, GAGE Security safeguards the places and people that matter most — with precision and discretion.',
+            'description_class' => 'mt-6 max-w-[620px] text-lg leading-[1.7] text-[#b9bec4]',
+            'logo' => ['src' => 'assets/security-hero-logo.png', 'alt' => 'GAGE Security'],
+            'image' => [
+                'src' => 'assets/security-page-0.jpg',
+                'width' => 841,
+                'height' => 1126,
+                'alt' => 'GAGE security officers protecting a Maldives resort at dusk',
+                'class' => 'aspect-[.86] w-full rounded-[16px] object-cover',
+            ],
+            'buttons' => [
+                [
+                    'label' => 'Request a security assessment',
+                    'url' => '/contact#enquiry',
+                    'class' => 'button button-light',
+                    'arrow' => 'yes',
+                ],
+                [
+                    'label' => 'View services',
+                    'url' => '#services',
+                    'class' => 'button button-outline',
+                    'arrow' => 'no',
+                ],
+            ],
+            'breadcrumb' => [
+                'title' => 'GAGE Security',
+                'class' => 'mb-10 flex flex-wrap gap-2 text-xs leading-6 text-[#b9bec4]',
+                'parents' => [['label' => 'Our Companies', 'url' => route('frontend.home') . '#companies']],
+            ],
+        ],
+    ])
     <section id="services" class="section container">
         <p class="eyebrow"><span></span>SERVICES</p>
         <h2>Nine ways we keep you protected.</h2>
@@ -58,9 +90,9 @@
                 <h3 class="mt-7 text-xl font-bold">VIP Security</h3>
                 <p class="mt-3 flex-1 text-base leading-7 text-muted">Discreet close protection for dignitaries, executives
                     and high-profile guests.</p><a href="./conact.html#enquiry"
-                    class="mt-6 inline-flex items-center gap-2 self-start text-sm font-bold">View service<svg
-                        width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor"
-                        stroke-width="2" aria-hidden="true">
+                    class="mt-6 inline-flex items-center gap-2 self-start text-sm font-bold">View service<svg width="18"
+                        height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+                        aria-hidden="true">
                         <path d="M5 12h14m-6-6 6 6-6 6" />
                     </svg></a>
             </article>
@@ -74,9 +106,9 @@
                 <h3 class="mt-7 text-xl font-bold">Cash In Transit</h3>
                 <p class="mt-3 flex-1 text-base leading-7 text-muted">Secure transport of cash and valuables between your
                     premises and the bank.</p><a href="./conact.html#enquiry"
-                    class="mt-6 inline-flex items-center gap-2 self-start text-sm font-bold">View service<svg
-                        width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor"
-                        stroke-width="2" aria-hidden="true">
+                    class="mt-6 inline-flex items-center gap-2 self-start text-sm font-bold">View service<svg width="18"
+                        height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+                        aria-hidden="true">
                         <path d="M5 12h14m-6-6 6 6-6 6" />
                     </svg></a>
             </article>

@@ -1,18 +1,50 @@
 @extends('frontend.layouts.app')
 @section('content')
-        @include('frontend.components.hero', ['hero' => [
-    'variant' => 'split',
-    'section_class' => 'company-hero text-white',
-    'container_class' => 'container pb-20 pt-10',
-    'grid_class' => 'grid items-center gap-12 lg:grid-cols-[1.2fr_1fr] lg:gap-24',
-    'heading_class' => 'mt-6 text-[40px] font-bold leading-[1.12] tracking-[-1px] sm:text-[56px]',
-    'heading' => [['text' => 'Connected,', 'break_class' => ''], ['text' => 'protected,', 'break_class' => ''], ['text' => 'operational.']],
-    'description' => 'GAGE Technology delivers integrated IT, networking, security and communications solutions that keep businesses, resorts and institutions connected, protected and operational — from system design to ongoing support.',
-    'description_class' => 'mt-6 max-w-[620px] text-lg leading-[1.7] text-white/80',
-    'logo' => ['src' => 'assets/technology-hero-logo.png', 'alt' => 'GAGE Technology'],
-    'image' => ['src' => 'assets/technology-page-0.jpg', 'width' => 811, 'height' => 1086, 'alt' => 'GAGE engineer maintaining a network server rack', 'class' => 'aspect-[.86] w-full rounded-[16px] object-cover'],
-    'buttons' => [['label' => 'Plan your system', 'url' => '/contact#enquiry', 'class' => 'button button-light !text-[#197379]', 'arrow' => 'yes'], ['label' => 'View services', 'url' => '#services', 'class' => 'button button-outline', 'arrow' => 'yes']], 'breadcrumb' => ['title' => 'GAGE Technology', 'class' => 'mb-10 flex flex-wrap gap-2 text-xs leading-6 text-white/70', 'parents' => [['label' => 'Our Companies', 'url' => route('frontend.home').'#companies']]]]])
-        {{-- <section class="section container">
+    @include('frontend.components.hero', [
+        'hero' => [
+            'variant' => 'split',
+            'section_class' => 'company-hero text-white',
+            'container_class' => 'container pb-20 pt-10',
+            'grid_class' => 'grid items-center gap-12 lg:grid-cols-[1.2fr_1fr] lg:gap-24',
+            'heading_class' => 'mt-6 text-[40px] font-bold leading-[1.12] tracking-[-1px] sm:text-[56px]',
+            'heading' => [
+                ['text' => 'Connected,', 'break_class' => ''],
+                ['text' => 'protected,', 'break_class' => ''],
+                ['text' => 'operational.'],
+            ],
+            'description' =>
+                'GAGE Technology delivers integrated IT, networking, security and communications solutions that keep businesses, resorts and institutions connected, protected and operational — from system design to ongoing support.',
+            'description_class' => 'mt-6 max-w-[620px] text-lg leading-[1.7] text-white/80',
+            'logo' => ['src' => 'assets/technology-hero-logo.png', 'alt' => 'GAGE Technology'],
+            'image' => [
+                'src' => 'assets/technology-page-0.jpg',
+                'width' => 811,
+                'height' => 1086,
+                'alt' => 'GAGE engineer maintaining a network server rack',
+                'class' => 'aspect-[.86] w-full rounded-[16px] object-cover',
+            ],
+            'buttons' => [
+                [
+                    'label' => 'Plan your system',
+                    'url' => '/contact#enquiry',
+                    'class' => 'button button-light !text-[#197379]',
+                    'arrow' => 'yes',
+                ],
+                [
+                    'label' => 'View services',
+                    'url' => '#services',
+                    'class' => 'button button-outline',
+                    'arrow' => 'yes',
+                ],
+            ],
+            'breadcrumb' => [
+                'title' => 'GAGE Technology',
+                'class' => 'mb-10 flex flex-wrap gap-2 text-xs leading-6 text-white/70',
+                'parents' => [['label' => 'Our Companies', 'url' => route('frontend.home') . '#companies']],
+            ],
+        ],
+    ])
+    {{-- <section class="section container">
             <p class="eyebrow text-[#197379]"><span></span>SEE HOW IT CONNECTS</p>
             <h2>One integrated system, every zone<br class="hidden lg:block"> covered.</h2>
             <p class="section-intro">Explore a typical resort property. Select a point to see the technology behind it.

@@ -1,269 +1,286 @@
 @extends('frontend.layouts.app')
 @section('content')
-    @include('frontend.components.hero', ['hero' => [
-    'variant' => 'text',
-    'section_class' => 'bg-black text-white',
-    'container_class' => 'container pb-20 pt-10',
-    'heading_class' => 'mt-6 max-w-[1100px] text-[38px] font-extrabold leading-[1.15] tracking-[-1px] sm:text-[56px]',
-    'heading' => [['text' => 'Protecting the Maldives, atoll by', 'break_class' => 'hidden lg:block'], ['text' => 'atoll.']],
-    'description' => 'From private islands in Noonu to banks and hospitals in Hulhumalé, GAGE companies protect some of the country’s most important places. Explore where we work and who we work with.',
-    'description_class' => 'mt-6 max-w-[1080px] text-lg leading-[1.7] text-white/80',
-    'eyebrow' => 'PROJECTS & CLIENTS',
-    'eyebrow_class' => 'eyebrow mt-12', 'breadcrumb' => ['title' => 'Projects & Clients', 'class' => 'flex gap-2 text-xs text-white/70']]])
+    @include('frontend.components.hero', [
+        'hero' => [
+            'variant' => 'text',
+            'section_class' => 'bg-black text-white',
+            'container_class' => 'container pb-20 pt-10',
+            'heading_class' =>
+                'mt-6 max-w-[1100px] text-[38px] font-extrabold leading-[1.15] tracking-[-1px] sm:text-[56px]',
+            'heading' => [
+                ['text' => 'Protecting the Maldives, atoll by', 'break_class' => 'hidden lg:block'],
+                ['text' => 'atoll.'],
+            ],
+            'description' =>
+                'From private islands in Noonu to banks and hospitals in Hulhumalé, GAGE companies protect some of the country’s most important places. Explore where we work and who we work with.',
+            'description_class' => 'mt-6 max-w-[1080px] text-lg leading-[1.7] text-white/80',
+            'eyebrow' => 'PROJECTS & CLIENTS',
+            'eyebrow_class' => 'eyebrow mt-12',
+            'breadcrumb' => ['title' => 'Projects & Clients', 'class' => 'flex gap-2 text-xs text-white/70'],
+        ],
+    ])
     <section class="section container projects-browser">
         <div class="projects-map-layout mt-8"><input type="radio" name="project-location" id="project-0"
-                class="project-location sr-only" aria-label="JA Manafaru Resort"><input type="radio"
-                name="project-location" id="project-1" class="project-location sr-only"
-                aria-label="JW Marriott Maldives Resort"><input type="radio" name="project-location" id="project-2"
-                class="project-location sr-only" aria-label="Soneva Jani Resort"><input type="radio"
-                name="project-location" id="project-3" class="project-location sr-only"
-                aria-label="Siyam World Resort"><input type="radio" name="project-location" id="project-4"
-                class="project-location sr-only" aria-label="Velaa Private Island Resort"><input type="radio"
-                name="project-location" id="project-5" class="project-location sr-only"
-                aria-label="Seaside Finolhu Resort"><input type="radio" name="project-location" id="project-6"
-                class="project-location sr-only" aria-label="Milaidhoo Island Resort"><input type="radio"
-                name="project-location" id="project-7" class="project-location sr-only"
-                aria-label="Reethi Beach Resort"><input type="radio" name="project-location" id="project-8"
-                class="project-location sr-only" aria-label="Soneva Fushi Resort"><input type="radio"
-                name="project-location" id="project-9" class="project-location sr-only"
-                aria-label="OBLU Helengeli Resort"><input type="radio" name="project-location" id="project-10"
-                class="project-location sr-only" aria-label="Summer Island Resort"><input type="radio"
-                name="project-location" id="project-11" class="project-location sr-only" aria-label="Fari Campus"><input
-                type="radio" name="project-location" id="project-12" class="project-location sr-only"
-                aria-label="Maxx Royal Resort"><input type="radio" name="project-location" id="project-13"
-                class="project-location sr-only" aria-label="Club Med Finolhu Resort"><input type="radio"
-                name="project-location" id="project-14" class="project-location sr-only"
-                aria-label="Club Med Kani Resort"><input type="radio" name="project-location" id="project-15"
-                class="project-location sr-only" aria-label="Huvafen Fushi Maldives Resort"><input type="radio"
-                name="project-location" id="project-16" class="project-location sr-only"
-                aria-label="One&amp;Only Reethi Rah Resort"><input type="radio" name="project-location"
-                id="project-17" class="project-location sr-only" aria-label="Sheraton Maldives Full Moon Resort"><input
-                type="radio" name="project-location" id="project-18" class="project-location sr-only"
-                aria-label="Dusit D2 Resort"><input type="radio" name="project-location" id="project-19"
-                class="project-location sr-only" aria-label="Taj Exotica Resort"><input type="radio"
-                name="project-location" id="project-20" class="project-location sr-only"
-                aria-label="Hard Rock Resort"><input type="radio" name="project-location" id="project-21"
-                class="project-location sr-only" aria-label="JW Marriott Emboodhoo Lagoon Resort"><input type="radio"
-                name="project-location" id="project-22" class="project-location sr-only"
-                aria-label="Waldorf Astoria Maldives Resort"><input type="radio" name="project-location"
-                id="project-23" class="project-location sr-only" aria-label="OZEN Life Maadhoo"><input type="radio"
-                name="project-location" id="project-24" class="project-location sr-only"
-                aria-label="W Maldives Resort"><input type="radio" name="project-location" id="project-25"
-                class="project-location sr-only" aria-label="Conrad Maldives Rangali Island"><input type="radio"
-                name="project-location" id="project-26" class="project-location sr-only"
-                aria-label="Barceló Whale Lagoon Maldives"><input type="radio" name="project-location" id="project-27"
-                class="project-location sr-only" aria-label="NH Kuda Rah Resort"><input type="radio"
-                name="project-location" id="project-28" class="project-location sr-only"
-                aria-label="Kunaavashi Resort"><input type="radio" name="project-location" id="project-29"
-                class="project-location sr-only" aria-label="Baglioni Resort"><input type="radio"
-                name="project-location" id="project-30" class="project-location sr-only"
-                aria-label="Six Senses Maldives Resort"><input type="radio" name="project-location" id="project-31"
-                class="project-location sr-only" aria-label="Robinson Maldives Resort">
-            <div class="project-map relative self-start overflow-hidden rounded-[16px] bg-[#002e40]" tabindex="0" role="region" aria-label="Project locations map">
-                <div class="relative project-map-art"><img
-                    src="{{ asset('assets/projects-atoll-map-clean.png') }}"
-                    alt="Illustrated Maldives atoll map with approximate fire safety project locations"
-                    class="block w-full"><label for="project-0" class="project-pin project-pin-0"
-                    style="left:45%;top:6%" title="JA Manafaru Resort"><span class="sr-only">JA Manafaru
-                        Resort</span></label><label for="project-1" class="project-pin project-pin-1"
-                    style="left:49%;top:16%" title="JW Marriott Maldives Resort"><span class="sr-only">JW Marriott
-                        Maldives Resort</span></label><label for="project-2" class="project-pin project-pin-2"
-                    style="left:52%;top:22%" title="Soneva Jani Resort"><span class="sr-only">Soneva Jani
-                        Resort</span></label><label for="project-3" class="project-pin project-pin-3"
-                    style="left:47%;top:27%" title="Siyam World Resort"><span class="sr-only">Siyam World
-                        Resort</span></label><label for="project-4" class="project-pin project-pin-4"
-                    style="left:44%;top:25%" title="Velaa Private Island Resort"><span class="sr-only">Velaa Private
-                        Island Resort</span></label><label for="project-5" class="project-pin project-pin-5"
-                    style="left:54%;top:30%" title="Seaside Finolhu Resort"><span class="sr-only">Seaside Finolhu
-                        Resort</span></label><label for="project-6" class="project-pin project-pin-6"
-                    style="left:57%;top:28%" title="Milaidhoo Island Resort"><span class="sr-only">Milaidhoo Island
-                        Resort</span></label><label for="project-7" class="project-pin project-pin-7"
-                    style="left:56%;top:33%" title="Reethi Beach Resort"><span class="sr-only">Reethi Beach
-                        Resort</span></label><label for="project-8" class="project-pin project-pin-8"
-                    style="left:53%;top:31%" title="Soneva Fushi Resort"><span class="sr-only">Soneva Fushi
-                        Resort</span></label><label for="project-9" class="project-pin project-pin-9"
-                    style="left:56%;top:37%" title="OBLU Helengeli Resort"><span class="sr-only">OBLU Helengeli
-                        Resort</span></label><label for="project-10" class="project-pin project-pin-10"
-                    style="left:57%;top:39%" title="Summer Island Resort"><span class="sr-only">Summer Island
-                        Resort</span></label><label for="project-11" class="project-pin project-pin-11"
-                    style="left:59%;top:40%" title="Fari Campus"><span class="sr-only">Fari
-                        Campus</span></label><label for="project-12" class="project-pin project-pin-12"
-                    style="left:57%;top:42%" title="Maxx Royal Resort"><span class="sr-only">Maxx Royal
-                        Resort</span></label><label for="project-13" class="project-pin project-pin-13"
-                    style="left:59%;top:43%" title="Club Med Finolhu Resort"><span class="sr-only">Club Med Finolhu
-                        Resort</span></label><label for="project-14" class="project-pin project-pin-14"
-                    style="left:58%;top:44%" title="Club Med Kani Resort"><span class="sr-only">Club Med Kani
-                        Resort</span></label><label for="project-15" class="project-pin project-pin-15"
-                    style="left:55%;top:45%" title="Huvafen Fushi Maldives Resort"><span class="sr-only">Huvafen
-                        Fushi Maldives Resort</span></label><label for="project-16" class="project-pin project-pin-16"
-                    style="left:60%;top:46%" title="One&amp;Only Reethi Rah Resort"><span class="sr-only">One&amp;Only
-                        Reethi Rah
-                        Resort</span></label><label for="project-17" class="project-pin project-pin-17"
-                    style="left:57%;top:47%" title="Sheraton Maldives Full Moon Resort"><span class="sr-only">Sheraton
-                        Maldives Full Moon Resort</span></label><label for="project-18" class="project-pin project-pin-18"
-                    style="left:58%;top:48%" title="Dusit D2 Resort"><span class="sr-only">Dusit D2
-                        Resort</span></label><label for="project-19" class="project-pin project-pin-19"
-                    style="left:58%;top:49%" title="Taj Exotica Resort"><span class="sr-only">Taj Exotica
-                        Resort</span></label><label for="project-20" class="project-pin project-pin-20"
-                    style="left:59%;top:50%" title="Hard Rock Resort"><span class="sr-only">Hard Rock
-                        Resort</span></label><label for="project-21" class="project-pin project-pin-21"
-                    style="left:57%;top:51%" title="JW Marriott Emboodhoo Lagoon Resort"><span class="sr-only">JW
-                        Marriott Emboodhoo Lagoon
-                        Resort</span></label><label for="project-22" class="project-pin project-pin-22"
-                    style="left:60%;top:52%" title="Waldorf Astoria Maldives Resort"><span class="sr-only">Waldorf
-                        Astoria Maldives Resort</span></label><label for="project-23" class="project-pin project-pin-23"
-                    style="left:59%;top:53%" title="OZEN Life Maadhoo"><span class="sr-only">OZEN Life
-                        Maadhoo</span></label><label for="project-24" class="project-pin project-pin-24"
-                    style="left:44%;top:41%" title="W Maldives Resort"><span class="sr-only">W Maldives
-                        Resort</span></label><label for="project-25" class="project-pin project-pin-25"
-                    style="left:45%;top:46%" title="Conrad Maldives Rangali Island"><span class="sr-only">Conrad Maldives
-                        Rangali
-                        Island</span></label><label for="project-26" class="project-pin project-pin-26"
-                    style="left:46%;top:47%" title="Barceló Whale Lagoon Maldives"><span class="sr-only">Barceló
-                        Whale Lagoon Maldives</span></label><label for="project-27" class="project-pin project-pin-27"
-                    style="left:47%;top:48%" title="NH Kuda Rah Resort"><span class="sr-only">NH Kuda Rah
-                        Resort</span></label><label for="project-28" class="project-pin project-pin-28"
-                    style="left:56%;top:58%" title="Kunaavashi Resort"><span class="sr-only">Kunaavashi
-                        Resort</span></label><label for="project-29" class="project-pin project-pin-29"
-                    style="left:43%;top:55%" title="Baglioni Resort"><span class="sr-only">Baglioni
-                        Resort</span></label><label for="project-30" class="project-pin project-pin-30"
-                    style="left:47%;top:63%" title="Six Senses Maldives Resort"><span class="sr-only">Six Senses Maldives
-                        Resort</span></label><label for="project-31" class="project-pin project-pin-31"
-                    style="left:55%;top:89%" title="Robinson Maldives Resort"><span class="sr-only">Robinson
-                        Maldives Resort</span></label>
-                <div class="project-tooltip absolute rounded-lg bg-white p-4 shadow-lg" aria-live="polite" aria-atomic="true">
-                    <div class="project-tip project-tip-0">
-                        <p class="text-sm font-extrabold">JA Manafaru Resort</p>
-                        <p class="mt-2 text-xs text-muted">Haa Alifu Atoll</p>
-                    </div>
-                    <div class="project-tip project-tip-1">
-                        <p class="text-sm font-extrabold">JW Marriott Maldives Resort</p>
-                        <p class="mt-2 text-xs text-muted">Shaviyani Atoll</p>
-                    </div>
-                    <div class="project-tip project-tip-2">
-                        <p class="text-sm font-extrabold">Soneva Jani Resort</p>
-                        <p class="mt-2 text-xs text-muted">Noonu Atoll</p>
-                    </div>
-                    <div class="project-tip project-tip-3">
-                        <p class="text-sm font-extrabold">Siyam World Resort</p>
-                        <p class="mt-2 text-xs text-muted">Noonu Atoll</p>
-                    </div>
-                    <div class="project-tip project-tip-4">
-                        <p class="text-sm font-extrabold">Velaa Private Island Resort</p>
-                        <p class="mt-2 text-xs text-muted">Noonu Atoll</p>
-                    </div>
-                    <div class="project-tip project-tip-5">
-                        <p class="text-sm font-extrabold">Seaside Finolhu Resort</p>
-                        <p class="mt-2 text-xs text-muted">Baa Atoll</p>
-                    </div>
-                    <div class="project-tip project-tip-6">
-                        <p class="text-sm font-extrabold">Milaidhoo Island Resort</p>
-                        <p class="mt-2 text-xs text-muted">Baa Atoll</p>
-                    </div>
-                    <div class="project-tip project-tip-7">
-                        <p class="text-sm font-extrabold">Reethi Beach Resort</p>
-                        <p class="mt-2 text-xs text-muted">Baa Atoll</p>
-                    </div>
-                    <div class="project-tip project-tip-8">
-                        <p class="text-sm font-extrabold">Soneva Fushi Resort</p>
-                        <p class="mt-2 text-xs text-muted">Baa Atoll</p>
-                    </div>
-                    <div class="project-tip project-tip-9">
-                        <p class="text-sm font-extrabold">OBLU Helengeli Resort</p>
-                        <p class="mt-2 text-xs text-muted">Kaafu Atoll (North Malé)</p>
-                    </div>
-                    <div class="project-tip project-tip-10">
-                        <p class="text-sm font-extrabold">Summer Island Resort</p>
-                        <p class="mt-2 text-xs text-muted">Kaafu Atoll (North Malé)</p>
-                    </div>
-                    <div class="project-tip project-tip-11">
-                        <p class="text-sm font-extrabold">Fari Campus</p>
-                        <p class="mt-2 text-xs text-muted">Kaafu Atoll (North Malé)</p>
-                    </div>
-                    <div class="project-tip project-tip-12">
-                        <p class="text-sm font-extrabold">Maxx Royal Resort</p>
-                        <p class="mt-2 text-xs text-muted">Kaafu Atoll (North Malé)</p>
-                    </div>
-                    <div class="project-tip project-tip-13">
-                        <p class="text-sm font-extrabold">Club Med Finolhu Resort</p>
-                        <p class="mt-2 text-xs text-muted">Kaafu Atoll (North Malé)</p>
-                    </div>
-                    <div class="project-tip project-tip-14">
-                        <p class="text-sm font-extrabold">Club Med Kani Resort</p>
-                        <p class="mt-2 text-xs text-muted">Kaafu Atoll (North Malé)</p>
-                    </div>
-                    <div class="project-tip project-tip-15">
-                        <p class="text-sm font-extrabold">Huvafen Fushi Maldives Resort</p>
-                        <p class="mt-2 text-xs text-muted">Kaafu Atoll (North Malé)</p>
-                    </div>
-                    <div class="project-tip project-tip-16">
-                        <p class="text-sm font-extrabold">One&amp;Only Reethi Rah Resort</p>
-                        <p class="mt-2 text-xs text-muted">Kaafu Atoll (North Malé)</p>
-                    </div>
-                    <div class="project-tip project-tip-17">
-                        <p class="text-sm font-extrabold">Sheraton Maldives Full Moon Resort</p>
-                        <p class="mt-2 text-xs text-muted">Kaafu Atoll (North Malé)</p>
-                    </div>
-                    <div class="project-tip project-tip-18">
-                        <p class="text-sm font-extrabold">Dusit D2 Resort</p>
-                        <p class="mt-2 text-xs text-muted">Kaafu Atoll (North Malé)</p>
-                    </div>
-                    <div class="project-tip project-tip-19">
-                        <p class="text-sm font-extrabold">Taj Exotica Resort</p>
-                        <p class="mt-2 text-xs text-muted">Kaafu Atoll (South Malé)</p>
-                    </div>
-                    <div class="project-tip project-tip-20">
-                        <p class="text-sm font-extrabold">Hard Rock Resort</p>
-                        <p class="mt-2 text-xs text-muted">Kaafu Atoll (South Malé)</p>
-                    </div>
-                    <div class="project-tip project-tip-21">
-                        <p class="text-sm font-extrabold">JW Marriott Emboodhoo Lagoon Resort</p>
-                        <p class="mt-2 text-xs text-muted">Kaafu Atoll (South Malé)</p>
-                    </div>
-                    <div class="project-tip project-tip-22">
-                        <p class="text-sm font-extrabold">Waldorf Astoria Maldives Resort</p>
-                        <p class="mt-2 text-xs text-muted">Kaafu Atoll (South Malé)</p>
-                    </div>
-                    <div class="project-tip project-tip-23">
-                        <p class="text-sm font-extrabold">OZEN Life Maadhoo</p>
-                        <p class="mt-2 text-xs text-muted">Kaafu Atoll (South Malé)</p>
-                    </div>
-                    <div class="project-tip project-tip-24">
-                        <p class="text-sm font-extrabold">W Maldives Resort</p>
-                        <p class="mt-2 text-xs text-muted">Alifu Alifu Atoll (North Ari)</p>
-                    </div>
-                    <div class="project-tip project-tip-25">
-                        <p class="text-sm font-extrabold">Conrad Maldives Rangali Island</p>
-                        <p class="mt-2 text-xs text-muted">Alifu Dhaalu Atoll (South Ari)</p>
-                    </div>
-                    <div class="project-tip project-tip-26">
-                        <p class="text-sm font-extrabold">Barceló Whale Lagoon Maldives</p>
-                        <p class="mt-2 text-xs text-muted">Alifu Dhaalu Atoll (South Ari)</p>
-                    </div>
-                    <div class="project-tip project-tip-27">
-                        <p class="text-sm font-extrabold">NH Kuda Rah Resort</p>
-                        <p class="mt-2 text-xs text-muted">Alifu Dhaalu Atoll (South Ari)</p>
-                    </div>
-                    <div class="project-tip project-tip-28">
-                        <p class="text-sm font-extrabold">Kunaavashi Resort</p>
-                        <p class="mt-2 text-xs text-muted">Vaavu Atoll</p>
-                    </div>
-                    <div class="project-tip project-tip-29">
-                        <p class="text-sm font-extrabold">Baglioni Resort</p>
-                        <p class="mt-2 text-xs text-muted">Dhaalu Atoll</p>
-                    </div>
-                    <div class="project-tip project-tip-30">
-                        <p class="text-sm font-extrabold">Six Senses Maldives Resort</p>
-                        <p class="mt-2 text-xs text-muted">Laamu Atoll</p>
-                    </div>
-                    <div class="project-tip project-tip-31">
-                        <p class="text-sm font-extrabold">Robinson Maldives Resort</p>
-                        <p class="mt-2 text-xs text-muted">Gaafu Alifu Atoll</p>
+                class="project-location sr-only" aria-label="JA Manafaru Resort"><input type="radio" name="project-location"
+                id="project-1" class="project-location sr-only" aria-label="JW Marriott Maldives Resort"><input
+                type="radio" name="project-location" id="project-2" class="project-location sr-only"
+                aria-label="Soneva Jani Resort"><input type="radio" name="project-location" id="project-3"
+                class="project-location sr-only" aria-label="Siyam World Resort"><input type="radio"
+                name="project-location" id="project-4" class="project-location sr-only"
+                aria-label="Velaa Private Island Resort"><input type="radio" name="project-location" id="project-5"
+                class="project-location sr-only" aria-label="Seaside Finolhu Resort"><input type="radio"
+                name="project-location" id="project-6" class="project-location sr-only"
+                aria-label="Milaidhoo Island Resort"><input type="radio" name="project-location" id="project-7"
+                class="project-location sr-only" aria-label="Reethi Beach Resort"><input type="radio"
+                name="project-location" id="project-8" class="project-location sr-only"
+                aria-label="Soneva Fushi Resort"><input type="radio" name="project-location" id="project-9"
+                class="project-location sr-only" aria-label="OBLU Helengeli Resort"><input type="radio"
+                name="project-location" id="project-10" class="project-location sr-only"
+                aria-label="Summer Island Resort"><input type="radio" name="project-location" id="project-11"
+                class="project-location sr-only" aria-label="Fari Campus"><input type="radio" name="project-location"
+                id="project-12" class="project-location sr-only" aria-label="Maxx Royal Resort"><input type="radio"
+                name="project-location" id="project-13" class="project-location sr-only"
+                aria-label="Club Med Finolhu Resort"><input type="radio" name="project-location" id="project-14"
+                class="project-location sr-only" aria-label="Club Med Kani Resort"><input type="radio"
+                name="project-location" id="project-15" class="project-location sr-only"
+                aria-label="Huvafen Fushi Maldives Resort"><input type="radio" name="project-location" id="project-16"
+                class="project-location sr-only" aria-label="One&amp;Only Reethi Rah Resort"><input type="radio"
+                name="project-location" id="project-17" class="project-location sr-only"
+                aria-label="Sheraton Maldives Full Moon Resort"><input type="radio" name="project-location"
+                id="project-18" class="project-location sr-only" aria-label="Dusit D2 Resort"><input type="radio"
+                name="project-location" id="project-19" class="project-location sr-only"
+                aria-label="Taj Exotica Resort"><input type="radio" name="project-location" id="project-20"
+                class="project-location sr-only" aria-label="Hard Rock Resort"><input type="radio"
+                name="project-location" id="project-21" class="project-location sr-only"
+                aria-label="JW Marriott Emboodhoo Lagoon Resort"><input type="radio" name="project-location"
+                id="project-22" class="project-location sr-only" aria-label="Waldorf Astoria Maldives Resort"><input
+                type="radio" name="project-location" id="project-23" class="project-location sr-only"
+                aria-label="OZEN Life Maadhoo"><input type="radio" name="project-location" id="project-24"
+                class="project-location sr-only" aria-label="W Maldives Resort"><input type="radio"
+                name="project-location" id="project-25" class="project-location sr-only"
+                aria-label="Conrad Maldives Rangali Island"><input type="radio" name="project-location"
+                id="project-26" class="project-location sr-only" aria-label="Barceló Whale Lagoon Maldives"><input
+                type="radio" name="project-location" id="project-27" class="project-location sr-only"
+                aria-label="NH Kuda Rah Resort"><input type="radio" name="project-location" id="project-28"
+                class="project-location sr-only" aria-label="Kunaavashi Resort"><input type="radio"
+                name="project-location" id="project-29" class="project-location sr-only"
+                aria-label="Baglioni Resort"><input type="radio" name="project-location" id="project-30"
+                class="project-location sr-only" aria-label="Six Senses Maldives Resort"><input type="radio"
+                name="project-location" id="project-31" class="project-location sr-only"
+                aria-label="Robinson Maldives Resort">
+            <div class="project-map relative self-start overflow-hidden rounded-[16px] bg-[#002e40]" tabindex="0"
+                role="region" aria-label="Project locations map">
+                <div class="relative project-map-art"><img src="{{ asset('assets/projects-atoll-map-clean.png') }}"
+                        alt="Illustrated Maldives atoll map with approximate fire safety project locations"
+                        class="block w-full"><label for="project-0" class="project-pin project-pin-0"
+                        style="left:45%;top:6%" title="JA Manafaru Resort"><span class="sr-only">JA Manafaru
+                            Resort</span></label><label for="project-1" class="project-pin project-pin-1"
+                        style="left:49%;top:16%" title="JW Marriott Maldives Resort"><span class="sr-only">JW Marriott
+                            Maldives Resort</span></label><label for="project-2" class="project-pin project-pin-2"
+                        style="left:52%;top:22%" title="Soneva Jani Resort"><span class="sr-only">Soneva Jani
+                            Resort</span></label><label for="project-3" class="project-pin project-pin-3"
+                        style="left:47%;top:27%" title="Siyam World Resort"><span class="sr-only">Siyam World
+                            Resort</span></label><label for="project-4" class="project-pin project-pin-4"
+                        style="left:44%;top:25%" title="Velaa Private Island Resort"><span class="sr-only">Velaa Private
+                            Island Resort</span></label><label for="project-5" class="project-pin project-pin-5"
+                        style="left:54%;top:30%" title="Seaside Finolhu Resort"><span class="sr-only">Seaside Finolhu
+                            Resort</span></label><label for="project-6" class="project-pin project-pin-6"
+                        style="left:57%;top:28%" title="Milaidhoo Island Resort"><span class="sr-only">Milaidhoo Island
+                            Resort</span></label><label for="project-7" class="project-pin project-pin-7"
+                        style="left:56%;top:33%" title="Reethi Beach Resort"><span class="sr-only">Reethi Beach
+                            Resort</span></label><label for="project-8" class="project-pin project-pin-8"
+                        style="left:53%;top:31%" title="Soneva Fushi Resort"><span class="sr-only">Soneva Fushi
+                            Resort</span></label><label for="project-9" class="project-pin project-pin-9"
+                        style="left:56%;top:37%" title="OBLU Helengeli Resort"><span class="sr-only">OBLU Helengeli
+                            Resort</span></label><label for="project-10" class="project-pin project-pin-10"
+                        style="left:57%;top:39%" title="Summer Island Resort"><span class="sr-only">Summer Island
+                            Resort</span></label><label for="project-11" class="project-pin project-pin-11"
+                        style="left:59%;top:40%" title="Fari Campus"><span class="sr-only">Fari
+                            Campus</span></label><label for="project-12" class="project-pin project-pin-12"
+                        style="left:57%;top:42%" title="Maxx Royal Resort"><span class="sr-only">Maxx Royal
+                            Resort</span></label><label for="project-13" class="project-pin project-pin-13"
+                        style="left:59%;top:43%" title="Club Med Finolhu Resort"><span class="sr-only">Club Med Finolhu
+                            Resort</span></label><label for="project-14" class="project-pin project-pin-14"
+                        style="left:58%;top:44%" title="Club Med Kani Resort"><span class="sr-only">Club Med Kani
+                            Resort</span></label><label for="project-15" class="project-pin project-pin-15"
+                        style="left:55%;top:45%" title="Huvafen Fushi Maldives Resort"><span class="sr-only">Huvafen
+                            Fushi Maldives Resort</span></label><label for="project-16" class="project-pin project-pin-16"
+                        style="left:60%;top:46%" title="One&amp;Only Reethi Rah Resort"><span
+                            class="sr-only">One&amp;Only
+                            Reethi Rah
+                            Resort</span></label><label for="project-17" class="project-pin project-pin-17"
+                        style="left:57%;top:47%" title="Sheraton Maldives Full Moon Resort"><span
+                            class="sr-only">Sheraton
+                            Maldives Full Moon Resort</span></label><label for="project-18"
+                        class="project-pin project-pin-18" style="left:58%;top:48%" title="Dusit D2 Resort"><span
+                            class="sr-only">Dusit D2
+                            Resort</span></label><label for="project-19" class="project-pin project-pin-19"
+                        style="left:58%;top:49%" title="Taj Exotica Resort"><span class="sr-only">Taj Exotica
+                            Resort</span></label><label for="project-20" class="project-pin project-pin-20"
+                        style="left:59%;top:50%" title="Hard Rock Resort"><span class="sr-only">Hard Rock
+                            Resort</span></label><label for="project-21" class="project-pin project-pin-21"
+                        style="left:57%;top:51%" title="JW Marriott Emboodhoo Lagoon Resort"><span class="sr-only">JW
+                            Marriott Emboodhoo Lagoon
+                            Resort</span></label><label for="project-22" class="project-pin project-pin-22"
+                        style="left:60%;top:52%" title="Waldorf Astoria Maldives Resort"><span class="sr-only">Waldorf
+                            Astoria Maldives Resort</span></label><label for="project-23"
+                        class="project-pin project-pin-23" style="left:59%;top:53%" title="OZEN Life Maadhoo"><span
+                            class="sr-only">OZEN Life
+                            Maadhoo</span></label><label for="project-24" class="project-pin project-pin-24"
+                        style="left:44%;top:41%" title="W Maldives Resort"><span class="sr-only">W Maldives
+                            Resort</span></label><label for="project-25" class="project-pin project-pin-25"
+                        style="left:45%;top:46%" title="Conrad Maldives Rangali Island"><span class="sr-only">Conrad
+                            Maldives
+                            Rangali
+                            Island</span></label><label for="project-26" class="project-pin project-pin-26"
+                        style="left:46%;top:47%" title="Barceló Whale Lagoon Maldives"><span class="sr-only">Barceló
+                            Whale Lagoon Maldives</span></label><label for="project-27" class="project-pin project-pin-27"
+                        style="left:47%;top:48%" title="NH Kuda Rah Resort"><span class="sr-only">NH Kuda Rah
+                            Resort</span></label><label for="project-28" class="project-pin project-pin-28"
+                        style="left:56%;top:58%" title="Kunaavashi Resort"><span class="sr-only">Kunaavashi
+                            Resort</span></label><label for="project-29" class="project-pin project-pin-29"
+                        style="left:43%;top:55%" title="Baglioni Resort"><span class="sr-only">Baglioni
+                            Resort</span></label><label for="project-30" class="project-pin project-pin-30"
+                        style="left:47%;top:63%" title="Six Senses Maldives Resort"><span class="sr-only">Six Senses
+                            Maldives
+                            Resort</span></label><label for="project-31" class="project-pin project-pin-31"
+                        style="left:55%;top:89%" title="Robinson Maldives Resort"><span class="sr-only">Robinson
+                            Maldives Resort</span></label>
+                    <div class="project-tooltip absolute rounded-lg bg-white p-4 shadow-lg" aria-live="polite"
+                        aria-atomic="true">
+                        <div class="project-tip project-tip-0">
+                            <p class="text-sm font-extrabold">JA Manafaru Resort</p>
+                            <p class="mt-2 text-xs text-muted">Haa Alifu Atoll</p>
+                        </div>
+                        <div class="project-tip project-tip-1">
+                            <p class="text-sm font-extrabold">JW Marriott Maldives Resort</p>
+                            <p class="mt-2 text-xs text-muted">Shaviyani Atoll</p>
+                        </div>
+                        <div class="project-tip project-tip-2">
+                            <p class="text-sm font-extrabold">Soneva Jani Resort</p>
+                            <p class="mt-2 text-xs text-muted">Noonu Atoll</p>
+                        </div>
+                        <div class="project-tip project-tip-3">
+                            <p class="text-sm font-extrabold">Siyam World Resort</p>
+                            <p class="mt-2 text-xs text-muted">Noonu Atoll</p>
+                        </div>
+                        <div class="project-tip project-tip-4">
+                            <p class="text-sm font-extrabold">Velaa Private Island Resort</p>
+                            <p class="mt-2 text-xs text-muted">Noonu Atoll</p>
+                        </div>
+                        <div class="project-tip project-tip-5">
+                            <p class="text-sm font-extrabold">Seaside Finolhu Resort</p>
+                            <p class="mt-2 text-xs text-muted">Baa Atoll</p>
+                        </div>
+                        <div class="project-tip project-tip-6">
+                            <p class="text-sm font-extrabold">Milaidhoo Island Resort</p>
+                            <p class="mt-2 text-xs text-muted">Baa Atoll</p>
+                        </div>
+                        <div class="project-tip project-tip-7">
+                            <p class="text-sm font-extrabold">Reethi Beach Resort</p>
+                            <p class="mt-2 text-xs text-muted">Baa Atoll</p>
+                        </div>
+                        <div class="project-tip project-tip-8">
+                            <p class="text-sm font-extrabold">Soneva Fushi Resort</p>
+                            <p class="mt-2 text-xs text-muted">Baa Atoll</p>
+                        </div>
+                        <div class="project-tip project-tip-9">
+                            <p class="text-sm font-extrabold">OBLU Helengeli Resort</p>
+                            <p class="mt-2 text-xs text-muted">Kaafu Atoll (North Malé)</p>
+                        </div>
+                        <div class="project-tip project-tip-10">
+                            <p class="text-sm font-extrabold">Summer Island Resort</p>
+                            <p class="mt-2 text-xs text-muted">Kaafu Atoll (North Malé)</p>
+                        </div>
+                        <div class="project-tip project-tip-11">
+                            <p class="text-sm font-extrabold">Fari Campus</p>
+                            <p class="mt-2 text-xs text-muted">Kaafu Atoll (North Malé)</p>
+                        </div>
+                        <div class="project-tip project-tip-12">
+                            <p class="text-sm font-extrabold">Maxx Royal Resort</p>
+                            <p class="mt-2 text-xs text-muted">Kaafu Atoll (North Malé)</p>
+                        </div>
+                        <div class="project-tip project-tip-13">
+                            <p class="text-sm font-extrabold">Club Med Finolhu Resort</p>
+                            <p class="mt-2 text-xs text-muted">Kaafu Atoll (North Malé)</p>
+                        </div>
+                        <div class="project-tip project-tip-14">
+                            <p class="text-sm font-extrabold">Club Med Kani Resort</p>
+                            <p class="mt-2 text-xs text-muted">Kaafu Atoll (North Malé)</p>
+                        </div>
+                        <div class="project-tip project-tip-15">
+                            <p class="text-sm font-extrabold">Huvafen Fushi Maldives Resort</p>
+                            <p class="mt-2 text-xs text-muted">Kaafu Atoll (North Malé)</p>
+                        </div>
+                        <div class="project-tip project-tip-16">
+                            <p class="text-sm font-extrabold">One&amp;Only Reethi Rah Resort</p>
+                            <p class="mt-2 text-xs text-muted">Kaafu Atoll (North Malé)</p>
+                        </div>
+                        <div class="project-tip project-tip-17">
+                            <p class="text-sm font-extrabold">Sheraton Maldives Full Moon Resort</p>
+                            <p class="mt-2 text-xs text-muted">Kaafu Atoll (North Malé)</p>
+                        </div>
+                        <div class="project-tip project-tip-18">
+                            <p class="text-sm font-extrabold">Dusit D2 Resort</p>
+                            <p class="mt-2 text-xs text-muted">Kaafu Atoll (North Malé)</p>
+                        </div>
+                        <div class="project-tip project-tip-19">
+                            <p class="text-sm font-extrabold">Taj Exotica Resort</p>
+                            <p class="mt-2 text-xs text-muted">Kaafu Atoll (South Malé)</p>
+                        </div>
+                        <div class="project-tip project-tip-20">
+                            <p class="text-sm font-extrabold">Hard Rock Resort</p>
+                            <p class="mt-2 text-xs text-muted">Kaafu Atoll (South Malé)</p>
+                        </div>
+                        <div class="project-tip project-tip-21">
+                            <p class="text-sm font-extrabold">JW Marriott Emboodhoo Lagoon Resort</p>
+                            <p class="mt-2 text-xs text-muted">Kaafu Atoll (South Malé)</p>
+                        </div>
+                        <div class="project-tip project-tip-22">
+                            <p class="text-sm font-extrabold">Waldorf Astoria Maldives Resort</p>
+                            <p class="mt-2 text-xs text-muted">Kaafu Atoll (South Malé)</p>
+                        </div>
+                        <div class="project-tip project-tip-23">
+                            <p class="text-sm font-extrabold">OZEN Life Maadhoo</p>
+                            <p class="mt-2 text-xs text-muted">Kaafu Atoll (South Malé)</p>
+                        </div>
+                        <div class="project-tip project-tip-24">
+                            <p class="text-sm font-extrabold">W Maldives Resort</p>
+                            <p class="mt-2 text-xs text-muted">Alifu Alifu Atoll (North Ari)</p>
+                        </div>
+                        <div class="project-tip project-tip-25">
+                            <p class="text-sm font-extrabold">Conrad Maldives Rangali Island</p>
+                            <p class="mt-2 text-xs text-muted">Alifu Dhaalu Atoll (South Ari)</p>
+                        </div>
+                        <div class="project-tip project-tip-26">
+                            <p class="text-sm font-extrabold">Barceló Whale Lagoon Maldives</p>
+                            <p class="mt-2 text-xs text-muted">Alifu Dhaalu Atoll (South Ari)</p>
+                        </div>
+                        <div class="project-tip project-tip-27">
+                            <p class="text-sm font-extrabold">NH Kuda Rah Resort</p>
+                            <p class="mt-2 text-xs text-muted">Alifu Dhaalu Atoll (South Ari)</p>
+                        </div>
+                        <div class="project-tip project-tip-28">
+                            <p class="text-sm font-extrabold">Kunaavashi Resort</p>
+                            <p class="mt-2 text-xs text-muted">Vaavu Atoll</p>
+                        </div>
+                        <div class="project-tip project-tip-29">
+                            <p class="text-sm font-extrabold">Baglioni Resort</p>
+                            <p class="mt-2 text-xs text-muted">Dhaalu Atoll</p>
+                        </div>
+                        <div class="project-tip project-tip-30">
+                            <p class="text-sm font-extrabold">Six Senses Maldives Resort</p>
+                            <p class="mt-2 text-xs text-muted">Laamu Atoll</p>
+                        </div>
+                        <div class="project-tip project-tip-31">
+                            <p class="text-sm font-extrabold">Robinson Maldives Resort</p>
+                            <p class="mt-2 text-xs text-muted">Gaafu Alifu Atoll</p>
+                        </div>
                     </div>
                 </div>
             </div>
-            </div>
-            <div class="project-list rounded-[16px] border border-[#dfe2e7] p-7" tabindex="0" role="region" aria-label="Resort projects">
+            <div class="project-list rounded-[16px] border border-[#dfe2e7] p-7" tabindex="0" role="region"
+                aria-label="Resort projects">
                 <h2 class="!mt-0 !text-[22px] !tracking-normal">32 resort projects</h2>
                 <p class="mt-3 text-sm leading-6 text-muted">Fire safety systems supplied and installed by GAGE Fire
                     Safety.<br>Locations are approximate.</p>
@@ -698,4 +715,3 @@
         </div>
     </section>
 @endsection
-
