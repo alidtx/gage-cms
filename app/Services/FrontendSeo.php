@@ -5,10 +5,32 @@ namespace App\Services;
 use App\Models\BasicSeo;
 use App\Models\GlobalSetting;
 use App\Models\Media;
+use App\Models\PageContent;
 use Illuminate\Support\Facades\Storage;
 
 class FrontendSeo
 {
+    /** @param array<string, mixed> $defaults
+     * @return array<string, mixed>
+     */
+    public function forPage(string $slug, array $defaults = []): array
+    {
+        $page = PageContent::where('page', str_replace('-', '_', $slug))->where('is_active', true)->first()
+            ?? PageContent::where('page', str_replace('_', '-', $slug))->where('is_active', true)->first();
+        foreach (['meta_title' => 'title', 'meta_description' => 'description', 'meta_keywords' => 'keywords'] as $field => $key) {
+            $value = data_get($page?->meta, $field);
+            if (is_string($value) && trim($value) !== '') {
+                $defaults[$key] = trim($value);
+                if ($key === 'title' || $key === 'description') {
+                    $defaults['og_'.$key] = trim($value);
+                    $defaults['twitter_'.$key] = trim($value);
+                }
+            }
+        }
+
+        return $defaults;
+    }
+
     /** @param array<string, mixed> $overrides
      * @return array<string, mixed>
      */
@@ -46,7 +68,7 @@ class FrontendSeo
 
         return [
             'title' => $title, 'description' => $description, 'canonical' => $canonical,
-            'site_name' => $siteName, 'keywords' => $basic?->keywords ?: $global?->site_keywords,
+            'site_name' => $siteName, 'keywords' => $overrides['keywords'] ?? ($basic?->keywords ?: $global?->site_keywords),
             'author' => $global?->author, 'publisher' => $global?->publisher,
             'facebook_app_id' => $global?->facebook_app_id, 'twitter_site' => $global?->twitter_site,
             'og_title' => $overrides['og_title'] ?? ($basic?->og_title ?: $title),

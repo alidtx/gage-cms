@@ -4,6 +4,7 @@ namespace Tests\Feature;
 
 use App\Models\BasicSeo;
 use App\Models\GlobalSetting;
+use App\Models\PageContent;
 use App\Models\User;
 use App\Services\MediaService;
 use Illuminate\Foundation\Testing\RefreshDatabase;
@@ -14,6 +15,29 @@ use Tests\TestCase;
 class FrontendSeoTest extends TestCase
 {
     use RefreshDatabase;
+
+    public function test_each_page_uses_its_slug_matched_seo(): void
+    {
+        foreach (['home' => '/', 'about' => '/about', 'contact' => '/contact', 'news' => '/news', 'gage_security' => '/gage-security', 'gage_fire_safety' => '/gage-fire-safety', 'gage_training_instruction' => '/gage-training-instruction', 'gage_technology' => '/gage-technology', 'gage_project_client' => '/gage-project-client'] as $slug => $url) {
+            PageContent::factory()->create(['page' => $slug, 'meta' => ['meta_title' => "SEO $slug", 'meta_description' => "Description $slug", 'meta_keywords' => "Keywords $slug"]]);
+            $this->get($url)->assertOk()->assertSee('<title>SEO '.$slug.'</title>', false)
+                ->assertSee('name="description" content="Description '.$slug.'"', false)
+                ->assertSee('name="keywords" content="Keywords '.$slug.'"', false)
+                ->assertSee('property="og:title" content="SEO '.$slug.'"', false)
+                ->assertSee('name="twitter:description" content="Description '.$slug.'"', false);
+        }
+    }
+
+    public function test_empty_inactive_and_deleted_page_seo_fall_back(): void
+    {
+        BasicSeo::create(['title' => 'Basic home', 'meta_description' => 'Basic description', 'og_title' => 'Basic social']);
+        $page = PageContent::factory()->create(['page' => 'home', 'meta' => ['meta_title' => 'Page title', 'meta_description' => '  ']]);
+        $this->get('/')->assertSee('<title>Page title</title>', false)->assertSee('content="Basic description"', false)->assertSee('property="og:title" content="Page title"', false);
+        $page->update(['is_active' => false]);
+        $this->get('/')->assertSee('<title>Basic home</title>', false);
+        $page->delete();
+        $this->get('/')->assertSee('<title>Basic home</title>', false);
+    }
 
     public function test_global_defaults_and_basic_home_overrides_are_rendered(): void
     {

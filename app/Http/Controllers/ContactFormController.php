@@ -5,17 +5,18 @@ namespace App\Http\Controllers;
 use App\Http\Requests\StoreContactSubmissionRequest;
 use App\Models\ContactSubmission;
 use App\Services\FrontendHero;
+use App\Services\FrontendSeo;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\View\View;
 
 class ContactFormController extends Controller
 {
-    public function create(FrontendHero $heroes): View
+    public function create(FrontendHero $heroes, FrontendSeo $seo): View
     {
-        return view('frontend.pages.contact', ['heroContent' => $heroes->forPage('contact'), 'pageSeo' => [
+        return view('frontend.pages.contact', ['heroContent' => $heroes->forPage('contact'), 'pageSeo' => $seo->forPage('contact', [
             'title' => 'Contact GAGE | Request a Quote',
             'description' => 'Contact GAGE for security, fire safety, training and technology enquiries across the Maldives.',
-        ]]);
+        ])]);
     }
 
     public function store(StoreContactSubmissionRequest $request): RedirectResponse
