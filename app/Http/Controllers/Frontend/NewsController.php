@@ -39,13 +39,24 @@ class NewsController extends Controller
     {
         $article = News::publiclyVisible()->with(['category', 'author'])->where('slug', $slug)->firstOrFail();
         $content = $html->clean($article->content ?? '');
+        $readingMinutes = max(1, (int) ceil(str_word_count(strip_tags($content)) / 200));
+        $relatedArticles = News::publiclyVisible()->with('category')->whereKeyNot($article->id)
+            ->where('news_category_id', $article->news_category_id)
+            ->orderByDesc('published_at')->orderByDesc('id')->limit(3)->get();
+        $previousArticle = News::publiclyVisible()
+            ->where(function ($query) use ($article): void {
+                $query->where('published_at', '<', $article->published_at)
+                    ->orWhere(function ($query) use ($article): void {
+                        $query->where('published_at', $article->published_at)->where('id', '<', $article->id);
+                    });
+            })->orderByDesc('published_at')->orderByDesc('id')->first();
         $pageSeo = [
             'title' => $article->meta_title ?: $article->title.' | GAGE',
             'description' => $article->meta_description ?: $article->excerpt,
             'canonical' => $article->canonical_url ?: route('frontend.news.show', $article->slug),
         ];
 
-        return view('frontend.pages.news-show', compact('article', 'content', 'pageSeo'));
+        return view('frontend.pages.news-show', compact('article', 'content', 'pageSeo', 'readingMinutes', 'relatedArticles', 'previousArticle'));
     }
 
     public function image(string $slug, string $type): StreamedResponse

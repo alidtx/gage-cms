@@ -109,3 +109,15 @@ document.querySelectorAll('.projects-map-layout').forEach(layout => {
     });
     art.addEventListener('animationend', () => art.classList.remove('is-zooming'));
 });
+
+document.querySelectorAll('[data-copy-article]').forEach(button => {
+    button.addEventListener('click', async () => {
+        const status = button.parentElement.querySelector('[data-copy-status]');
+        try {
+            await navigator.clipboard.writeText(button.dataset.copyArticle);
+            status.textContent = 'Link copied';
+        } catch {
+            status.textContent = 'Article link: ' + button.dataset.copyArticle;
+        }
+    });
+});

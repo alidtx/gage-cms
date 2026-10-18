@@ -14,6 +14,19 @@ class FrontendNewsTest extends TestCase
 {
     use RefreshDatabase;
 
+    public function test_article_design_has_same_category_related_stories_and_previous_article(): void
+    {
+        $category = NewsCategory::factory()->create();
+        $previous = News::factory()->create(['news_category_id' => $category->id, 'status' => 'published', 'published_at' => now()->subDays(2)]);
+        $article = News::factory()->create(['news_category_id' => $category->id, 'status' => 'published', 'published_at' => now()->subDay()]);
+        News::factory()->create(['news_category_id' => $category->id, 'status' => 'draft']);
+        $response = $this->get(route('frontend.news.show', $article->slug))->assertOk();
+        $this->assertSame([$previous->id], $response->viewData('relatedArticles')->pluck('id')->all());
+        $this->assertSame($previous->id, $response->viewData('previousArticle')->id);
+        $response->assertSee('Related articles')->assertSee('data-copy-article', false);
+        $this->assertSame(1, substr_count($response->getContent(), '<h1 '));
+    }
+
     public function test_home_shows_only_three_latest_public_articles(): void
     {
         $category = NewsCategory::factory()->create();
