@@ -18,7 +18,6 @@ function contentDefaults(value) {
     data.hero.primary_cta = { text: '', href: '', ...data.hero.primary_cta };
     data.hero.secondary_cta = { text: '', href: '', ...data.hero.secondary_cta };
     data.hero.image_alt ??= '';
-    data.hero.trust_badges ??= [];
     for (const field of ['sections', 'team', 'partners', 'faqs']) data[field] ??= [];
     data.contact = { phone: '', email: '', address: '', facebook: '', linkedin: '', instagram: '', ...data.contact };
     data.map = { name: '', address: '', embed_url: '', directions_url: '', ...data.map };
@@ -69,10 +68,6 @@ const raw = ref('');
 const rawError = ref('');
 const preview = ref(false);
 const liveJson = computed(() => JSON.stringify(form.content, null, 2));
-const trustBadges = computed({
-    get: () => form.content.hero.trust_badges.join(', '),
-    set: value => { form.content.hero.trust_badges = value.split(',').map(item => item.trim()).filter(Boolean); },
-});
 function changeTab(next) {
     if (tab.value === 'raw' && next !== 'raw' && !applyJson()) return;
     if (next === 'raw') raw.value = liveJson.value;
@@ -164,7 +159,6 @@ function showPreview() {
                                 <div class="bg-gray-50 rounded-xl border border-gray-200 p-4 grid sm:grid-cols-2 gap-4"><Field v-model="form.content.hero.primary_cta.text" label="Primary CTA text" /><Field v-model="form.content.hero.primary_cta.href" label="Primary CTA link" /></div>
                                 <div class="bg-gray-50 rounded-xl border border-gray-200 p-4 grid sm:grid-cols-2 gap-4"><Field v-model="form.content.hero.secondary_cta.text" label="Secondary CTA text" /><Field v-model="form.content.hero.secondary_cta.href" label="Secondary CTA link" /></div>
                                 <p class="text-xs text-gray-500">Buttons are optional. Enter a label and a link, such as /contact or https://example.com.</p>
-                                <Field v-model="trustBadges" label="Trust badges (comma-separated)" />
                                 <div><p class="text-sm font-medium text-gray-700 mb-2">Hero image</p><ImageUpload v-model="form.image" :current-url="pageContent.image_url" :error="form.errors.image" helper-text="JPG, PNG, WebP or GIF, up to 5 MB" /></div>
                                 <Field v-model="form.content.hero.image_alt" label="Image description (alt text)" />
                                 <div v-if="isHomePage" class="space-y-3">

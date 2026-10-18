@@ -39,8 +39,6 @@ class FrontendHero
                 $defaults['buttons'][$index] = array_merge($buttons[$index] ?? [], ['label' => $label, 'url' => $href]);
             }
         }
-        $badges = data_get($content, 'trust_badges', []);
-        $defaults['trust_badges'] = is_array($badges) ? array_values(array_filter(array_map($text, $badges))) : [];
         if ($page->media && $page->media->fileable_type === PageContent::class && (int) $page->media->fileable_id === $page->id && Storage::exists($page->media->src)) {
             $defaults['image'] = [
                 'src' => route('frontend.page-hero-image', $page),

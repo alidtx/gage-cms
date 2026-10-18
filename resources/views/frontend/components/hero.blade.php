@@ -36,9 +36,6 @@
                     @endforeach
                 </div>
             @endif
-            @if(!empty($hero['trust_badges']))
-                <ul class="mt-6 flex flex-wrap gap-4">@foreach($hero['trust_badges'] as $badge)<li>{{ $badge }}</li>@endforeach</ul>
-            @endif
         </div>
         @if(!empty($hero['video']) && $variant === 'home')
             <video class="aspect-[1.05] w-full rounded-[20px] object-cover" autoplay muted controls playsinline preload="auto" aria-label="Hero video" @if(!empty($hero['image'])) poster="{{ asset($hero['image']['src']) }}" @endif>
