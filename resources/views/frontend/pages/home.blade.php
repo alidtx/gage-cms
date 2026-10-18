@@ -535,7 +535,9 @@
             <div id="clients" class="relative mt-24">
                 <p class="mb-6 text-center text-base font-bold">Trusted by leading resorts, banks and diplomatic
                     missions</p>
-                <div class="grid grid-cols-3 gap-5 sm:grid-cols-6">
+                <div class="brand-carousel" data-brand-carousel role="region" aria-label="Trusted clients">
+                    <button class="brand-carousel-arrow" type="button" data-brand-previous aria-label="Previous clients" aria-controls="home-client-track" disabled><span aria-hidden="true">&#8592;</span></button>
+                    <div class="brand-carousel-track" id="home-client-track" tabindex="0" aria-label="Client logos">
                     <div
                         class="flex h-[82px] items-center justify-center rounded-lg border border-[#dfe2e7] bg-white px-5">
                         <img width="196" height="110" decoding="async" class="max-h-[64px] max-w-full object-contain" alt="Heritance Aarah" loading="lazy"
@@ -596,6 +598,8 @@
                         <img width="187" height="125" decoding="async" class="max-h-[64px] max-w-full object-contain" alt="Alkatas" loading="lazy"
                             src="{{ asset('assets/pdf-2.jpg') }}">
                     </div>
+                    </div>
+                    <button class="brand-carousel-arrow" type="button" data-brand-next aria-label="Next clients" aria-controls="home-client-track"><span aria-hidden="true">&#8594;</span></button>
                 </div>
             </div>
         </section>
