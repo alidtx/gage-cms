@@ -1,4 +1,17 @@
 /* Small accessibility and progressive-enhancement additions to the supplied design. */
+.brand-carousel { display: flex; align-items: center; gap: 16px; }
+.brand-carousel-track { display: flex; gap: 20px; flex: 1; min-width: 0; overflow-x: auto; scroll-snap-type: x mandatory; scrollbar-width: thin; padding-block: 6px; }
+.brand-carousel-track > div { flex: 0 0 calc((100% - 100px) / 6); scroll-snap-align: start; }
+.brand-carousel-arrow { flex: 0 0 40px; height: 40px; border: 1px solid #dfe2e7; border-radius: 50%; background: #fff; color: #111; font-size: 22px; cursor: pointer; }
+.brand-carousel-arrow:hover:not(:disabled) { background: #111; color: #fff; }
+.brand-carousel-arrow:disabled { opacity: .3; cursor: default; }
+@media (max-width: 1023px) { .brand-carousel-track > div { flex-basis: calc((100% - 40px) / 3); } }
+@media (max-width: 639px) {
+    .brand-carousel { gap: 8px; }
+    .brand-carousel-track { gap: 12px; }
+    .brand-carousel-track > div { flex-basis: calc((100% - 12px) / 2); }
+    .brand-carousel-arrow { flex-basis: 32px; height: 32px; }
+}
 .about-story-image { height: clamp(280px, 40vw, 520px); object-fit: cover; }
 .contact-notice { padding: 18px; margin-bottom: 24px; border-radius: 8px; }
 .contact-success { background: #e7f5ec; color: #14532d; }

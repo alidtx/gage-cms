@@ -367,7 +367,9 @@
         <section class="container pb-[120px]">
             <p class="eyebrow"><span></span>BRANDS WE WORK WITH</p>
             <h2>Trusted global brands, installed and<br class="hidden lg:block"> supported locally.</h2>
-            <div class="mt-12 grid grid-cols-3 gap-5 sm:grid-cols-6">
+            <div class="brand-carousel mt-12" data-brand-carousel role="region" aria-label="Brands we work with">
+                <button class="brand-carousel-arrow" type="button" data-brand-previous aria-label="Previous brands" aria-controls="about-brand-track" disabled><span aria-hidden="true">&#8592;</span></button>
+                <div class="brand-carousel-track" id="about-brand-track" tabindex="0" aria-label="Brand logos">
                 <div class="flex h-20 items-center justify-center rounded-lg border border-[#dfe2e7] px-4"><img
                         src="{{ asset('assets/about-13.png') }}" alt="AJAX" class="max-h-14 max-w-full object-contain"
                         loading="lazy"></div>
@@ -422,6 +424,8 @@
                 <div class="flex h-20 items-center justify-center rounded-lg border border-[#dfe2e7] px-4"><img
                         src="{{ asset('assets/about-16.png') }}" alt="Palo Alto Networks"
                         class="max-h-14 max-w-full object-contain" loading="lazy"></div>
+                </div>
+                <button class="brand-carousel-arrow" type="button" data-brand-next aria-label="Next brands" aria-controls="about-brand-track"><span aria-hidden="true">&#8594;</span></button>
             </div>
         </section>
         <section class="container pb-[120px]">
