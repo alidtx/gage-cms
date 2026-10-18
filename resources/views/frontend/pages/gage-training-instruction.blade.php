@@ -2,7 +2,7 @@
 @section('content')
     @include('frontend.components.hero', ['hero' => [
     'variant' => 'split',
-    'section_class' => 'bg-[#2430ce] text-white',
+    'section_class' => 'company-hero text-white',
     'container_class' => 'container pb-20 pt-10',
     'grid_class' => 'grid items-center gap-12 lg:grid-cols-[1.2fr_1fr] lg:gap-24',
     'heading_class' => 'mt-6 text-[40px] font-bold leading-[1.12] tracking-[-1px] sm:text-[56px]',

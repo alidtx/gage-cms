@@ -1,7 +1,7 @@
 <nav aria-label="Main navigation" class="main-nav flex">
                 <a href="{{ route('frontend.about') }}" @if(request()->routeIs('frontend.about')) aria-current="page" @endif>About</a>
                 <div class="nav-dropdown">
-                    <a href="{{ route('frontend.home') }}#companies">Our Companies <svg aria-hidden="true" focusable="false" xmlns="http://www.w3.org/2000/svg" width="13" height="13"
+                    <a @if(isset($companyTheme)) class="company-menu-active" @endif href="{{ route('frontend.home') }}#companies">Our Companies <svg aria-hidden="true" focusable="false" xmlns="http://www.w3.org/2000/svg" width="13" height="13"
                             viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
                             stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-chevron-down">
                             <path d="m6 9 6 6 6-6">
@@ -9,10 +9,10 @@
                         </svg>
                     </a>
                     <div class="dropdown-panel">
-                        <a href="{{ route('frontend.gage-security') }}">GAGE Security</a>
-                        <a href="{{ route('frontend.gage-fire-safety') }}">GAGE Fire Safety</a>
-                        <a href="{{ route('frontend.gage-training-instruction') }}">GAGE Training Institute</a>
-                        <a href="{{ route('frontend.gage-technology') }}">GAGE Technology</a>
+                        <a href="{{ route('frontend.gage-security') }}" @if(request()->routeIs('frontend.gage-security')) aria-current="page" @endif>GAGE Security</a>
+                        <a href="{{ route('frontend.gage-fire-safety') }}" @if(request()->routeIs('frontend.gage-fire-safety')) aria-current="page" @endif>GAGE Fire Safety</a>
+                        <a href="{{ route('frontend.gage-training-instruction') }}" @if(request()->routeIs('frontend.gage-training-instruction')) aria-current="page" @endif>GAGE Training Institute</a>
+                        <a href="{{ route('frontend.gage-technology') }}" @if(request()->routeIs('frontend.gage-technology')) aria-current="page" @endif>GAGE Technology</a>
                         <a href="https://shop.gage.com.mv">GAGE Store ↗</a>
                     </div>
                 </div>
@@ -36,5 +36,5 @@
                 <a href="{{ route('frontend.news') }}">News</a>
                 <a href="mailto:info@gage.com.mv?subject=Careers%20at%20GAGE">Careers</a>
                 <a href="{{ route('contact.create') }}">Contact</a>
-                <a class="rounded-md bg-black px-6 py-4 text-white" href="{{ route('contact.create') }}">Get Protected Now</a>
+                <a class="header-cta rounded-md bg-black px-6 py-4 text-white" href="{{ route('contact.create') }}">Get Protected Now</a>
             </nav>

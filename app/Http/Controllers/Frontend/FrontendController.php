@@ -7,7 +7,6 @@ use Illuminate\Http\Request;
 
 class FrontendController extends Controller
 {
-     
     public function home(Request $request)
     {
         return view('frontend.pages.home');
@@ -22,25 +21,29 @@ class FrontendController extends Controller
     {
         return view('frontend.pages.news');
     }
+
     public function gageSecurity(Request $request)
     {
-        return view('frontend.pages.gage-security');
+        return view('frontend.pages.gage-security', ['companyTheme' => 'security']);
     }
+
     public function gageFireSafety(Request $request)
     {
-        return view('frontend.pages.gage-fire-safety');
+        return view('frontend.pages.gage-fire-safety', ['companyTheme' => 'fire-safety']);
     }
+
     public function gageTrainingInstruction(Request $request)
     {
-        return view('frontend.pages.gage-training-instruction');
+        return view('frontend.pages.gage-training-instruction', ['companyTheme' => 'training']);
     }
+
     public function gageTechnology(Request $request)
     {
-        return view('frontend.pages.gage-technology');
+        return view('frontend.pages.gage-technology', ['companyTheme' => 'technology']);
     }
+
     public function gageProjectClient(Request $request)
     {
         return view('frontend.pages.gage-project-client');
     }
-
 }

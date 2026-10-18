@@ -19,3 +19,26 @@
 @media (prefers-reduced-motion: reduce) {
     *, *::before, *::after { animation: none !important; transition: none !important; scroll-behavior: auto !important; }
 }
+
+/* Shared company palette for the navigation and page hero. */
+body { --company-color: #000000; --company-tint: #f4f5f7; }
+body[data-company-theme="security"] { --company-color: #000000; }
+body[data-company-theme="fire-safety"] { --company-color: #c61026; --company-tint: #fceef0; }
+body[data-company-theme="training"] { --company-color: #2430ce; --company-tint: #eff0fc; }
+body[data-company-theme="technology"] { --company-color: #197379; --company-tint: #edf7f7; }
+.company-hero { background-color: var(--company-color); }
+.site-header { border-bottom: 2px solid var(--company-color); }
+.site-header a:focus-visible { outline-color: var(--company-color); }
+.main-nav a:hover,
+.main-nav a:focus-visible,
+.main-nav a[aria-current="page"],
+.main-nav .company-menu-active { color: var(--company-color); }
+.main-nav a[aria-current="page"],
+.main-nav .company-menu-active { text-decoration: underline; text-underline-offset: 6px; text-decoration-thickness: 2px; }
+.main-nav .dropdown-panel a:hover,
+.main-nav .dropdown-panel a:focus-visible,
+.main-nav .dropdown-panel a[aria-current="page"] { background-color: var(--company-tint); }
+.main-nav .header-cta,
+.main-nav .header-cta:hover,
+.main-nav .header-cta:focus-visible { background-color: var(--company-color); color: #ffffff; }
+.main-nav .header-cta:hover { box-shadow: inset 0 0 0 100px #0002; }
