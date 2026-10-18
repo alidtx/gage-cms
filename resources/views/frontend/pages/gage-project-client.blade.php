@@ -79,7 +79,8 @@
                 name="project-location" id="project-30" class="project-location sr-only"
                 aria-label="Six Senses Maldives Resort"><input type="radio" name="project-location" id="project-31"
                 class="project-location sr-only" aria-label="Robinson Maldives Resort">
-            <div class="project-map relative self-start overflow-hidden rounded-[16px] bg-[#002e40]"><img
+            <div class="project-map relative self-start overflow-hidden rounded-[16px] bg-[#002e40]" tabindex="0" role="region" aria-label="Project locations map">
+                <div class="relative"><img
                     src="{{ asset('assets/projects-atoll-map.png') }}"
                     alt="Illustrated Maldives atoll map with approximate fire safety project locations"
                     class="block w-full"><label for="project-0" class="project-pin project-pin-0"
@@ -281,7 +282,8 @@
                     </div>
                 </div>
             </div>
-            <div class="project-list rounded-[16px] border border-[#dfe2e7] p-7">
+            </div>
+            <div class="project-list rounded-[16px] border border-[#dfe2e7] p-7" tabindex="0" role="region" aria-label="Resort projects">
                 <h2 class="!mt-0 !text-[22px] !tracking-normal">32 resort projects</h2>
                 <p class="mt-3 text-sm leading-6 text-muted">Fire safety systems supplied and installed by GAGE Fire
                     Safety.<br>Locations are approximate.</p>

@@ -14,6 +14,17 @@
     .brand-carousel-arrow { flex-basis: 32px; height: 32px; }
 }
 .about-story-image { height: clamp(280px, 40vw, 520px); object-fit: cover; }
+.projects-map-layout .project-map,
+.projects-map-layout .project-list {
+    height: 720px;
+    overflow-y: auto;
+    scrollbar-width: thin;
+}
+.projects-map-layout .project-list { columns: auto; }
+@media (max-width: 1023px) {
+    .projects-map-layout .project-map,
+    .projects-map-layout .project-list { height: 540px; }
+}
 .contact-notice { padding: 18px; margin-bottom: 24px; border-radius: 8px; }
 .contact-success { background: #e7f5ec; color: #14532d; }
 .contact-error { background: #fff0f0; color: #991b1b; }
