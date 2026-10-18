@@ -12,7 +12,7 @@
     'logo' => ['src' => 'assets/fire-hero-logo.png', 'alt' => 'GAGE Fire Safety'],
     'image' => ['src' => 'assets/fire-page-0.jpg', 'width' => 763, 'height' => 763, 'alt' => 'GAGE Fire Safety technicians inspecting a fire protection control panel', 'class' => 'aspect-[.97] w-full rounded-[16px] object-cover'],
     'buttons' => [['label' => 'Request a fire safety quote', 'url' => '/contact#enquiry', 'class' => 'button button-light !text-[#c61026]', 'arrow' => 'yes'], ['label' => 'Book extinguisher servicing', 'url' => '#servicing', 'class' => 'button button-outline', 'arrow' => 'no']], 'breadcrumb' => ['title' => 'GAGE Fire Safety', 'class' => 'mb-10 flex flex-wrap gap-2 text-xs leading-6 text-white/70', 'parents' => [['label' => 'Our Companies', 'url' => route('frontend.home').'#companies']]]]])
-        <section class="section container grid items-start gap-12 lg:grid-cols-2 lg:gap-24">
+        {{-- <section class="section container grid items-start gap-12 lg:grid-cols-2 lg:gap-24">
             <div>
                 <p class="eyebrow fire-eyebrow"><span></span>WHO WE ARE</p>
                 <h2>Specialist fire safety<br> since 2015.</h2>
@@ -415,5 +415,5 @@
                                 d="M5 3h4l2 5-3 2a15 15 0 0 0 6 6l2-3 5 2v4a2 2 0 0 1-2 2A18 18 0 0 1 3 5a2 2 0 0 1 2-2Z" />
                         </svg></a></div>
             </div>
-        </section>
+        </section> --}}
 @endsection

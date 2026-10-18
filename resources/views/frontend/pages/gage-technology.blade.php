@@ -12,7 +12,7 @@
     'logo' => ['src' => 'assets/technology-hero-logo.png', 'alt' => 'GAGE Technology'],
     'image' => ['src' => 'assets/technology-page-0.jpg', 'width' => 811, 'height' => 1086, 'alt' => 'GAGE engineer maintaining a network server rack', 'class' => 'aspect-[.86] w-full rounded-[16px] object-cover'],
     'buttons' => [['label' => 'Plan your system', 'url' => '/contact#enquiry', 'class' => 'button button-light !text-[#197379]', 'arrow' => 'yes'], ['label' => 'View services', 'url' => '#services', 'class' => 'button button-outline', 'arrow' => 'yes']], 'breadcrumb' => ['title' => 'GAGE Technology', 'class' => 'mb-10 flex flex-wrap gap-2 text-xs leading-6 text-white/70', 'parents' => [['label' => 'Our Companies', 'url' => route('frontend.home').'#companies']]]]])
-        <section class="section container">
+        {{-- <section class="section container">
             <p class="eyebrow text-[#197379]"><span></span>SEE HOW IT CONNECTS</p>
             <h2>One integrated system, every zone<br class="hidden lg:block"> covered.</h2>
             <p class="section-intro">Explore a typical resort property. Select a point to see the technology behind it.
@@ -475,5 +475,5 @@
                             <path d="M5 12h14m-6-6 6 6-6 6" />
                         </svg></a></div>
             </div>
-        </section>
+        </section> --}}
 @endsection
