@@ -3,7 +3,7 @@ import AuthenticatedLayout from '@/Layouts/AuthenticatedLayout.vue';
 import Modal from '@/Components/Modal.vue';
 import InputError from '@/Components/InputError.vue';
 import { Head, Link, router, useForm } from '@inertiajs/vue3';
-import { ref, onMounted } from 'vue';
+import { ref, onMounted, watch } from 'vue';
 import { toast } from 'vue3-toastify';
 const props = defineProps({ pages: Object, stats: Object, filters: Object });
 const search = ref(props.filters.search ?? '');
@@ -11,6 +11,9 @@ const creating = ref(false);
 onMounted(() => { creating.value = new URLSearchParams(window.location.search).get('create') === '1'; });
 const action = useForm({});
 const form = useForm({ name: '', slug: '' });
+watch(() => form.name, name => {
+    form.slug = name.toLowerCase().replace(/[^a-z0-9]+/g, '_').replace(/^_+|_+$/g, '');
+});
 const cards = [
     { key: 'total', label: 'Total Pages', icon: 'building', color: 'bg-blue-100 text-blue-600' },
     { key: 'active', label: 'Active', icon: 'check-circle', color: 'bg-green-100 text-green-600' },
@@ -81,7 +84,7 @@ function toggle(pageContent) {
                 <h3 class="text-lg font-bold text-gray-800 mb-4">Create New Page</h3>
                 <fieldset :disabled="form.processing" class="space-y-4">
                     <label class="block text-sm text-gray-700">Name<input v-model="form.name" required maxlength="255" autofocus placeholder="GAGE New Page" class="mt-2 w-full border-gray-200 rounded-xl text-sm" /><InputError :message="form.errors.name" /></label>
-                    <label class="block text-sm text-gray-700">Slug (optional)<input v-model="form.slug" maxlength="255" placeholder="Generated from the name" class="mt-2 w-full border-gray-200 rounded-xl text-sm" /><InputError :message="form.errors.slug" /></label>
+                    <label class="block text-sm text-gray-700">Slug<input :value="form.slug" disabled maxlength="255" placeholder="Generated from the name" class="mt-2 w-full border-gray-200 rounded-xl text-sm" /><InputError :message="form.errors.slug" /></label>
                 </fieldset>
                 <div class="flex justify-end gap-3 pt-5"><button type="button" :disabled="form.processing" @click="creating = false" class="px-4 py-2 bg-gray-200 rounded-xl text-sm">Cancel</button><button :disabled="form.processing" class="px-4 py-2 bg-blue-600 text-white rounded-xl text-sm">{{ form.processing ? 'Creating...' : 'Create' }}</button></div>
             </form>

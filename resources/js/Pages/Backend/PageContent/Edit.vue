@@ -13,9 +13,11 @@ const props = defineProps({ pageContent: Object });
 const copy = value => JSON.parse(JSON.stringify(value));
 function contentDefaults(value) {
     const data = copy(value && !Array.isArray(value) ? value : {});
-    data.hero = { title_line_1: '', title_highlight: '', subtitle: '', ...data.hero };
+    data.hero = { title_line_1: '', subtitle: '', ...data.hero };
     data.hero.badge = { text: '', icon: '', ...data.hero.badge };
     data.hero.primary_cta = { text: '', href: '', ...data.hero.primary_cta };
+    data.hero.secondary_cta = { text: '', href: '', ...data.hero.secondary_cta };
+    data.hero.image_alt ??= '';
     data.hero.trust_badges ??= [];
     for (const field of ['sections', 'team', 'partners', 'faqs']) data[field] ??= [];
     data.contact = { phone: '', email: '', address: '', facebook: '', linkedin: '', instagram: '', ...data.contact };
@@ -30,6 +32,9 @@ const form = useForm({
     image: null,
     hero_video: null,
     remove_hero_video: false,
+});
+watch(() => form.name, name => {
+    form.slug = name.toLowerCase().replace(/[^a-z0-9]+/g, '_').replace(/^_+|_+$/g, '');
 });
 const videoInput = ref(null);
 const localVideo = ref(null);
@@ -93,7 +98,7 @@ function applyJson() {
             if (member.tags !== undefined && (!Array.isArray(member.tags) || member.tags.some(tag => typeof tag !== 'string'))) throw new Error('Team tags must be a list of text.');
         }
         if (value.hero?.trust_badges !== undefined && (!Array.isArray(value.hero.trust_badges) || value.hero.trust_badges.some(item => typeof item !== 'string'))) throw new Error('Trust badges must be a list of text.');
-        for (const key of ['badge', 'primary_cta']) {
+        for (const key of ['badge', 'primary_cta', 'secondary_cta']) {
             if (value.hero?.[key] !== undefined && (!value.hero[key] || typeof value.hero[key] !== 'object' || Array.isArray(value.hero[key]))) throw new Error('Hero ' + key + ' must be an object.');
         }
         form.content = contentDefaults(value);
@@ -135,11 +140,9 @@ function showPreview() {
             <fieldset :disabled="form.processing">
                 <section class="bg-white rounded-2xl border border-gray-100 shadow-sm p-6 mb-6">
                     <h3 class="font-semibold text-gray-800 mb-4"><i class="fas fa-info-circle text-blue-500 mr-2" aria-hidden="true"></i>Basic Information</h3>
-                    <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
-                        <Field v-model="form.name" label="Name" /><Field v-model="form.slug" label="Slug" />
-                        <Field v-model="form.meta.tagline" label="Tagline" /><Field v-model="form.meta.icon" label="Icon (emoji or Font Awesome class)" />
-                        <label class="block text-sm font-medium text-gray-700">Icon type<select v-model="form.meta.icon_type" class="mt-2 w-full border-gray-200 rounded-xl text-sm"><option value="emoji">Emoji</option><option value="fontawesome">Font Awesome</option></select></label>
-                        <div class="md:col-span-3"><Field v-model="form.meta.short_description" label="Short description" multiline /></div>
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                        <Field v-model="form.name" label="Name" /><label class="block text-sm font-medium text-gray-700">Slug<input :value="form.slug" disabled class="mt-2 w-full border-gray-200 rounded-xl text-sm bg-gray-50" /></label>
+
                     </div>
                     <div class="flex flex-wrap items-center gap-6 mt-4">
                         <label class="flex items-center gap-2 text-sm"><input v-model="form.is_active" type="checkbox" class="rounded text-blue-600" />Active</label>
@@ -154,16 +157,20 @@ function showPreview() {
                         </div>
                         <div class="p-6 space-y-4" role="tabpanel" :aria-label="tab">
                             <template v-if="tab === 'hero'">
-                                <div class="grid sm:grid-cols-2 gap-4"><Field v-model="form.content.hero.badge.text" label="Badge Text" /><Field v-model="form.content.hero.badge.icon" label="Badge Icon" /></div>
-                                <Field v-model="form.content.hero.title_line_1" label="Title Line 1" /><Field v-model="form.content.hero.title_highlight" label="Title Highlight (colored part)" /><Field v-model="form.content.hero.subtitle" label="Subtitle" multiline />
+                                <p class="text-sm text-gray-500">Edit the hero heading, description, buttons and media for this page. Company logos and page layouts are managed by the website template.</p>
+                                <Field v-model="form.content.hero.badge.text" label="Eyebrow (small text above heading)" />
+                                <Field v-model="form.content.hero.title_line_1" label="Main heading" /><Field v-model="form.content.hero.subtitle" label="Description" multiline />
                                 <div class="bg-gray-50 rounded-xl border border-gray-200 p-4 grid sm:grid-cols-2 gap-4"><Field v-model="form.content.hero.primary_cta.text" label="Primary CTA text" /><Field v-model="form.content.hero.primary_cta.href" label="Primary CTA link" /></div>
+                                <div class="bg-gray-50 rounded-xl border border-gray-200 p-4 grid sm:grid-cols-2 gap-4"><Field v-model="form.content.hero.secondary_cta.text" label="Secondary CTA text" /><Field v-model="form.content.hero.secondary_cta.href" label="Secondary CTA link" /></div>
+                                <p class="text-xs text-gray-500">Buttons are optional. Enter a label and a link, such as /contact or https://example.com.</p>
                                 <Field v-model="trustBadges" label="Trust badges (comma-separated)" />
-                                <div><p class="text-sm font-medium text-gray-700 mb-2">Background Image</p><ImageUpload v-model="form.image" :current-url="pageContent.image_url" :error="form.errors.image" helper-text="JPG, PNG, WebP or GIF, up to 5 MB" /></div>
+                                <div><p class="text-sm font-medium text-gray-700 mb-2">Hero image</p><ImageUpload v-model="form.image" :current-url="pageContent.image_url" :error="form.errors.image" helper-text="JPG, PNG, WebP or GIF, up to 5 MB" /></div>
+                                <Field v-model="form.content.hero.image_alt" label="Image description (alt text)" />
                                 <div class="space-y-3">
-                                    <label for="hero-video" class="block text-sm font-medium text-gray-700">Background Video</label>
+                                    <label for="hero-video" class="block text-sm font-medium text-gray-700">Hero video (optional)</label>
                                     <video v-if="videoUrl" :src="videoUrl" controls preload="metadata" class="w-full max-h-64 rounded-xl bg-gray-900"></video>
                                     <input id="hero-video" ref="videoInput" type="file" accept="video/mp4,video/webm" @change="selectVideo" class="block w-full text-sm text-gray-600" />
-                                    <p class="text-xs text-gray-500">MP4 or WebM, up to 20 MB. Save Changes to upload.</p>
+                                    <p class="text-xs text-gray-500">MP4 or WebM, up to 20 MB. Video takes priority over the hero image. Save Changes to upload.</p>
                                     <p v-if="form.errors.hero_video" role="alert" class="text-sm text-red-600">{{ form.errors.hero_video }}</p>
                                     <button v-if="videoUrl" type="button" @click="removeVideo" class="text-sm text-red-600">Remove video</button>
                                     <p v-if="form.progress" role="status" class="text-sm text-blue-600">Uploading: {{ form.progress.percentage }}%</p>
@@ -240,8 +247,9 @@ function showPreview() {
                 <div class="flex justify-between items-center"><h3 class="font-semibold">Page content preview</h3><button type="button" @click="preview = false" aria-label="Close preview">✕</button></div>
                 <video v-if="videoUrl" :src="videoUrl" :poster="pageContent.image_url || undefined" controls preload="metadata" class="w-full max-h-64 rounded-xl"></video>
                 <img v-else-if="pageContent.image_url" :src="pageContent.image_url" alt="" class="w-full max-h-64 object-cover rounded-xl" />
-                <p class="text-sm text-gray-500">{{ form.content.hero.badge.text }}</p><h2 class="text-3xl font-bold">{{ form.content.hero.title_line_1 }} <span :style="{ color: /^#[0-9a-f]{6}$/i.test(form.meta.primary_color) ? form.meta.primary_color : '#2563eb' }">{{ form.content.hero.title_highlight }}</span></h2><p>{{ form.content.hero.subtitle }}</p>
+                <p class="text-sm text-gray-500">{{ form.content.hero.badge.text }}</p><h2 class="text-3xl font-bold">{{ form.content.hero.title_line_1 }}</h2><p>{{ form.content.hero.subtitle }}</p>
                 <span v-if="form.content.hero.primary_cta.text" class="inline-block rounded-xl bg-blue-600 text-white px-4 py-2">{{ form.content.hero.primary_cta.text }}</span>
+                <span v-if="form.content.hero.secondary_cta.text" class="inline-block rounded-xl border border-gray-300 px-4 py-2">{{ form.content.hero.secondary_cta.text }}</span>
                 <div v-for="(section, index) in form.content.sections" :key="index" class="border-t pt-4"><h3 class="text-xl font-semibold">{{ section.title }}</h3><p>{{ section.subtitle }}</p><div v-for="(item, i) in section.items" :key="i" class="mt-3"><h4 class="font-medium">{{ item.title }}</h4><p class="text-gray-600">{{ item.description }}</p></div></div>
                 <section v-if="form.content.faqs.length" class="border-t pt-4 space-y-3"><h3 class="text-xl font-semibold">Frequently Asked Questions</h3><details v-for="(faq, index) in form.content.faqs" :key="index" class="border border-gray-200 rounded-xl p-4"><summary class="cursor-pointer font-medium text-gray-800">{{ faq.question }}</summary><p class="mt-3 text-gray-600 whitespace-pre-line">{{ faq.answer }}</p></details></section>
                 <div v-if="form.content.team.length" class="border-t pt-4"><h3 class="font-semibold">Team</h3><p v-for="(member, i) in form.content.team" :key="i">{{ member.name }} — {{ member.role }}</p></div>

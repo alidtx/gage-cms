@@ -17,7 +17,7 @@ class SavePageContentRequest extends FormRequest
     {
         if (! $this->filled('slug')) {
             $name = $this->input('name');
-            $this->merge(['slug' => is_string($name) ? Str::slug($name) : '']);
+            $this->merge(['slug' => is_string($name) ? Str::slug($name, '_') : '']);
         }
         foreach (['content', 'meta'] as $field) {
             if (is_string($this->input($field))) {
@@ -33,7 +33,7 @@ class SavePageContentRequest extends FormRequest
     {
         return [
             'name' => ['required', 'string', 'max:255'],
-            'slug' => ['required', 'string', 'max:255', 'regex:/^[a-z0-9]+(?:-[a-z0-9]+)*$/', Rule::unique('page_contents', 'page')->ignore($this->route('pageContent'))],
+            'slug' => ['required', 'string', 'max:255', 'regex:/^[a-z0-9]+(?:[-_][a-z0-9]+)*$/', Rule::unique('page_contents', 'page')->ignore($this->route('pageContent'))],
             'is_active' => ['sometimes', 'boolean'],
             'is_featured' => ['sometimes', 'boolean'],
             'sort_order' => ['sometimes', 'integer', 'min:0', 'max:2147483647'],

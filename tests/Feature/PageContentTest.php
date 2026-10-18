@@ -97,16 +97,16 @@ class PageContentTest extends TestCase
         $this->actingAs(User::factory()->create())->post('/backend/pages', ['name' => 'About Us'])
             ->assertSessionHasNoErrors();
         $page = PageContent::firstOrFail();
-        $this->assertSame('about-us', $page->page);
+        $this->assertSame('about_us', $page->page);
         $this->assertSame([], $page->content);
         $this->withoutVite()->get('/backend/pages/'.$page->id.'/edit')->assertInertia(fn (Assert $view) => $view
-            ->component('Backend/PageContent/Edit')->where('pageContent.slug', 'about-us')->missing('categories'));
+            ->component('Backend/PageContent/Edit')->where('pageContent.slug', 'about_us')->missing('categories'));
         $content = ['hero' => ['title_line_1' => 'About', 'trust_badges' => ['Trusted']],
             'sections' => [['title' => 'Our story', 'items' => [['title' => 'History']]]],
             'team' => [['name' => 'Alex', 'tags' => ['Director']]], 'partners' => [['name' => 'Partner']],
             'contact' => ['email' => 'hi@example.com'], 'custom' => ['keep' => true]];
         $meta = ['meta_title' => 'About us', 'primary_color' => '#2563eb'];
-        $data = ['name' => 'Our Company', 'slug' => 'about-us', 'content' => json_encode($content),
+        $data = ['name' => 'Our Company', 'slug' => 'about_us', 'content' => json_encode($content),
             'meta' => json_encode($meta), 'is_active' => false, 'is_featured' => true, 'sort_order' => 2];
         $this->post('/backend/pages/'.$page->id, [...$data, '_method' => 'put'])
             ->assertSessionHasNoErrors()->assertRedirect('/backend/pages/'.$page->id.'/edit');
@@ -116,6 +116,16 @@ class PageContentTest extends TestCase
         $this->assertTrue($page->fresh()->is_featured);
         $this->put('/backend/pages/'.$page->id, [...$data, 'content' => '{}'])->assertSessionHasNoErrors();
         $this->assertSame([], $page->fresh()->content);
+    }
+
+    public function test_underscore_slugs_can_be_updated_and_duplicates_are_rejected(): void
+    {
+        $page = PageContent::factory()->create();
+        $this->actingAs(User::factory()->create());
+        $this->put('/backend/pages/'.$page->id, ['name' => 'Our Company', 'slug' => 'our_company'])->assertSessionHasNoErrors();
+        $this->assertSame('our_company', $page->fresh()->page);
+        $this->post('/backend/pages', ['name' => 'Our Company'])->assertSessionHasErrors('slug');
+        $this->post('/backend/pages', ['name' => 'Invalid', 'slug' => 'bad__slug'])->assertSessionHasErrors('slug');
     }
 
     public function test_page_listing_search_pagination_stats_and_legacy_content(): void
