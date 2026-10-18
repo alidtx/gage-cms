@@ -27,28 +27,21 @@ class FrontendHero
         if ($slug === null) {
             return $defaults;
         }
-        $page = PageContent::with('media')->where('page', $slug)->where('is_active', true)->first();
-        if (!$page) {
+        $page = PageContent::with('media')->where('page', str_replace('-', '_', $slug))->where('is_active', true)->first()
+            ?? PageContent::with('media')->where('page', $slug)->where('is_active', true)->first();
+        if (! $page) {
             return $defaults;
         }
         $content = data_get($page->content, 'hero', []);
         $text = static fn (mixed $value): string => is_string($value) ? trim(strip_tags($value)) : '';
         $title = $text(data_get($content, 'title_line_1'));
-        $highlight = $text(data_get($content, 'title_highlight'));
-        if ($title !== '' || $highlight !== '') {
-            $defaults['heading'] = array_values(array_filter([
-                $title !== '' ? ['text' => $title] : null,
-                $highlight !== '' ? ['text' => $highlight, 'highlight' => true] : null,
-            ]));
+        if ($title !== '') {
+            $defaults['heading'] = [['text' => $title]];
         }
         foreach (['subtitle' => 'description', 'badge.text' => 'eyebrow'] as $source => $target) {
             if (data_get($content, $source) !== null) {
                 $defaults[$target] = $text(data_get($content, $source));
             }
-        }
-        $color = data_get($page->meta, 'primary_color');
-        if (is_string($color) && preg_match('/^#[a-f0-9]{3}(?:[a-f0-9]{3})?$/i', $color)) {
-            $defaults['highlight_color'] = $color;
         }
         $buttons = $defaults['buttons'] ?? [];
         foreach (['primary_cta', 'secondary_cta'] as $index => $key) {
@@ -58,13 +51,13 @@ class FrontendHero
             $label = $text(data_get($content, "$key.text"));
             $href = $text(data_get($content, "$key.href"));
             unset($defaults['buttons'][$index]);
-            if ($label !== '' && preg_match('~^(?:/(?!/)|#[\w-]*$|https?://|mailto:|tel:)~i', $href) && !preg_match('/[\x00-\x20\\\\]/', $href)) {
+            if ($label !== '' && preg_match('~^(?:/(?!/)|#[\w-]*$|https?://|mailto:|tel:)~i', $href) && ! preg_match('/[\x00-\x20\\\\]/', $href)) {
                 $defaults['buttons'][$index] = array_merge($buttons[$index] ?? [], ['label' => $label, 'url' => $href]);
             }
         }
         $badges = data_get($content, 'trust_badges', []);
         $defaults['trust_badges'] = is_array($badges) ? array_values(array_filter(array_map($text, $badges))) : [];
-        if ($page->media && Storage::exists($page->media->src)) {
+        if ($page->media && $page->media->fileable_type === PageContent::class && (int) $page->media->fileable_id === $page->id && Storage::exists($page->media->src)) {
             $defaults['image'] = [
                 'src' => route('frontend.page-hero-image', $page),
                 'alt' => $text(data_get($content, 'image_alt')) ?: $page->name,
@@ -72,7 +65,7 @@ class FrontendHero
             ];
         }
         $video = data_get($content, 'video_url');
-        if (is_string($video) && str_starts_with($video, "/storage/pages/{$page->id}/hero-videos/") && !str_contains($video, '..') && Storage::disk('public')->exists(substr($video, 9))) {
+        if ($slug === 'home' && is_string($video) && str_starts_with($video, "/storage/pages/{$page->id}/hero-videos/") && ! str_contains($video, '..') && Storage::disk('public')->exists(substr($video, 9))) {
             $defaults['video'] = $video;
         }
 

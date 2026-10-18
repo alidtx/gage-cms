@@ -3,7 +3,8 @@
     @include('frontend.components.hero', [
         'hero' => [
             'variant' => 'home',
-            'section_class' => 'bg-black text-white ZoomOutAnimation',
+            'container_class' => 'container grid items-center gap-12 py-16 lg:grid-cols-2 lg:gap-24',
+            'section_class' => 'home-hero bg-black text-white ZoomOutAnimation',
             'eyebrow' => 'EXPERTS IN SAFETY & SECURITY',
             'heading' => [['text' => 'Protecting'], ['text' => 'Maldives since'], ['text' => '2010.']],
             'heading_class' => 'mt-7 text-[44px] font-bold leading-[1.06] tracking-[-1.6px] sm:text-[68px]',

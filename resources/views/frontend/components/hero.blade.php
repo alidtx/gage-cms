@@ -1,6 +1,6 @@
 @php
     $variant = $hero['variant'] ?? 'text';
-    $isSplit = in_array($variant, ['home', 'split'], true) && !empty($hero['image']);
+    $isSplit = in_array($variant, ['home', 'split'], true) && (!empty($hero['image']) || !empty($hero['video']));
     $containerClass = $hero['container_class'] ?? ($variant === 'home' ? 'container py-16' : 'container pb-20 pt-10');
     $gridClass = $hero['grid_class'] ?? 'grid items-center gap-12 lg:grid-cols-2 lg:gap-24';
     // The home variant historically places its grid on the container itself.
@@ -36,8 +36,16 @@
                     @endforeach
                 </div>
             @endif
+            @if(!empty($hero['trust_badges']))
+                <ul class="mt-6 flex flex-wrap gap-4">@foreach($hero['trust_badges'] as $badge)<li>{{ $badge }}</li>@endforeach</ul>
+            @endif
         </div>
-        @if($isSplit)
+        @if(!empty($hero['video']) && $variant === 'home')
+            <video class="aspect-[1.05] w-full rounded-[20px] object-cover" autoplay muted controls playsinline preload="auto" aria-label="Hero video" @if(!empty($hero['image'])) poster="{{ asset($hero['image']['src']) }}" @endif>
+                <source src="{{ $hero['video'] }}">
+                <a href="{{ $hero['video'] }}">Watch video</a>
+            </video>
+        @elseif(!empty($hero['image']))
             <img src="{{ asset($hero['image']['src']) }}" alt="{{ $hero['image']['alt'] ?? '' }}"
                 class="{{ $hero['image']['class'] ?? 'aspect-[1.05] w-full rounded-[16px] object-cover' }}"
                 decoding="async" fetchpriority="high"

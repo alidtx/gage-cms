@@ -15,6 +15,7 @@ use App\Http\Controllers\Backend\SiteMapController;
 use App\Http\Controllers\Backend\SocialLinkController;
 use App\Http\Controllers\ContactFormController;
 use App\Http\Controllers\Frontend\FrontendController;
+use App\Http\Controllers\Frontend\PageHeroImageController;
 use App\Http\Controllers\Frontend\SeoImageController;
 use Illuminate\Support\Facades\Route;
 
@@ -28,6 +29,7 @@ Route::get('/gage-fire-safety', [FrontendController::class, 'gageFireSafety'])->
 Route::get('/gage-training-instruction', [FrontendController::class, 'gageTrainingInstruction'])->name('frontend.gage-training-instruction');
 Route::get('/gage-technology', [FrontendController::class, 'gageTechnology'])->name('frontend.gage-technology');
 Route::get('/gage-project-client', [FrontendController::class, 'gageProjectClient'])->name('frontend.gage-project-client');
+Route::get('/page-hero-images/{pageContent}', PageHeroImageController::class)->name('frontend.page-hero-image');
 Route::get('/seo-images/{media}', SeoImageController::class)->name('frontend.seo-image');
 
 Route::get('/dashboard', [DashboardController::class, 'index'])->middleware(['auth', 'verified'])->name('dashboard');

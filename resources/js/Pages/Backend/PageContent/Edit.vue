@@ -43,7 +43,8 @@ watch(() => form.hero_video, file => {
     localVideo.value = file ? URL.createObjectURL(file) : null;
 });
 onUnmounted(() => { if (localVideo.value) URL.revokeObjectURL(localVideo.value); });
-const videoUrl = computed(() => localVideo.value || (!form.remove_hero_video ? props.pageContent.content?.hero?.video_url : null));
+const isHomePage = computed(() => form.slug === 'home');
+const videoUrl = computed(() => isHomePage.value ? (localVideo.value || (!form.remove_hero_video ? props.pageContent.content?.hero?.video_url : null)) : null);
 function selectVideo(event) {
     const file = event.target.files?.[0];
     if (!file) return;
@@ -159,14 +160,14 @@ function showPreview() {
                             <template v-if="tab === 'hero'">
                                 <p class="text-sm text-gray-500">Edit the hero heading, description, buttons and media for this page. Company logos and page layouts are managed by the website template.</p>
                                 <Field v-model="form.content.hero.badge.text" label="Eyebrow (small text above heading)" />
-                                <Field v-model="form.content.hero.title_line_1" label="Main heading" /><Field v-model="form.content.hero.subtitle" label="Description" multiline />
+                                <Field v-model="form.content.hero.title_line_1" label="Main heading" :multiline="isHomePage" /><p v-if="isHomePage" class="text-xs text-gray-500">Use Enter to set heading line breaks, matching the Home page design.</p><Field v-model="form.content.hero.subtitle" label="Description" multiline />
                                 <div class="bg-gray-50 rounded-xl border border-gray-200 p-4 grid sm:grid-cols-2 gap-4"><Field v-model="form.content.hero.primary_cta.text" label="Primary CTA text" /><Field v-model="form.content.hero.primary_cta.href" label="Primary CTA link" /></div>
                                 <div class="bg-gray-50 rounded-xl border border-gray-200 p-4 grid sm:grid-cols-2 gap-4"><Field v-model="form.content.hero.secondary_cta.text" label="Secondary CTA text" /><Field v-model="form.content.hero.secondary_cta.href" label="Secondary CTA link" /></div>
                                 <p class="text-xs text-gray-500">Buttons are optional. Enter a label and a link, such as /contact or https://example.com.</p>
                                 <Field v-model="trustBadges" label="Trust badges (comma-separated)" />
                                 <div><p class="text-sm font-medium text-gray-700 mb-2">Hero image</p><ImageUpload v-model="form.image" :current-url="pageContent.image_url" :error="form.errors.image" helper-text="JPG, PNG, WebP or GIF, up to 5 MB" /></div>
                                 <Field v-model="form.content.hero.image_alt" label="Image description (alt text)" />
-                                <div class="space-y-3">
+                                <div v-if="isHomePage" class="space-y-3">
                                     <label for="hero-video" class="block text-sm font-medium text-gray-700">Hero video (optional)</label>
                                     <video v-if="videoUrl" :src="videoUrl" controls preload="metadata" class="w-full max-h-64 rounded-xl bg-gray-900"></video>
                                     <input id="hero-video" ref="videoInput" type="file" accept="video/mp4,video/webm" @change="selectVideo" class="block w-full text-sm text-gray-600" />
