@@ -1,17 +1,49 @@
 @extends('frontend.layouts.app')
 @section('content')
-    @include('frontend.components.hero', ['hero' => [
-    'variant' => 'split',
-    'section_class' => 'company-hero text-white',
-    'container_class' => 'container pb-20 pt-10',
-    'grid_class' => 'grid items-center gap-12 lg:grid-cols-[1.2fr_1fr] lg:gap-24',
-    'heading_class' => 'mt-6 text-[40px] font-bold leading-[1.12] tracking-[-1px] sm:text-[56px]',
-    'heading' => [['text' => 'Building capable', 'break_class' => 'hidden xl:block'], ['text' => 'professionals, since', 'break_class' => 'hidden xl:block'], ['text' => 'day one.']],
-    'description' => 'We develop capable professionals in security, safety and emergency response through accredited, hands-on programmes built for real-world performance.',
-    'description_class' => 'mt-6 max-w-[620px] text-lg leading-[1.7] text-white/80',
-    'logo' => ['src' => 'assets/training-hero-logo.png', 'alt' => 'GAGE Institute'],
-    'image' => ['src' => 'assets/training-page-0.jpg', 'width' => 734, 'height' => 982, 'alt' => 'Students practising emergency response and CPR with a trainer', 'class' => 'aspect-[.9] w-full rounded-[16px] object-cover'],
-    'buttons' => [['label' => 'Browse programmes', 'url' => '#programmes', 'class' => 'button button-light !text-[#2430ce]', 'arrow' => 'yes'], ['label' => 'Enquire about training', 'url' => '/contact#enquiry', 'class' => 'button button-outline', 'arrow' => 'yes']], 'breadcrumb' => ['title' => 'GAGE Training Institute', 'class' => 'mb-10 flex flex-wrap gap-2 text-xs leading-6 text-white/70', 'parents' => [['label' => 'Our Companies', 'url' => route('frontend.home').'#companies']]]]])
+    @include('frontend.components.hero', [
+        'hero' => [
+            'variant' => 'split',
+            'section_class' => 'company-hero text-white',
+            'container_class' => 'container pb-20 pt-10',
+            'grid_class' => 'grid items-center gap-12 lg:grid-cols-[1.2fr_1fr] lg:gap-24',
+            'heading_class' => 'mt-6 text-[40px] font-bold leading-[1.12] tracking-[-1px] sm:text-[56px]',
+            'heading' => [
+                ['text' => 'Building capable', 'break_class' => 'hidden xl:block'],
+                ['text' => 'professionals, since', 'break_class' => 'hidden xl:block'],
+                ['text' => 'day one.'],
+            ],
+            'description' =>
+                'We develop capable professionals in security, safety and emergency response through accredited, hands-on programmes built for real-world performance.',
+            'description_class' => 'mt-6 max-w-[620px] text-lg leading-[1.7] text-white/80',
+            'logo' => ['src' => 'assets/training-hero-logo.png', 'alt' => 'GAGE Institute'],
+            'image' => [
+                'src' => 'assets/training-page-0.jpg',
+                'width' => 734,
+                'height' => 982,
+                'alt' => 'Students practising emergency response and CPR with a trainer',
+                'class' => 'aspect-[.9] w-full rounded-[16px] object-cover',
+            ],
+            'buttons' => [
+                [
+                    'label' => 'Browse programmes',
+                    'url' => '#programmes',
+                    'class' => 'button button-light !text-[#2430ce]',
+                    'arrow' => 'yes',
+                ],
+                [
+                    'label' => 'Enquire about training',
+                    'url' => '/contact#enquiry',
+                    'class' => 'button button-outline',
+                    'arrow' => 'yes',
+                ],
+            ],
+            'breadcrumb' => [
+                'title' => 'GAGE Training Institute',
+                'class' => 'mb-10 flex flex-wrap gap-2 text-xs leading-6 text-white/70',
+                'parents' => [['label' => 'Our Companies', 'url' => route('frontend.home') . '#companies']],
+            ],
+        ],
+    ])
     {{-- <section class="section container">
         <div class="grid items-start gap-12 lg:grid-cols-2 lg:gap-24">
             <div>
