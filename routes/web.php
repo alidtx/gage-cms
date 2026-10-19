@@ -18,6 +18,7 @@ use App\Http\Controllers\Frontend\EntityImageController;
 use App\Http\Controllers\Frontend\FrontendController;
 use App\Http\Controllers\Frontend\PageHeroImageController;
 use App\Http\Controllers\Frontend\SeoImageController;
+use App\Http\Controllers\Frontend\ServiceIconController;
 use Illuminate\Support\Facades\Route;
 
 Route::get('/', [FrontendController::class, 'home'])->name('frontend.home');
@@ -30,6 +31,7 @@ Route::get('/gage-fire-safety', [FrontendController::class, 'gageFireSafety'])->
 Route::get('/gage-training-instruction', [FrontendController::class, 'gageTrainingInstruction'])->name('frontend.gage-training-instruction');
 Route::get('/gage-technology', [FrontendController::class, 'gageTechnology'])->name('frontend.gage-technology');
 Route::get('/gage-project-client', [FrontendController::class, 'gageProjectClient'])->name('frontend.gage-project-client');
+Route::get('/service-icons/{service}', ServiceIconController::class)->name('frontend.service-icon');
 Route::get('/entity-images/{entity}', EntityImageController::class)->name('frontend.entity-image');
 Route::get('/page-hero-images/{pageContent}', PageHeroImageController::class)->name('frontend.page-hero-image');
 Route::get('/seo-images/{media}', SeoImageController::class)->name('frontend.seo-image');

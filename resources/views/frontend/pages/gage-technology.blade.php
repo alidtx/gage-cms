@@ -85,7 +85,7 @@
                             </svg></span></div>
                     <h3 class="text-2xl font-bold leading-tight">Network &amp; Connectivity Solutions</h3>
                     <p class="mt-4 min-h-[115px] text-sm leading-6 text-muted">Wired and wireless networks designed
-                        for coverage, speed and reliability across your property.</p><a href="#service-2"
+                        for coverage, speed and reliability across your property.</p><a href="#services"
                         class="mt-7 inline-flex items-center gap-2 text-sm font-bold text-[#197379]">View
                         service<svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor"
                             stroke-width="2" aria-hidden="true">
@@ -103,7 +103,7 @@
                     <h3 class="text-2xl font-bold leading-tight">Access Control &amp; Biometric Systems</h3>
                     <p class="mt-4 min-h-[115px] text-sm leading-6 text-muted">Cards, PINs and biometric readers
                         control who enters villas, staff areas and back-of-house — with every entry logged.</p><a
-                        href="#service-4"
+                        href="#services"
                         class="mt-7 inline-flex items-center gap-2 text-sm font-bold text-[#197379]">View
                         service<svg width="17" height="17" viewBox="0 0 24 24" fill="none"
                             stroke="currentColor" stroke-width="2" aria-hidden="true">
@@ -120,7 +120,7 @@
                             </svg></span></div>
                     <h3 class="text-2xl font-bold leading-tight">CCTV &amp; Video Surveillance</h3>
                     <p class="mt-4 min-h-[115px] text-sm leading-6 text-muted">High-definition surveillance with
-                        recording, remote viewing and smart detection.</p><a href="#service-3"
+                        recording, remote viewing and smart detection.</p><a href="#services"
                         class="mt-7 inline-flex items-center gap-2 text-sm font-bold text-[#197379]">View
                         service<svg width="17" height="17" viewBox="0 0 24 24" fill="none"
                             stroke="currentColor" stroke-width="2" aria-hidden="true">
@@ -137,7 +137,7 @@
                             </svg></span></div>
                     <h3 class="text-2xl font-bold leading-tight">Intrusion &amp; Alarm Systems</h3>
                     <p class="mt-4 min-h-[115px] text-sm leading-6 text-muted">Wireless and wired intrusion
-                        detection with instant alerts.</p><a href="#service-5"
+                        detection with instant alerts.</p><a href="#services"
                         class="mt-7 inline-flex items-center gap-2 text-sm font-bold text-[#197379]">View
                         service<svg width="17" height="17" viewBox="0 0 24 24" fill="none"
                             stroke="currentColor" stroke-width="2" aria-hidden="true">
@@ -155,7 +155,7 @@
                             </svg></span></div>
                     <h3 class="text-2xl font-bold leading-tight">Communications &amp; Radio Systems</h3>
                     <p class="mt-4 min-h-[115px] text-sm leading-6 text-muted">Two-way radio and communication
-                        systems that keep teams connected on site.</p><a href="#service-6"
+                        systems that keep teams connected on site.</p><a href="#services"
                         class="mt-7 inline-flex items-center gap-2 text-sm font-bold text-[#197379]">View
                         service<svg width="17" height="17" viewBox="0 0 24 24" fill="none"
                             stroke="currentColor" stroke-width="2" aria-hidden="true">
@@ -172,7 +172,7 @@
                             </svg></span></div>
                     <h3 class="text-2xl font-bold leading-tight">Server, Storage &amp; Backup Infrastructure</h3>
                     <p class="mt-4 min-h-[115px] text-sm leading-6 text-muted">Secure servers, storage and backup
-                        that protect your data and keep systems running.</p><a href="#service-9"
+                        that protect your data and keep systems running.</p><a href="#services"
                         class="mt-7 inline-flex items-center gap-2 text-sm font-bold text-[#197379]">View
                         service<svg width="17" height="17" viewBox="0 0 24 24" fill="none"
                             stroke="currentColor" stroke-width="2" aria-hidden="true">
@@ -196,216 +196,10 @@
     <section id="services" class="section bg-[#eff5f6]">
         <div class="container">
             <p class="eyebrow text-[#197379]"><span></span>SERVICES</p>
-            <h2>Twelve services, one technology<br class="hidden lg:block"> partner.</h2>
+            <h2>Complete services, one technology<br class="hidden lg:block"> partner.</h2>
             <p class="section-intro max-w-[1050px]">From the cabling in your walls to the support desk you call,
                 GAGE Technology designs, installs and supports it all.</p>
-            <div class="mt-12 grid gap-6 md:grid-cols-2 lg:grid-cols-3">
-                <article id="service-1"
-                    class="flex min-h-[300px] flex-col rounded-[16px] border border-[#e5e7eb] bg-white p-8"><span
-                        class="mb-5 inline-flex h-[52px] w-[52px] items-center justify-center rounded-xl bg-[#e0edef] text-[#197379]"><svg
-                            width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor"
-                            stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
-                            <rect x="4" y="3" width="16" height="7" rx="2" />
-                            <rect x="4" y="14" width="16" height="7" rx="2" />
-                            <path d="M7 6h2m-2 11h2" />
-                        </svg></span>
-                    <h3 class="text-xl font-bold leading-7">IT Infrastructure</h3>
-                    <p class="mt-3 text-base leading-7 text-muted">Robust IT foundations — hardware, systems and
-                        setup for offices, resorts and institutions.</p><a href="./conact.html#enquiry"
-                        class="mt-auto inline-flex items-center gap-2 pt-7 text-sm font-bold text-[#197379]">View
-                        service<svg width="17" height="17" viewBox="0 0 24 24" fill="none"
-                            stroke="currentColor" stroke-width="2" aria-hidden="true">
-                            <path d="M5 12h14m-6-6 6 6-6 6" />
-                        </svg></a>
-                </article>
-                <article id="service-2"
-                    class="flex min-h-[300px] flex-col rounded-[16px] border border-[#e5e7eb] bg-white p-8"><span
-                        class="mb-5 inline-flex h-[52px] w-[52px] items-center justify-center rounded-xl bg-[#e0edef] text-[#197379]"><svg
-                            width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor"
-                            stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
-                            <rect x="9" y="2" width="6" height="6" rx="1" />
-                            <rect x="2" y="16" width="6" height="6" rx="1" />
-                            <rect x="16" y="16" width="6" height="6" rx="1" />
-                            <path d="M12 8v5H5v3m7-3h7v3" />
-                        </svg></span>
-                    <h3 class="text-xl font-bold leading-7">Network &amp; Connectivity Solutions</h3>
-                    <p class="mt-3 text-base leading-7 text-muted">Wired and wireless networks designed for
-                        coverage, speed and reliability across your property.</p><a href="./conact.html#enquiry"
-                        class="mt-auto inline-flex items-center gap-2 pt-7 text-sm font-bold text-[#197379]">View
-                        service<svg width="17" height="17" viewBox="0 0 24 24" fill="none"
-                            stroke="currentColor" stroke-width="2" aria-hidden="true">
-                            <path d="M5 12h14m-6-6 6 6-6 6" />
-                        </svg></a>
-                </article>
-                <article id="service-3"
-                    class="flex min-h-[300px] flex-col rounded-[16px] border border-[#e5e7eb] bg-white p-8"><span
-                        class="mb-5 inline-flex h-[52px] w-[52px] items-center justify-center rounded-xl bg-[#e0edef] text-[#197379]"><svg
-                            width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor"
-                            stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
-                            <path d="m3 6 13 3-2 7L2 12Z M15 10h5v5h-6M7 15v6m-4 0h8" />
-                        </svg></span>
-                    <h3 class="text-xl font-bold leading-7">CCTV &amp; Video Surveillance</h3>
-                    <p class="mt-3 text-base leading-7 text-muted">High-definition surveillance with recording,
-                        remote viewing and smart detection.</p><a
-                        href="./Service-Detail-Technology-CCTV-Video-Surveillance.html"
-                        class="mt-auto inline-flex items-center gap-2 pt-7 text-sm font-bold text-[#197379]">View
-                        service<svg width="17" height="17" viewBox="0 0 24 24" fill="none"
-                            stroke="currentColor" stroke-width="2" aria-hidden="true">
-                            <path d="M5 12h14m-6-6 6 6-6 6" />
-                        </svg></a>
-                </article>
-                <article id="service-4"
-                    class="flex min-h-[300px] flex-col rounded-[16px] border border-[#e5e7eb] bg-white p-8"><span
-                        class="mb-5 inline-flex h-[52px] w-[52px] items-center justify-center rounded-xl bg-[#e0edef] text-[#197379]"><svg
-                            width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor"
-                            stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
-                            <path d="M8 13v-3a4 4 0 0 1 8 0v4m-11 0v-4a7 7 0 0 1 14 0v5M8 16v2m4-7v9m4-3v3" />
-                        </svg></span>
-                    <h3 class="text-xl font-bold leading-7">Access Control &amp; Biometric Systems</h3>
-                    <p class="mt-3 text-base leading-7 text-muted">Control who goes where with cards, PINs and
-                        biometrics.</p><a href="./conact.html#enquiry"
-                        class="mt-auto inline-flex items-center gap-2 pt-7 text-sm font-bold text-[#197379]">View
-                        service<svg width="17" height="17" viewBox="0 0 24 24" fill="none"
-                            stroke="currentColor" stroke-width="2" aria-hidden="true">
-                            <path d="M5 12h14m-6-6 6 6-6 6" />
-                        </svg></a>
-                </article>
-                <article id="service-5"
-                    class="flex min-h-[300px] flex-col rounded-[16px] border border-[#e5e7eb] bg-white p-8"><span
-                        class="mb-5 inline-flex h-[52px] w-[52px] items-center justify-center rounded-xl bg-[#e0edef] text-[#197379]"><svg
-                            width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor"
-                            stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
-                            <path d="M6 8h12v11H6ZM9 8V5h6v3M3 11H1m22 0h-2M3 17H1m22 0h-2M9 22v-3m6 3v-3M12 1v2" />
-                        </svg></span>
-                    <h3 class="text-xl font-bold leading-7">Intrusion &amp; Alarm Systems</h3>
-                    <p class="mt-3 text-base leading-7 text-muted">Wireless and wired intrusion detection with
-                        instant alerts.</p><a href="./conact.html#enquiry"
-                        class="mt-auto inline-flex items-center gap-2 pt-7 text-sm font-bold text-[#197379]">View
-                        service<svg width="17" height="17" viewBox="0 0 24 24" fill="none"
-                            stroke="currentColor" stroke-width="2" aria-hidden="true">
-                            <path d="M5 12h14m-6-6 6 6-6 6" />
-                        </svg></a>
-                </article>
-                <article id="service-6"
-                    class="flex min-h-[300px] flex-col rounded-[16px] border border-[#e5e7eb] bg-white p-8"><span
-                        class="mb-5 inline-flex h-[52px] w-[52px] items-center justify-center rounded-xl bg-[#e0edef] text-[#197379]"><svg
-                            width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor"
-                            stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
-                            <rect x="7" y="7" width="10" height="15" rx="2" />
-                            <path d="M10 7V2m1 9h2m-3 4h4M4 9a7 7 0 0 0 0 8m16-8a7 7 0 0 1 0 8" />
-                        </svg></span>
-                    <h3 class="text-xl font-bold leading-7">Communications &amp; Radio Systems</h3>
-                    <p class="mt-3 text-base leading-7 text-muted">Two-way radio and communication systems that keep
-                        teams connected on site.</p><a href="./conact.html#enquiry"
-                        class="mt-auto inline-flex items-center gap-2 pt-7 text-sm font-bold text-[#197379]">View
-                        service<svg width="17" height="17" viewBox="0 0 24 24" fill="none"
-                            stroke="currentColor" stroke-width="2" aria-hidden="true">
-                            <path d="M5 12h14m-6-6 6 6-6 6" />
-                        </svg></a>
-                </article>
-                <article id="service-7"
-                    class="flex min-h-[300px] flex-col rounded-[16px] border border-[#e5e7eb] bg-white p-8"><span
-                        class="mb-5 inline-flex h-[52px] w-[52px] items-center justify-center rounded-xl bg-[#e0edef] text-[#197379]"><svg
-                            width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor"
-                            stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
-                            <rect x="4" y="3" width="16" height="7" rx="2" />
-                            <rect x="4" y="14" width="16" height="7" rx="2" />
-                            <path d="M7 6h2m-2 11h2" />
-                        </svg></span>
-                    <h3 class="text-xl font-bold leading-7">ELV &amp; Integrated Technology Solutions</h3>
-                    <p class="mt-3 text-base leading-7 text-muted">Extra-low-voltage systems brought together into
-                        one manageable platform.</p><a href="./conact.html#enquiry"
-                        class="mt-auto inline-flex items-center gap-2 pt-7 text-sm font-bold text-[#197379]">View
-                        service<svg width="17" height="17" viewBox="0 0 24 24" fill="none"
-                            stroke="currentColor" stroke-width="2" aria-hidden="true">
-                            <path d="M5 12h14m-6-6 6 6-6 6" />
-                        </svg></a>
-                </article>
-                <article id="service-8"
-                    class="flex min-h-[300px] flex-col rounded-[16px] border border-[#e5e7eb] bg-white p-8"><span
-                        class="mb-5 inline-flex h-[52px] w-[52px] items-center justify-center rounded-xl bg-[#e0edef] text-[#197379]"><svg
-                            width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor"
-                            stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
-                            <rect x="9" y="2" width="6" height="6" rx="1" />
-                            <rect x="2" y="16" width="6" height="6" rx="1" />
-                            <rect x="16" y="16" width="6" height="6" rx="1" />
-                            <path d="M12 8v5H5v3m7-3h7v3" />
-                        </svg></span>
-                    <h3 class="text-xl font-bold leading-7">Structured Cabling &amp; Fibre Optic Solutions</h3>
-                    <p class="mt-3 text-base leading-7 text-muted">Certified cabling and fibre backbones built for
-                        today’s and tomorrow’s demand.</p><a href="./conact.html#enquiry"
-                        class="mt-auto inline-flex items-center gap-2 pt-7 text-sm font-bold text-[#197379]">View
-                        service<svg width="17" height="17" viewBox="0 0 24 24" fill="none"
-                            stroke="currentColor" stroke-width="2" aria-hidden="true">
-                            <path d="M5 12h14m-6-6 6 6-6 6" />
-                        </svg></a>
-                </article>
-                <article id="service-9"
-                    class="flex min-h-[300px] flex-col rounded-[16px] border border-[#e5e7eb] bg-white p-8"><span
-                        class="mb-5 inline-flex h-[52px] w-[52px] items-center justify-center rounded-xl bg-[#e0edef] text-[#197379]"><svg
-                            width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor"
-                            stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
-                            <path d="m3 6 13 3-2 7L2 12Z M15 10h5v5h-6M7 15v6m-4 0h8" />
-                        </svg></span>
-                    <h3 class="text-xl font-bold leading-7">Server, Storage &amp; Backup Infrastructure</h3>
-                    <p class="mt-3 text-base leading-7 text-muted">Secure servers, storage and backup that protect
-                        your data and keep systems running.</p><a href="./conact.html#enquiry"
-                        class="mt-auto inline-flex items-center gap-2 pt-7 text-sm font-bold text-[#197379]">View
-                        service<svg width="17" height="17" viewBox="0 0 24 24" fill="none"
-                            stroke="currentColor" stroke-width="2" aria-hidden="true">
-                            <path d="M5 12h14m-6-6 6 6-6 6" />
-                        </svg></a>
-                </article>
-                <article id="service-10"
-                    class="flex min-h-[300px] flex-col rounded-[16px] border border-[#e5e7eb] bg-white p-8"><span
-                        class="mb-5 inline-flex h-[52px] w-[52px] items-center justify-center rounded-xl bg-[#e0edef] text-[#197379]"><svg
-                            width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor"
-                            stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
-                            <path d="M8 13v-3a4 4 0 0 1 8 0v4m-11 0v-4a7 7 0 0 1 14 0v5M8 16v2m4-7v9m4-3v3" />
-                        </svg></span>
-                    <h3 class="text-xl font-bold leading-7">Managed IT &amp; Technical Support</h3>
-                    <p class="mt-3 text-base leading-7 text-muted">Ongoing management and support from a responsive
-                        technical team.</p><a href="./conact.html#enquiry"
-                        class="mt-auto inline-flex items-center gap-2 pt-7 text-sm font-bold text-[#197379]">View
-                        service<svg width="17" height="17" viewBox="0 0 24 24" fill="none"
-                            stroke="currentColor" stroke-width="2" aria-hidden="true">
-                            <path d="M5 12h14m-6-6 6 6-6 6" />
-                        </svg></a>
-                </article>
-                <article id="service-11"
-                    class="flex min-h-[300px] flex-col rounded-[16px] border border-[#e5e7eb] bg-white p-8"><span
-                        class="mb-5 inline-flex h-[52px] w-[52px] items-center justify-center rounded-xl bg-[#e0edef] text-[#197379]"><svg
-                            width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor"
-                            stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
-                            <path d="M6 8h12v11H6ZM9 8V5h6v3M3 11H1m22 0h-2M3 17H1m22 0h-2M9 22v-3m6 3v-3M12 1v2" />
-                        </svg></span>
-                    <h3 class="text-xl font-bold leading-7">System Design, Installation &amp; Commissioning</h3>
-                    <p class="mt-3 text-base leading-7 text-muted">End-to-end delivery — from site survey and design
-                        to installation and handover.</p><a href="./conact.html#enquiry"
-                        class="mt-auto inline-flex items-center gap-2 pt-7 text-sm font-bold text-[#197379]">View
-                        service<svg width="17" height="17" viewBox="0 0 24 24" fill="none"
-                            stroke="currentColor" stroke-width="2" aria-hidden="true">
-                            <path d="M5 12h14m-6-6 6 6-6 6" />
-                        </svg></a>
-                </article>
-                <article id="service-12"
-                    class="flex min-h-[300px] flex-col rounded-[16px] border border-[#e5e7eb] bg-white p-8"><span
-                        class="mb-5 inline-flex h-[52px] w-[52px] items-center justify-center rounded-xl bg-[#e0edef] text-[#197379]"><svg
-                            width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor"
-                            stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
-                            <rect x="7" y="7" width="10" height="15" rx="2" />
-                            <path d="M10 7V2m1 9h2m-3 4h4M4 9a7 7 0 0 0 0 8m16-8a7 7 0 0 1 0 8" />
-                        </svg></span>
-                    <h3 class="text-xl font-bold leading-7">Preventive Maintenance &amp; AMC</h3>
-                    <p class="mt-3 text-base leading-7 text-muted">Scheduled maintenance contracts that prevent
-                        downtime and extend system life.</p><a href="./conact.html#enquiry"
-                        class="mt-auto inline-flex items-center gap-2 pt-7 text-sm font-bold text-[#197379]">View
-                        service<svg width="17" height="17" viewBox="0 0 24 24" fill="none"
-                            stroke="currentColor" stroke-width="2" aria-hidden="true">
-                            <path d="M5 12h14m-6-6 6 6-6 6" />
-                        </svg></a>
-                </article>
-            </div>
+            @include('frontend.components.service-cards', ['services' => $services, 'theme' => 'technology'])
         </div>
     </section>
     <section class="section container">

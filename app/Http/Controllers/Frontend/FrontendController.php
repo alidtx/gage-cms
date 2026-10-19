@@ -5,8 +5,10 @@ namespace App\Http\Controllers\Frontend;
 use App\Http\Controllers\Controller;
 use App\Models\Entity;
 use App\Models\News;
+use App\Models\Service;
 use App\Services\FrontendHero;
 use App\Services\FrontendSeo;
+use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Http\Request;
 use Illuminate\View\View;
 
@@ -29,12 +31,12 @@ class FrontendController extends Controller
 
     public function gageSecurity(Request $request, FrontendHero $heroes, FrontendSeo $seo): View
     {
-        return view('frontend.pages.gage-security', ['companyTheme' => 'security', 'heroContent' => $heroes->forPage('gage_security'), 'pageSeo' => $seo->forPage('gage_security')]);
+        return view('frontend.pages.gage-security', ['services' => $this->companyServices('gage_security'), 'companyTheme' => 'security', 'heroContent' => $heroes->forPage('gage_security'), 'pageSeo' => $seo->forPage('gage_security')]);
     }
 
     public function gageFireSafety(Request $request, FrontendHero $heroes, FrontendSeo $seo): View
     {
-        return view('frontend.pages.gage-fire-safety', ['companyTheme' => 'fire-safety', 'heroContent' => $heroes->forPage('gage_fire_safety'), 'pageSeo' => $seo->forPage('gage_fire_safety')]);
+        return view('frontend.pages.gage-fire-safety', ['services' => $this->companyServices('gage_fire_safety'), 'companyTheme' => 'fire-safety', 'heroContent' => $heroes->forPage('gage_fire_safety'), 'pageSeo' => $seo->forPage('gage_fire_safety')]);
     }
 
     public function gageTrainingInstruction(Request $request, FrontendHero $heroes, FrontendSeo $seo): View
@@ -44,11 +46,17 @@ class FrontendController extends Controller
 
     public function gageTechnology(Request $request, FrontendHero $heroes, FrontendSeo $seo): View
     {
-        return view('frontend.pages.gage-technology', ['companyTheme' => 'technology', 'heroContent' => $heroes->forPage('gage_technology'), 'pageSeo' => $seo->forPage('gage_technology')]);
+        return view('frontend.pages.gage-technology', ['services' => $this->companyServices('gage_technology'), 'companyTheme' => 'technology', 'heroContent' => $heroes->forPage('gage_technology'), 'pageSeo' => $seo->forPage('gage_technology')]);
     }
 
     public function gageProjectClient(Request $request, FrontendHero $heroes, FrontendSeo $seo): View
     {
         return view('frontend.pages.gage-project-client', ['heroContent' => $heroes->forPage('gage_project_client'), 'pageSeo' => $seo->forPage('gage_project_client')]);
+    }
+
+    /** @return Collection<int, Service> */
+    private function companyServices(string $slug): Collection
+    {
+        return Service::with('media')->whereHas('entity', fn ($query) => $query->active()->whereIn('slug', [$slug, str_replace('_', '-', $slug)]))->orderBy('id')->get();
     }
 }
