@@ -36,7 +36,7 @@ class Entity extends Model
     protected static function booted(): void
     {
         static::creating(function ($entity) {
-            $entity->slug ??= Str::slug($entity->name);
+            $entity->slug ??= Str::slug($entity->name, '_');
         });
     }
 

@@ -14,94 +14,32 @@ class EntityTest extends TestCase
 {
     use RefreshDatabase;
 
-    public function test_custom_section_and_item_fields_can_be_saved_updated_and_removed(): void
-    {
-        $entity = Entity::factory()->create();
-        $this->actingAs(User::factory()->create());
-        $data = ['name' => $entity->name, 'slug' => $entity->slug, 'category' => $entity->category];
-        $sections = [['key' => 'services', 'title' => 'Services', 'button_label' => 'Learn more', 'columns' => 3,
-            'items' => [['title' => 'Support', 'price' => 25, 'available' => false, 'note' => 'Any time']]]];
-        $this->put('/backend/entities/'.$entity->id, [...$data, 'content' => json_encode(['sections' => $sections])])->assertSessionHasNoErrors();
-        $this->assertSame($sections, $entity->fresh()->content['sections']);
-        $sections[0]['columns'] = 2;
-        $sections[0]['items'][0]['available'] = true;
-        unset($sections[0]['button_label'], $sections[0]['items'][0]['price']);
-        $this->put('/backend/entities/'.$entity->id, [...$data, 'content' => json_encode(['sections' => $sections])])->assertSessionHasNoErrors();
-        $this->assertSame($sections, $entity->fresh()->content['sections']);
-    }
-
-    public function test_service_details_images_replacement_and_removal_are_saved(): void
-    {
-        Storage::fake('public');
-        $entity = Entity::factory()->create();
-        $this->actingAs(User::factory()->create());
-        $service = ['badge' => 'CORE SERVICE', 'title' => 'Security Systems', 'description' => 'Protection for your property.', 'features' => ['CCTV', 'Access control']];
-        $data = ['name' => $entity->name, 'slug' => $entity->slug, 'category' => $entity->category, '_method' => 'put'];
-        $this->post('/backend/entities/'.$entity->id, [...$data, 'content' => json_encode(['services' => [$service]]),
-            'service_images' => [UploadedFile::fake()->image('service.png')]])->assertSessionHasNoErrors();
-        $saved = $entity->fresh()->content['services'][0];
-        $this->assertSame($service['features'], $saved['features']);
-        $this->assertSame($service['title'], $saved['title']);
-        $oldPath = substr($saved['image'], strlen('/storage/'));
-        Storage::disk('public')->assertExists($oldPath);
-        $this->post('/backend/entities/'.$entity->id, [...$data, 'content' => json_encode(['services' => [$saved]])])->assertSessionHasNoErrors();
-        Storage::disk('public')->assertExists($oldPath);
-        $this->post('/backend/entities/'.$entity->id, [...$data, 'content' => json_encode(['services' => [$saved]]),
-            'service_images' => [UploadedFile::fake()->image('replacement.jpg')]])->assertSessionHasNoErrors();
-        Storage::disk('public')->assertMissing($oldPath);
-        $newPath = substr($entity->fresh()->content['services'][0]['image'], strlen('/storage/'));
-        Storage::disk('public')->assertExists($newPath);
-        $this->post('/backend/entities/'.$entity->id, [...$data, 'content' => json_encode(['services' => []])])->assertSessionHasNoErrors();
-        Storage::disk('public')->assertMissing($newPath);
-        $this->assertSame([], $entity->fresh()->content['services']);
-    }
-
-    public function test_invalid_service_details_and_image_are_rejected(): void
-    {
-        Storage::fake('public');
-        $entity = Entity::factory()->create();
-        $this->actingAs(User::factory()->create())->post('/backend/entities/'.$entity->id, [
-            '_method' => 'put', 'name' => $entity->name, 'slug' => $entity->slug, 'category' => $entity->category,
-            'content' => json_encode(['services' => [['title' => '', 'features' => ['']]]]),
-            'service_images' => [UploadedFile::fake()->create('bad.svg', 10, 'image/svg+xml')],
-        ])->assertSessionHasErrors(['content.services.0.title', 'content.services.0.features.0', 'service_images.0']);
-        $this->assertSame([], Storage::disk('public')->allFiles());
-    }
-
-    public function test_create_edit_and_save_content_and_metadata(): void
+    public function test_six_fields_save_and_removed_fields_cannot_be_updated(): void
     {
         $this->actingAs(User::factory()->create())->post('/backend/entities', [
-            'name' => 'GAGE Security', 'category' => 'security',
+            'name' => 'GAGE Security', 'category' => 'security', 'short_description' => 'Security services', 'link' => '/gage-security',
         ])->assertSessionHasNoErrors();
         $entity = Entity::firstOrFail();
-        $this->assertSame('gage-security', $entity->slug);
+        $this->assertSame('gage_security', $entity->slug);
+        $this->assertSame('Security services', $entity->short_description);
+        $this->assertSame('/gage-security', $entity->meta['link']);
+        $entity->update(['content' => ['hero' => ['title_line_1' => 'Legacy content']]]);
+        $this->put('/backend/entities/'.$entity->id, [
+            'name' => 'Updated', 'slug' => 'updated', 'category' => 'training', 'short_description' => 'Updated description', 'link' => 'https://example.com/training',
+            'content' => ['hero' => []], 'meta' => ['icon' => 'changed'], 'is_active' => false, 'is_featured' => true, 'sort_order' => 99,
+        ])->assertSessionHasNoErrors();
+        $entity->refresh();
+        $this->assertSame('updated', $entity->slug);
+        $this->assertSame('training', $entity->category);
+        $this->assertSame('Updated description', $entity->short_description);
+        $this->assertSame('https://example.com/training', $entity->meta['link']);
+        $this->assertSame(['hero' => ['title_line_1' => 'Legacy content']], $entity->content);
         $this->assertTrue($entity->is_active);
-        $this->withoutVite()->get('/backend/entities/'.$entity->id.'/edit')->assertOk()
-            ->assertInertia(fn (Assert $page) => $page->component('Backend/Entity/Edit')->where('entity.name', 'GAGE Security'));
-        $content = [
-            'hero' => ['title_line_1' => 'Safety', 'badge' => ['text' => 'GAGE'], 'trust_badges' => ['24/7']],
-            'sections' => [['key' => 'services', 'title' => 'Services', 'items' => [['title' => 'Protection']]]],
-            'team' => [['name' => 'Alex', 'tags' => ['Expert']]],
-            'partners' => [['name' => 'Partner']],
-            'contact' => ['email' => 'hello@example.com'],
-            'faqs' => [['question' => 'Where?', 'answer' => 'Maldives']],
-        ];
-        $meta = ['tagline' => 'Security solutions', 'primary_color' => '#bb292a', 'meta_title' => 'Security'];
-        $data = ['name' => 'GAGE Safety', 'slug' => $entity->slug, 'category' => 'safety', 'is_active' => false,
-            'is_featured' => true, 'sort_order' => 3, 'content' => json_encode($content), 'meta' => json_encode($meta)];
-        $this->post('/backend/entities/'.$entity->id, [...$data, '_method' => 'put'])
-            ->assertSessionHasNoErrors()->assertRedirect('/backend/entities/'.$entity->id.'/edit');
-        $saved = $entity->fresh();
-        $this->assertSame($content, $saved->content);
-        $this->assertSame($meta, $saved->meta);
-        $this->assertSame('GAGE Safety', $saved->name);
-        $this->assertFalse($saved->is_active);
-        $this->assertTrue($saved->is_featured);
-        $this->assertEquals(3, $saved->sort_order);
-        $this->put('/backend/entities/'.$entity->id, [...$data, 'content' => '{}', 'meta' => '{}'])
-            ->assertSessionHasNoErrors();
-        $this->assertSame([], $entity->fresh()->content);
-        $this->assertSame([], $entity->fresh()->meta);
+        $this->assertFalse($entity->is_featured);
+        $this->withoutVite()->get('/backend/entities/'.$entity->id.'/edit')->assertInertia(fn (Assert $page) => $page
+            ->component('Backend/Entity/Edit')->where('entity.link', 'https://example.com/training')->missing('entity.content')->missing('entity.meta'));
+        $this->put('/backend/entities/'.$entity->id, ['name' => 'Updated', 'slug' => 'updated', 'category' => 'training', 'short_description' => '', 'link' => ''])->assertSessionHasNoErrors();
+        $this->assertNull($entity->fresh()->meta['link']);
     }
 
     public function test_cards_filter_order_paginate_and_count_real_entities(): void
@@ -113,8 +51,7 @@ class EntityTest extends TestCase
         $this->actingAs(User::factory()->create())->withoutVite()->get('/backend/entities')
             ->assertInertia(fn (Assert $page) => $page->component('Backend/Entity/Index')
                 ->has('entities.data', 12)->where('entities.total', 14)
-                ->where('entities.data.0.id', $first->id)->where('stats.total', 14)
-                ->where('stats.active', 13)->where('stats.featured', 1)->where('stats.inactive', 1));
+                ->where('entities.data.0.id', $first->id)->missing('stats'));
         $this->get('/backend/entities?search=GAGE&category=security&page=2')
             ->assertInertia(fn (Assert $page) => $page->has('entities.data', 1)->where('entities.total', 13));
         $this->get('/backend/entities?category=marine')->assertInertia(fn (Assert $page) => $page->where('entities.total', 1));
@@ -140,8 +77,6 @@ class EntityTest extends TestCase
             ->assertSessionHasNoErrors();
         Storage::assertMissing($oldImage->src);
         $image = $entity->fresh()->media;
-        $this->from('/backend/entities')->patch('/backend/entities/'.$entity->id.'/active')->assertRedirect('/backend/entities');
-        $this->assertFalse($entity->fresh()->is_active);
         $this->delete('/backend/entities/'.$entity->id)->assertRedirect('/backend/entities');
         $this->assertSoftDeleted($entity);
         Storage::assertExists($image->src);
@@ -149,20 +84,18 @@ class EntityTest extends TestCase
         $this->get('/backend/entities/'.$entity->id.'/image')->assertNotFound();
     }
 
-    public function test_validation_rejects_duplicates_invalid_content_and_uploads(): void
+    public function test_validation_rejects_duplicates_invalid_links_and_uploads(): void
     {
         Storage::fake();
         $entity = Entity::factory()->create();
         $this->actingAs(User::factory()->create());
         $this->post('/backend/entities', ['name' => '', 'slug' => $entity->slug, 'category' => 'invalid',
-            'is_active' => 'bad', 'is_featured' => 'bad', 'sort_order' => -1, 'content' => '{bad',
-            'meta' => 'bad', 'image' => UploadedFile::fake()->create('bad.svg', 10, 'image/svg+xml')])
-            ->assertSessionHasErrors(['name', 'slug', 'category', 'is_active', 'is_featured', 'sort_order', 'content', 'meta', 'image']);
-        $data = ['name' => 'Valid', 'category' => 'security'];
-        $this->post('/backend/entities', [...$data, 'content' => ['sections' => 'bad', 'hero' => ['trust_badges' => 'bad']],
-            'meta' => ['primary_color' => 'invalid']])->assertSessionHasErrors(['content.sections', 'content.hero.trust_badges', 'meta.primary_color']);
-        $this->post('/backend/entities', [...$data, 'image' => UploadedFile::fake()->image('large.png')->size(5121)])
-            ->assertSessionHasErrors('image');
+            'image' => UploadedFile::fake()->create('bad.svg', 10, 'image/svg+xml')])->assertSessionHasErrors(['name', 'slug', 'category', 'image']);
+        foreach (['javascript:alert(1)', '//evil.example', '/\\evil.example', 'not a link'] as $link) {
+            $this->post('/backend/entities', ['name' => 'Valid', 'category' => 'security', 'link' => $link])->assertSessionHasErrors('link');
+        }
+        $this->post('/backend/entities', ['name' => 'Valid', 'category' => 'security', 'short_description' => str_repeat('x', 2001), 'image' => UploadedFile::fake()->image('large.png')->size(5121)])
+            ->assertSessionHasErrors(['short_description', 'image']);
         $this->assertDatabaseCount('entities', 1);
         $this->assertSame([], Storage::allFiles());
     }
@@ -175,7 +108,6 @@ class EntityTest extends TestCase
         $this->get('/backend/entities/'.$entity->id.'/image')->assertRedirect('/login');
         $this->post('/backend/entities', [])->assertRedirect('/login');
         $this->put('/backend/entities/'.$entity->id, [])->assertRedirect('/login');
-        $this->patch('/backend/entities/'.$entity->id.'/active')->assertRedirect('/login');
         $this->delete('/backend/entities/'.$entity->id)->assertRedirect('/login');
         $this->assertNotSoftDeleted($entity);
         $this->actingAs(User::factory()->create())->get('/backend/entities/99999/edit')->assertNotFound();

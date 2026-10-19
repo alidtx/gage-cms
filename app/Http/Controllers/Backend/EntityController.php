@@ -34,12 +34,6 @@ class EntityController extends Controller
             'entities' => $query->ordered()->paginate(12)->withQueryString()->through(fn (Entity $entity) => $this->data($entity)),
             'filters' => $filters,
             'categories' => Entity::CATEGORIES,
-            'stats' => [
-                'total' => Entity::count(),
-                'active' => Entity::active()->count(),
-                'featured' => Entity::featured()->count(),
-                'inactive' => Entity::where('is_active', false)->count(),
-            ],
         ]);
     }
 
@@ -54,7 +48,9 @@ class EntityController extends Controller
     private function data(Entity $entity): array
     {
         return [
-            ...$entity->toArray(),
+            ...$entity->only(['id', 'name', 'slug', 'category']),
+            'short_description' => $entity->meta['short_description'] ?? '',
+            'link' => $entity->meta['link'] ?? '',
             'image_url' => $entity->media_id ? route('backend.entities.image', $entity, false).'?v='.$entity->media_id : null,
         ];
     }
@@ -72,13 +68,6 @@ class EntityController extends Controller
         $service->save($entity, $request->entityData());
 
         return to_route('backend.entities.edit', $entity);
-    }
-
-    public function toggleActive(Entity $entity): RedirectResponse
-    {
-        $entity->update(['is_active' => ! $entity->is_active]);
-
-        return back();
     }
 
     public function destroy(Entity $entity, EntityService $service): RedirectResponse

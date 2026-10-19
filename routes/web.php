@@ -88,7 +88,6 @@ Route::middleware('auth')
         Route::get('/news-category', [NewsCategoryController::class, 'index'])
             ->name('news-category.index');
         Route::get('/entities/{entity}/image', [EntityController::class, 'image'])->name('entities.image');
-        Route::patch('/entities/{entity}/active', [EntityController::class, 'toggleActive'])->name('entities.active');
         Route::resource('entities', EntityController::class)->only(['index', 'edit', 'store', 'update', 'destroy']);
         Route::get('/services/{service}/image', [ServiceController::class, 'image'])->name('services.image');
         Route::resource('services', ServiceController::class)->only(['index', 'store', 'update', 'destroy']);
