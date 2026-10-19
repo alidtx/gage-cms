@@ -567,7 +567,7 @@
                     </p>
                     <h3 class="mt-3 text-xl font-bold leading-[1.4]"><a
                             href="{{ route('frontend.news.show', $article->slug) }}">{{ $article->title }}</a></h3>
-                    <p class="mt-3 text-sm leading-[1.65] text-muted">{{ $article->excerpt }}</p>
+                    <p class="mt-3 text-sm leading-[1.65] text-muted">{{ mb_substr($article->excerpt ?? '', 0, 300) }}{{ mb_strlen($article->excerpt ?? '') > 300 ? '…' : '' }}</p>
                     <a class="mt-6 inline-flex items-center gap-2 text-sm font-bold"
                         href="{{ route('frontend.news.show', $article->slug) }}">Read more →</a>
                 </article>

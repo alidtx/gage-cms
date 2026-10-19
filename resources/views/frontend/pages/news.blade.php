@@ -43,7 +43,7 @@
                     <h2 class="featured-news-title"><a
                             href="{{ route('frontend.news.show', $featuredArticle->slug) }}">{{ $featuredArticle->title }}</a>
                     </h2>
-                    <p class="mt-6 text-base leading-7 text-muted">{{ $featuredArticle->excerpt }}</p>
+                    <p class="mt-6 text-base leading-7 text-muted">{{ mb_substr($featuredArticle->excerpt ?? '', 0, 300) }}{{ mb_strlen($featuredArticle->excerpt ?? '') > 300 ? '…' : '' }}</p>
                     <a class="button mt-8 bg-black text-white"
                         href="{{ route('frontend.news.show', $featuredArticle->slug) }}">Read article →</a>
                 </div>
@@ -66,7 +66,7 @@
                         </p>
                         <h2 class="!mt-4 !text-xl !leading-[1.4] !tracking-normal"><a
                                 href="{{ route('frontend.news.show', $article->slug) }}">{{ $article->title }}</a></h2>
-                        <p class="mt-3 text-sm leading-6 text-muted">{{ $article->excerpt }}</p>
+                        <p class="mt-3 text-sm leading-6 text-muted">{{ mb_substr($article->excerpt ?? '', 0, 300) }}{{ mb_strlen($article->excerpt ?? '') > 300 ? '…' : '' }}</p>
                         <a class="mt-6 inline-flex text-sm font-bold"
                             href="{{ route('frontend.news.show', $article->slug) }}">Read more →</a>
                     </div>
