@@ -2,7 +2,13 @@
 import { ref, onMounted, onUnmounted } from 'vue';
 import { Link } from '@inertiajs/vue3';
 
-const openDropdown = ref(route().current('backend.sitemap.*') || route().current('backend.pages.*') ? 'content' : null);
+const programMenu = [
+    { route: 'backend.programs.index', pattern: 'backend.programs.*', label: 'Programs' },
+    { route: 'backend.divisions.index', pattern: 'backend.divisions.*', label: 'Divisions' },
+    { route: 'backend.programme-groups.index', pattern: 'backend.programme-groups.*', label: 'Programme Groups' },
+    { route: 'backend.training-enquiries.index', pattern: 'backend.training-enquiries.*', label: 'Training Enquiries' },
+];
+const openDropdown = ref(programMenu.some(item => route().current(item.pattern)) ? 'programs' : route().current('backend.sitemap.*') || route().current('backend.pages.*') ? 'content' : null);
 
 const toggleDropdown = (key) => {
     openDropdown.value = openDropdown.value === key ? null : key;
@@ -128,6 +134,23 @@ const markAllAsRead = () => {
                 <Link :href="route('backend.services.index')" class="sidebar-item flex items-center space-x-3 px-4 py-3 rounded-lg text-gray-300 transition-colors">
                     <i class="fas fa-concierge-bell w-5" aria-hidden="true"></i><span>Service</span>
                 </Link>
+                <div>
+                    <button type="button" class="dropdown-trigger sidebar-item w-full flex items-center space-x-3 px-4 py-3 rounded-lg text-gray-300 transition-colors"
+                        :aria-expanded="isOpen('programs')" aria-controls="program-settings-menu"
+                        :class="{ 'is-open': isOpen('programs') }" @click="toggleDropdown('programs')">
+                        <i class="fas fa-graduation-cap w-5" aria-hidden="true"></i>
+                        <span>Program Settings</span>
+                        <i class="fas fa-chevron-right chevron ml-auto text-xs text-gray-500 transition-transform" :class="{ 'rotate-90': isOpen('programs') }" aria-hidden="true"></i>
+                    </button>
+                    <div v-show="isOpen('programs')" id="program-settings-menu" class="dropdown-panel open">
+                        <Link v-for="item in programMenu" :key="item.route" :href="route(item.route)"
+                            :aria-current="route().current(item.pattern) ? 'page' : undefined"
+                            class="sub-item flex items-center px-4 py-2.5 rounded-lg text-gray-400 text-sm transition-colors"
+                            :class="{ 'bg-blue-500/10 text-blue-400': route().current(item.pattern) }">
+                            {{ item.label }}
+                        </Link>
+                    </div>
+                </div>
                 <Link :href="route('backend.contact-submissions.index')" class="sidebar-item flex items-center space-x-3 px-4 py-3 rounded-lg text-gray-300 transition-colors">
                     <i class="fas fa-envelope w-5" aria-hidden="true"></i><span>Contact Form</span>
                 </Link>
