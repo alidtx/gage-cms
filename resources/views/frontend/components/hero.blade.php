@@ -38,7 +38,7 @@
             @endif
         </div>
         @if(!empty($hero['video']) && $variant === 'home')
-            <video class="aspect-[1.05] w-full rounded-[20px] object-cover" autoplay muted controls playsinline preload="auto" aria-label="Hero video" @if(!empty($hero['image'])) poster="{{ asset($hero['image']['src']) }}" @endif>
+            <video class="aspect-[1.05] w-full rounded-[20px] object-cover" autoplay muted loop playsinline preload="auto" aria-label="Hero video" @if(!empty($hero['image'])) poster="{{ asset($hero['image']['src']) }}" @endif>
                 <source src="{{ $hero['video'] }}">
                 <a href="{{ $hero['video'] }}">Watch video</a>
             </video>
