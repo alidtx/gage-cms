@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Frontend;
 
 use App\Http\Controllers\Controller;
+use App\Models\Entity;
 use App\Models\News;
 use App\Services\FrontendHero;
 use App\Services\FrontendSeo;
@@ -16,7 +17,9 @@ class FrontendController extends Controller
         $recentNews = News::publiclyVisible()->with('category')
             ->orderByDesc('published_at')->orderByDesc('id')->limit(3)->get();
 
-        return view('frontend.pages.home', ['recentNews' => $recentNews, 'heroContent' => $heroes->forPage('home'), 'pageSeo' => $seo->forPage('home')]);
+        $entities = Entity::active()->with('media')->ordered()->get();
+
+        return view('frontend.pages.home', ['entities' => $entities, 'recentNews' => $recentNews, 'heroContent' => $heroes->forPage('home'), 'pageSeo' => $seo->forPage('home')]);
     }
 
     public function about(Request $request, FrontendHero $heroes, FrontendSeo $seo): View

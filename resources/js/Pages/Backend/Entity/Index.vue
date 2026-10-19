@@ -115,8 +115,9 @@ function remove(entity) {
                         <InputError :message="form.errors.category" />
                     </label>
                     <label class="block text-sm text-gray-700">Short description<textarea
-                            v-model="form.short_description" maxlength="2000"
+                            v-model="form.short_description" maxlength="140"
                             class="mt-2 w-full border-gray-200 rounded-xl text-sm"></textarea>
+                        <span class="block text-xs text-gray-500">{{ (form.short_description || '').length }}/140 characters</span>
                         <InputError :message="form.errors.short_description" />
                     </label>
                     <label class="block text-sm text-gray-700">Link<input v-model="form.link"

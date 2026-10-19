@@ -28,7 +28,7 @@ class SaveEntityRequest extends FormRequest
             'name' => ['required', 'string', 'max:255'],
             'slug' => ['required', 'string', 'max:255', 'regex:/^[a-z0-9]+(?:[-_][a-z0-9]+)*$/', Rule::unique('entities')->ignore($this->route('entity'))],
             'category' => ['required', Rule::in(Entity::CATEGORIES)],
-            'short_description' => ['nullable', 'string', 'max:2000'],
+            'short_description' => ['nullable', 'string', 'max:140'],
             'link' => ['nullable', 'string', 'max:2048', 'regex:~^(?:/(?!/)[^\\s\\\\]*|https?://[^\\s\\\\]+)$~i'],
             'image' => ['nullable', 'image', 'mimes:jpg,jpeg,png,webp,gif', 'max:5120'],
         ];

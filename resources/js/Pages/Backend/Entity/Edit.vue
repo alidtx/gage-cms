@@ -41,7 +41,7 @@ function save() {
                         class="mt-2 w-full border-gray-200 rounded-xl text-sm capitalize">
                         <option v-for="item in categories" :key="item" :value="item">{{ item }}</option>
                     </select></label>
-                <Field v-model="form.short_description" label="Short description" multiline />
+                <label class="block text-sm font-medium text-gray-700">Short description<textarea v-model="form.short_description" maxlength="140" rows="3" class="mt-2 w-full border-gray-200 rounded-xl text-sm"></textarea><span class="block text-xs text-gray-500">{{ (form.short_description || '').length }}/140 characters</span></label>
                 <Field v-model="form.link" label="Link" />
                 <p class="text-xs text-gray-500">Use a page path such as /gage-security or a full https:// address.</p>
                 <div>

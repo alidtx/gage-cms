@@ -99,104 +99,10 @@
             <span>
             </span>OUR COMPANIES
         </p>
-        <h2>One group. Five specialist<br class="hidden sm:block"> companies.</h2>
+        <h2>One group. Specialist<br class="hidden sm:block"> companies.</h2>
         <p class="section-intro">Each GAGE company is an expert in its field. Together, they protect every layer of
             your<br class="hidden lg:block"> property — people, assets, systems and skills.</p>
-        <div class="mt-14 grid gap-6 sm:grid-cols-2 lg:grid-cols-4">
-            <article id="security"
-                class="company-card overflow-hidden rounded-[14px] border border-[#dfe2e7] ZoomOutAnimation">
-                <div class="flex h-[184px] items-center justify-center" style="background-color: rgb(0, 0, 0);">
-                    <img width="302" height="184" decoding="async" alt="GAGE Security"
-                        class="h-full w-full object-cover" loading="lazy" src="{{ asset('assets/security.png') }}">
-                </div>
-                <div class="p-6">
-                    <p class="min-h-[130px] text-sm leading-[1.65] text-muted">Integrated protection through elite
-                        manpower, event security and advanced surveillance — safeguarding people and property with
-                        precision and discretion.</p>
-                    <a class="mt-5 inline-flex items-center gap-2 text-sm font-bold"
-                        href="{{ route('frontend.home') }}#security" style="color: rgb(0, 0, 0);">GAGE Security<svg
-                            aria-hidden="true" focusable="false" xmlns="http://www.w3.org/2000/svg" width="15"
-                            height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
-                            stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-arrow-right">
-                            <path d="M5 12h14">
-                            </path>
-                            <path d="m12 5 7 7-7 7">
-                            </path>
-                        </svg>
-                    </a>
-                </div>
-            </article>
-            <article id="fire"
-                class="company-card overflow-hidden rounded-[14px] border border-[#dfe2e7] ZoomOutAnimation">
-                <div class="flex h-[184px] items-center justify-center" style="background-color: rgb(198, 16, 38);">
-                    <img width="302" height="184" decoding="async" alt="GAGE Fire Safety"
-                        class="h-full w-full object-cover" loading="lazy" src="{{ asset('assets/fire.png') }}">
-                </div>
-                <div class="p-6">
-                    <p class="min-h-[130px] text-sm leading-[1.65] text-muted">End-to-end fire protection, from
-                        system design and installation to maintenance and certified training — keeping every space
-                        safe, compliant and ready.</p>
-                    <a class="mt-5 inline-flex items-center gap-2 text-sm font-bold"
-                        href="{{ route('frontend.home') }}#fire" style="color: rgb(198, 16, 38);">GAGE Fire Safety<svg
-                            xmlns="http://www.w3.org/2000/svg" width="15" height="15" viewBox="0 0 24 24"
-                            fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
-                            stroke-linejoin="round" class="lucide lucide-arrow-right">
-                            <path d="M5 12h14">
-                            </path>
-                            <path d="m12 5 7 7-7 7">
-                            </path>
-                        </svg>
-                    </a>
-                </div>
-            </article>
-            <article id="institute"
-                class="company-card overflow-hidden rounded-[14px] border border-[#dfe2e7] ZoomOutAnimation">
-                <div class="flex h-[184px] items-center justify-center" style="background-color: rgb(36, 48, 206);">
-                    <img width="302" height="184" decoding="async" alt="GAGE Training Institute"
-                        class="h-full w-full object-cover" loading="lazy" src="{{ asset('assets/institute.png') }}">
-                </div>
-                <div class="p-6">
-                    <p class="min-h-[130px] text-sm leading-[1.65] text-muted">Accredited, hands-on programmes that
-                        build skilled professionals in security, safety, emergency response and hospitality.</p>
-                    <a class="mt-5 inline-flex items-center gap-2 text-sm font-bold"
-                        href="mailto:info@gage.com.mv?subject=GAGE%20Training%20Institute%20enquiry"
-                        style="color: rgb(36, 48, 206);">GAGE Training Institute<svg xmlns="http://www.w3.org/2000/svg"
-                            width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor"
-                            stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
-                            class="lucide lucide-arrow-right">
-                            <path d="M5 12h14">
-                            </path>
-                            <path d="m12 5 7 7-7 7">
-                            </path>
-                        </svg>
-                    </a>
-                </div>
-            </article>
-            <article id="technology"
-                class="company-card overflow-hidden rounded-[14px] border border-[#dfe2e7] ZoomOutAnimation">
-                <div class="flex h-[184px] items-center justify-center" style="background-color: rgb(25, 115, 121);">
-                    <img width="302" height="184" decoding="async" alt="GAGE Technology"
-                        class="h-full w-full object-cover" loading="lazy" src="{{ asset('assets/technology.png') }}">
-                </div>
-                <div class="p-6">
-                    <p class="min-h-[130px] text-sm leading-[1.65] text-muted">Integrated IT, networking, security
-                        and communications systems — designed, installed and supported to keep you connected and
-                        operational.</p>
-                    <a class="mt-5 inline-flex items-center gap-2 text-sm font-bold"
-                        href="mailto:info@gage.com.mv?subject=GAGE%20Technology%20enquiry"
-                        style="color: rgb(25, 115, 121);">GAGE Technology<svg xmlns="http://www.w3.org/2000/svg"
-                            width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor"
-                            stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
-                            class="lucide lucide-arrow-right">
-                            <path d="M5 12h14">
-                            </path>
-                            <path d="m12 5 7 7-7 7">
-                            </path>
-                        </svg>
-                    </a>
-                </div>
-            </article>
-        </div>
+        @include('frontend.components.entity-cards', ['entities' => $entities])
         <div
             class="mt-6 flex flex-col items-start gap-6 rounded-[16px] bg-[#442424] p-7 text-white sm:flex-row sm:items-center">
             <div class="shrink-0 text-center">

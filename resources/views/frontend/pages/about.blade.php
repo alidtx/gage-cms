@@ -448,7 +448,7 @@
     <section class="container pb-[120px]">
         <p class="eyebrow"><span></span>OUR COMPANIES</p>
         <h2>Meet the GAGE companies.</h2>
-        <div class="mt-12 grid gap-6 sm:grid-cols-2 lg:grid-cols-5"><a href="{{ route('frontend.home') }}#security"
+        <div class="mt-12 grid gap-6 sm:grid-cols-2 lg:grid-cols-5"><a href="{{ route('frontend.gage-security') }}"
                 class="overflow-hidden rounded-[14px] text-white" style="background:#000"><img
                     src="{{ asset('assets/security1.png') }}" alt="GAGE Security"
                     class="aspect-[1.64] w-full object-cover"><span
@@ -458,14 +458,14 @@
                         <path d="M5 12h14m-6-6 6 6-6 6" />
                     </svg></span></a>
 
-            <a href="{{ route('frontend.home') }}#fire" class="overflow-hidden rounded-[14px] text-white"
+            <a href="{{ route('frontend.gage-fire-safety') }}" class="overflow-hidden rounded-[14px] text-white"
                 style="background:#c61026"><img src="{{ asset('assets/fire1.png') }}" alt="GAGE Fire Safety"
                     class="aspect-[1.64] w-full object-cover"><span
                     class="flex items-center gap-2 px-6 pb-6 text-sm font-bold">Explore<svg aria-hidden="true"
                         focusable="false" width="18" height="18" viewBox="0 0 24 24" fill="none"
                         stroke="currentColor" stroke-width="2" aria-hidden="true">
                         <path d="M5 12h14m-6-6 6 6-6 6" />
-                    </svg></span></a><a href="{{ route('frontend.home') }}#institute"
+                    </svg></span></a><a href="{{ route('frontend.gage-training-instruction') }}"
                 class="overflow-hidden rounded-[14px] text-white" style="background:#2430ce"><img
                     src="{{ asset('assets/institute1.png') }}" alt="GAGE Training Institute"
                     class="aspect-[1.64] w-full object-cover"><span
@@ -473,7 +473,7 @@
                         focusable="false" width="18" height="18" viewBox="0 0 24 24" fill="none"
                         stroke="currentColor" stroke-width="2" aria-hidden="true">
                         <path d="M5 12h14m-6-6 6 6-6 6" />
-                    </svg></span></a><a href="{{ route('frontend.home') }}#technology"
+                    </svg></span></a><a href="{{ route('frontend.gage-technology') }}"
                 class="overflow-hidden rounded-[14px] text-white" style="background:#197379"><img
                     src="{{ asset('assets/technology1.png') }}" alt="GAGE Technology"
                     class="aspect-[1.64] w-full object-cover"><span

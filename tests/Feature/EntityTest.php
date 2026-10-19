@@ -94,10 +94,20 @@ class EntityTest extends TestCase
         foreach (['javascript:alert(1)', '//evil.example', '/\\evil.example', 'not a link'] as $link) {
             $this->post('/backend/entities', ['name' => 'Valid', 'category' => 'security', 'link' => $link])->assertSessionHasErrors('link');
         }
-        $this->post('/backend/entities', ['name' => 'Valid', 'category' => 'security', 'short_description' => str_repeat('x', 2001), 'image' => UploadedFile::fake()->image('large.png')->size(5121)])
+        $this->post('/backend/entities', ['name' => 'Valid', 'category' => 'security', 'short_description' => str_repeat('x', 141), 'image' => UploadedFile::fake()->image('large.png')->size(5121)])
             ->assertSessionHasErrors(['short_description', 'image']);
         $this->assertDatabaseCount('entities', 1);
         $this->assertSame([], Storage::allFiles());
+    }
+
+    public function test_description_accepts_140_characters_and_rejects_141_on_update(): void
+    {
+        $data = ['name' => 'Short text', 'category' => 'security', 'short_description' => str_repeat('x', 140)];
+        $this->actingAs(User::factory()->create())->post('/backend/entities', $data)->assertSessionHasNoErrors();
+        $entity = Entity::firstOrFail();
+        $this->assertSame($data['short_description'], $entity->short_description);
+        $this->put('/backend/entities/'.$entity->id, [...$data, 'short_description' => str_repeat('x', 141)])->assertSessionHasErrors('short_description');
+        $this->assertSame($data['short_description'], $entity->fresh()->short_description);
     }
 
     public function test_guests_cannot_manage_entities_and_missing_records_return_not_found(): void
