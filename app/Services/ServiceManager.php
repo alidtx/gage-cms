@@ -18,10 +18,11 @@ class ServiceManager
         $upload = null;
         try {
             DB::transaction(function () use ($service, $data, &$upload): void {
-                $service->fill(collect($data)->except('image')->all())->save();
-                if (($data['image'] ?? null) instanceof UploadedFile) {
-                    $upload = MediaService::upload($data['image'], 'services/'.$service->id, 'Service Image', fileable: $service);
-                    $service->update(['media_id' => $upload->id]);
+                $service->fill(collect($data)->only(['title', 'description', 'entity_id'])->all())->save();
+                if (($data['icon'] ?? null) instanceof UploadedFile) {
+                    $upload = MediaService::upload($data['icon'], 'services/'.$service->id, 'Service SVG Icon', fileable: $service);
+                    $upload->update(['type' => 'image']);
+                    $service->update(['media_id' => $upload->id, 'icon' => null]);
                 }
             });
         } catch (Throwable $exception) {

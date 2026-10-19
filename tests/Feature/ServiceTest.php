@@ -19,15 +19,15 @@ class ServiceTest extends TestCase
     {
         $entity = Entity::factory()->create();
         $this->actingAs(User::factory()->create());
-        $data = ['title' => 'Security', 'icon' => 'fa-shield-alt', 'description' => 'Protection services', 'badge' => 'Core', 'entity_id' => $entity->id];
+        $data = ['title' => 'Security', 'description' => 'Protection services', 'entity_id' => $entity->id];
 
         $this->post('/backend/services', $data)->assertSessionHasNoErrors()->assertRedirect('/backend/services');
         $service = Service::firstOrFail();
         $this->assertDatabaseHas('services', $data);
 
-        $this->put('/backend/services/'.$service->id, ['title' => 'Safety', 'entity_id' => null, 'badge' => null])
+        $this->put('/backend/services/'.$service->id, ['title' => 'Safety', 'entity_id' => $entity->id])
             ->assertSessionHasNoErrors()->assertRedirect('/backend/services');
-        $this->assertDatabaseHas('services', ['id' => $service->id, 'title' => 'Safety', 'entity_id' => null, 'badge' => null]);
+        $this->assertDatabaseHas('services', ['id' => $service->id, 'title' => 'Safety', 'entity_id' => $entity->id]);
 
         $this->delete('/backend/services/'.$service->id)->assertRedirect('/backend/services');
         $this->assertModelMissing($service);
@@ -37,18 +37,18 @@ class ServiceTest extends TestCase
     {
         Storage::fake();
         $this->actingAs(User::factory()->create());
-        $this->post('/backend/services', ['title' => 'Security', 'image' => UploadedFile::fake()->image('security.png')])
+        $this->post('/backend/services', ['title' => 'Security', 'entity_id' => Entity::factory()->create()->id, 'icon' => UploadedFile::fake()->createWithContent('icon.svg', '<svg xmlns="http://www.w3.org/2000/svg"><path d="M0 0h10v10z"/></svg>')])
             ->assertSessionHasNoErrors();
         $service = Service::firstOrFail();
         $original = $service->media;
         Storage::assertExists($original->src);
-        $this->get('/backend/services/'.$service->id.'/image')->assertOk()->assertHeader('Content-Type', 'image/png');
+        $this->get('/backend/services/'.$service->id.'/image')->assertOk()->assertHeader('Content-Type', 'image/svg+xml');
 
-        $this->put('/backend/services/'.$service->id, ['title' => 'Safety'])->assertSessionHasNoErrors();
+        $this->put('/backend/services/'.$service->id, ['title' => 'Safety', 'entity_id' => $service->entity_id])->assertSessionHasNoErrors();
         $this->assertSame($original->id, $service->fresh()->media_id);
         Storage::assertExists($original->src);
 
-        $this->post('/backend/services/'.$service->id, ['_method' => 'put', 'title' => 'Safety', 'image' => UploadedFile::fake()->image('replacement.jpg')])
+        $this->post('/backend/services/'.$service->id, ['_method' => 'put', 'title' => 'Safety', 'entity_id' => $service->entity_id, 'icon' => UploadedFile::fake()->createWithContent('replacement.svg', '<svg xmlns="http://www.w3.org/2000/svg"><circle r="5"/></svg>')])
             ->assertSessionHasNoErrors();
         $replacement = $service->fresh()->media;
         Storage::assertMissing($original->src);
@@ -60,20 +60,21 @@ class ServiceTest extends TestCase
         $this->assertModelMissing($replacement);
     }
 
-    public function test_invalid_fields_and_images_do_not_create_services(): void
+    public function test_invalid_fields_and_svg_are_rejected(): void
     {
-        Storage::fake();
         $entity = Entity::factory()->create();
-        $entity->delete();
         $this->actingAs(User::factory()->create());
-
-        $this->post('/backend/services', ['title' => '', 'entity_id' => $entity->id, 'image' => UploadedFile::fake()->create('script.svg', 10, 'image/svg+xml')])
-            ->assertSessionHasErrors(['title', 'entity_id', 'image']);
-        $this->post('/backend/services', ['title' => 'Security', 'image' => UploadedFile::fake()->image('large.png')->size(5121)])
-            ->assertSessionHasErrors('image');
-
-        $this->assertDatabaseCount('services', 0);
-        $this->assertSame([], Storage::allFiles());
+        $this->post('/backend/services', ['title' => 'Service'])->assertSessionHasErrors('entity_id');
+        $data = ['title' => 'Service', 'entity_id' => $entity->id];
+        $this->post('/backend/services', [...$data, 'description' => str_repeat('x', 161)])->assertSessionHasErrors('description');
+        foreach (['<svg><script>alert(1)</script></svg>', '<svg onload="alert(1)"/>', '<html/>'] as $svg) {
+            $this->post('/backend/services', [...$data, 'icon' => UploadedFile::fake()->createWithContent('bad.svg', $svg)])->assertSessionHasErrors('icon');
+        }
+        $this->post('/backend/services', [...$data, 'description' => str_repeat('x', 160)])->assertSessionHasNoErrors();
+        $service = Service::firstOrFail();
+        $this->put('/backend/services/'.$service->id, ['title' => 'Updated', 'entity_id' => null])->assertSessionHasErrors('entity_id');
+        $entity->delete();
+        $this->post('/backend/services', $data)->assertSessionHasErrors('entity_id');
     }
 
     public function test_index_lists_paginated_services_and_available_entities(): void

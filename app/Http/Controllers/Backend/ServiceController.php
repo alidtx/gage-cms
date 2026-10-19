@@ -18,9 +18,10 @@ class ServiceController extends Controller
     public function index(): Response
     {
         return Inertia::render('Backend/Service/Index', [
-            'services' => Service::with('entity:id,name')->latest('id')->paginate(12)->through(fn (Service $service) => [
-                ...$service->toArray(),
-                'image_url' => $service->media_id ? route('backend.services.image', $service, false).'?v='.$service->media_id : null,
+            'services' => Service::with(['entity:id,name', 'media'])->latest('id')->paginate(12)->through(fn (Service $service) => [
+                ...$service->only(['id', 'title', 'description', 'entity_id']),
+                'entity' => $service->entity?->only(['id', 'name']),
+                'icon_url' => $service->media?->name === 'Service SVG Icon' ? route('backend.services.image', $service, false).'?v='.$service->media_id : null,
             ]),
             'entities' => Entity::orderBy('name')->get(['id', 'name']),
         ]);
@@ -52,6 +53,6 @@ class ServiceController extends Controller
         $media = $service->media;
         abort_unless($media && Storage::exists($media->src), 404);
 
-        return Storage::response($media->src, null, ['Cache-Control' => 'no-store, private']);
+        return Storage::response($media->src, null, ['Cache-Control' => 'no-store, private', 'Content-Type' => $media->name === 'Service SVG Icon' ? 'image/svg+xml' : Storage::mimeType($media->src), 'X-Content-Type-Options' => 'nosniff', 'Content-Security-Policy' => "default-src 'none'; sandbox"]);
     }
 }
