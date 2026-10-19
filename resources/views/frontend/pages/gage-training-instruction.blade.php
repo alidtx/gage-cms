@@ -44,7 +44,7 @@
             ],
         ], $heroContent),
     ])
-    {{-- <section class="section container">
+    <section class="section container">
         <div class="grid items-start gap-12 lg:grid-cols-2 lg:gap-24">
             <div>
                 <p class="eyebrow text-[#2430ce]"><span></span>ABOUT THE INSTITUTE</p>
@@ -341,5 +341,5 @@
                         <path d="M5 12h14m-6-6 6 6-6 6" />
                     </svg></a></div>
         </div>
-    </section> --}}
+    </section>
 @endsection
