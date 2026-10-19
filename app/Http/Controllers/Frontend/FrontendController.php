@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Frontend;
 
 use App\Http\Controllers\Controller;
+use App\Models\Division;
 use App\Models\Entity;
 use App\Models\News;
 use App\Models\Service;
@@ -41,7 +42,7 @@ class FrontendController extends Controller
 
     public function gageTrainingInstruction(Request $request, FrontendHero $heroes, FrontendSeo $seo): View
     {
-        return view('frontend.pages.gage-training-instruction', ['companyTheme' => 'training', 'heroContent' => $heroes->forPage('gage_training_instruction'), 'pageSeo' => $seo->forPage('gage_training_instruction')]);
+        return view('frontend.pages.gage-training-instruction', ['divisions' => Division::where('is_published', true)->withCount(['programmes' => fn ($query) => $query->published()])->orderBy('sort_order')->orderBy('number')->get(), 'companyTheme' => 'training', 'heroContent' => $heroes->forPage('gage_training_instruction'), 'pageSeo' => $seo->forPage('gage_training_instruction')]);
     }
 
     public function gageTechnology(Request $request, FrontendHero $heroes, FrontendSeo $seo): View

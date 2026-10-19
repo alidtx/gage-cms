@@ -21,11 +21,16 @@ use App\Http\Controllers\ContactFormController;
 use App\Http\Controllers\Frontend\EntityImageController;
 use App\Http\Controllers\Frontend\FrontendController;
 use App\Http\Controllers\Frontend\PageHeroImageController;
+use App\Http\Controllers\Frontend\ProgrammeController;
 use App\Http\Controllers\Frontend\SeoImageController;
 use App\Http\Controllers\Frontend\ServiceIconController;
 use Illuminate\Support\Facades\Route;
 
 Route::get('/', [FrontendController::class, 'home'])->name('frontend.home');
+Route::get('/training/programmes', [ProgrammeController::class, 'index'])->name('frontend.programmes.index');
+Route::get('/training/divisions/{division:slug}', [ProgrammeController::class, 'show'])->name('frontend.programmes.show');
+Route::post('/training/divisions/{division:slug}/enquiry', [ProgrammeController::class, 'enquire'])->middleware('throttle:5,1')->name('frontend.programmes.enquire');
+
 Route::get('/about', [FrontendController::class, 'about'])->name('frontend.about');
 Route::get('/news', [App\Http\Controllers\Frontend\NewsController::class, 'index'])->name('frontend.news');
 Route::get('/news/{slug}/image/{type}', [App\Http\Controllers\Frontend\NewsController::class, 'image'])->name('frontend.news.image');

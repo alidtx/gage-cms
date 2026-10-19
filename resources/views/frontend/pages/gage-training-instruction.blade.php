@@ -76,7 +76,7 @@
                         Assessments and classes are practical and job-based, following a step-by-step approach.</p>
                     <p>We form strategic partnerships with companies so candidates who finish our hospitality
                         courses have a guaranteed link to jobs in the Maldives. Once they enter the job market, our
-                        work doesn’t stop — we build them towards a degree or master’s in their expertise while on
+                        work doesnâ€™t stop â€” we build them towards a degree or masterâ€™s in their expertise while on
                         the job.</p>
                 </div>
             </div>
@@ -95,7 +95,7 @@
                             <path d="m8 12 3 3 5-6" />
                         </svg></span>
                     <h3 class="text-lg font-bold">On-site mobile classes</h3>
-                    <p class="mt-3 text-sm leading-6 text-muted">Classes conducted on site — for example, at resorts
+                    <p class="mt-3 text-sm leading-6 text-muted">Classes conducted on site â€” for example, at resorts
                         for hospitality students and staff.</p>
                 </article>
                 <article class="rounded-[16px] border border-[#e5e7eb] bg-white p-8"><span
@@ -106,7 +106,7 @@
                             <path d="M12 7v5l3 2M5 3 2 6m17-3 3 3" />
                         </svg></span>
                     <h3 class="text-lg font-bold">Weekend &amp; evening classes</h3>
-                    <p class="mt-3 text-sm leading-6 text-muted">For students in Malé and other islands who work
+                    <p class="mt-3 text-sm leading-6 text-muted">For students in MalÃ© and other islands who work
                         daytime jobs.</p>
                 </article>
                 <article class="rounded-[16px] border border-[#e5e7eb] bg-white p-8"><span
@@ -127,7 +127,7 @@
         <p class="eyebrow text-[#2430ce]"><span></span>INDUSTRY FOCUS</p>
         <h2>Sectors we serve.</h2>
         <p class="section-intro max-w-[850px]">We specialise in identifying, training and placing talent in the
-            hospitality industry — from front-line trades to leadership and management.</p>
+            hospitality industry â€” from front-line trades to leadership and management.</p>
         <div class="mt-10 grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
             <article class="overflow-hidden rounded-[16px] border border-[#dfe2e7]"><img
                     src="./public/assets/training-page-2.jpg" alt="Customer Service practical training"
@@ -162,128 +162,11 @@
         </div>
     </section>
     <section id="programmes" class="section bg-[#2430ce] text-white">
-        <div class="container">
-            <p class="eyebrow"><span></span>WHAT WE OFFER</p>
-            <h2>56 programmes across ten divisions.</h2>
-            <p class="mt-5 max-w-[1030px] text-lg leading-7 text-white/70">Divisions 1–5 form our safety, security
-                and investigations core. Divisions 6–9 cover corporate and professional development. Division 10 is
-                our hospitality vocational track, with a guaranteed link to employment.</p>
-            <div class="mt-10 grid gap-6 sm:grid-cols-2 lg:grid-cols-5"><a href="./GTI-Programmes.html"
-                    class="flex min-h-[235px] flex-col rounded-xl bg-white p-6 text-[#0b0d0f]"><span
-                        class="text-[30px] font-extrabold text-[#2430ce]">01</span>
-                    <h3 class="mt-3 text-base font-bold leading-6">Safety &amp; Emergency Response</h3><span
-                        class="mt-auto flex items-center justify-between gap-2 pt-7 text-xs text-muted">10
-                        programmes<span class="text-[#2430ce]"><svg width="17" height="17" viewBox="0 0 24 24"
-                                fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true">
-                                <path d="M5 12h14m-6-6 6 6-6 6" />
-                            </svg></span></span>
-                </a><a href="./GTI-Programmes.html"
-                    class="flex min-h-[235px] flex-col rounded-xl bg-white p-6 text-[#0b0d0f]"><span
-                        class="text-[30px] font-extrabold text-[#2430ce]">02</span>
-                    <h3 class="mt-3 text-base font-bold leading-6">Security &amp; Protective Services</h3><span
-                        class="mt-auto flex items-center justify-between gap-2 pt-7 text-xs text-muted">7
-                        programmes<span class="text-[#2430ce]"><svg width="17" height="17" viewBox="0 0 24 24"
-                                fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true">
-                                <path d="M5 12h14m-6-6 6 6-6 6" />
-                            </svg></span></span>
-                </a><a href="./GTI-Programmes.html"
-                    class="flex min-h-[235px] flex-col rounded-xl bg-white p-6 text-[#0b0d0f]"><span
-                        class="text-[30px] font-extrabold text-[#2430ce]">03</span>
-                    <h3 class="mt-3 text-base font-bold leading-6">Investigations &amp; Financial Crime</h3><span
-                        class="mt-auto flex items-center justify-between gap-2 pt-7 text-xs text-muted">6
-                        programmes<span class="text-[#2430ce]"><svg width="17" height="17" viewBox="0 0 24 24"
-                                fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true">
-                                <path d="M5 12h14m-6-6 6 6-6 6" />
-                            </svg></span></span>
-                </a><a href="./GTI-Programmes.html"
-                    class="flex min-h-[235px] flex-col rounded-xl bg-white p-6 text-[#0b0d0f]"><span
-                        class="text-[30px] font-extrabold text-[#2430ce]">04</span>
-                    <h3 class="mt-3 text-base font-bold leading-6">Cybersecurity</h3><span
-                        class="mt-auto flex items-center justify-between gap-2 pt-7 text-xs text-muted">5
-                        programmes<span class="text-[#2430ce]"><svg width="17" height="17" viewBox="0 0 24 24"
-                                fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true">
-                                <path d="M5 12h14m-6-6 6 6-6 6" />
-                            </svg></span></span>
-                </a><a href="./GTI-Programmes.html"
-                    class="flex min-h-[235px] flex-col rounded-xl bg-white p-6 text-[#0b0d0f]"><span
-                        class="text-[30px] font-extrabold text-[#2430ce]">05</span>
-                    <h3 class="mt-3 text-base font-bold leading-6">Command, Leadership &amp; Crisis Management</h3>
-                    <span class="mt-auto flex items-center justify-between gap-2 pt-7 text-xs text-muted">6
-                        programmes<span class="text-[#2430ce]"><svg width="17" height="17" viewBox="0 0 24 24"
-                                fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true">
-                                <path d="M5 12h14m-6-6 6 6-6 6" />
-                            </svg></span></span>
-                </a><a href="./GTI-Programmes.html"
-                    class="flex min-h-[235px] flex-col rounded-xl bg-white p-6 text-[#0b0d0f]"><span
-                        class="text-[30px] font-extrabold text-[#2430ce]">06</span>
-                    <h3 class="mt-3 text-base font-bold leading-6">Corporate Leadership &amp; Management Development
-                    </h3><span class="mt-auto flex items-center justify-between gap-2 pt-7 text-xs text-muted">7
-                        programmes<span class="text-[#2430ce]"><svg width="17" height="17" viewBox="0 0 24 24"
-                                fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true">
-                                <path d="M5 12h14m-6-6 6 6-6 6" />
-                            </svg></span></span>
-                </a><a href="./GTI-Programmes.html"
-                    class="flex min-h-[235px] flex-col rounded-xl bg-white p-6 text-[#0b0d0f]"><span
-                        class="text-[30px] font-extrabold text-[#2430ce]">07</span>
-                    <h3 class="mt-3 text-base font-bold leading-6">Workplace Wellbeing &amp; Personal Effectiveness
-                    </h3><span class="mt-auto flex items-center justify-between gap-2 pt-7 text-xs text-muted">4
-                        programmes<span class="text-[#2430ce]"><svg width="17" height="17" viewBox="0 0 24 24"
-                                fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true">
-                                <path d="M5 12h14m-6-6 6 6-6 6" />
-                            </svg></span></span>
-                </a><a href="./GTI-Programmes.html"
-                    class="flex min-h-[235px] flex-col rounded-xl bg-white p-6 text-[#0b0d0f]"><span
-                        class="text-[30px] font-extrabold text-[#2430ce]">08</span>
-                    <h3 class="mt-3 text-base font-bold leading-6">Communication, Customer Service &amp; Business
-                        Skills</h3><span class="mt-auto flex items-center justify-between gap-2 pt-7 text-xs text-muted">4
-                        programmes<span class="text-[#2430ce]"><svg width="17" height="17" viewBox="0 0 24 24"
-                                fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true">
-                                <path d="M5 12h14m-6-6 6 6-6 6" />
-                            </svg></span></span>
-                </a><a href="./GTI-Programmes.html"
-                    class="flex min-h-[235px] flex-col rounded-xl bg-white p-6 text-[#0b0d0f]"><span
-                        class="text-[30px] font-extrabold text-[#2430ce]">09</span>
-                    <h3 class="mt-3 text-base font-bold leading-6">Digital &amp; Office Productivity</h3><span
-                        class="mt-auto flex items-center justify-between gap-2 pt-7 text-xs text-muted">2
-                        programmes<span class="text-[#2430ce]"><svg width="17" height="17" viewBox="0 0 24 24"
-                                fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true">
-                                <path d="M5 12h14m-6-6 6 6-6 6" />
-                            </svg></span></span>
-                </a><a href="./GTI-Programmes.html"
-                    class="flex min-h-[235px] flex-col rounded-xl bg-white p-6 text-[#0b0d0f]"><span
-                        class="text-[30px] font-extrabold text-[#2430ce]">10</span>
-                    <h3 class="mt-3 text-base font-bold leading-6">Hospitality Vocational Training</h3><span
-                        class="mt-auto flex items-center justify-between gap-2 pt-7 text-xs text-muted">5
-                        programmes<span class="text-[#2430ce]"><svg width="17" height="17" viewBox="0 0 24 24"
-                                fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true">
-                                <path d="M5 12h14m-6-6 6 6-6 6" />
-                            </svg></span></span>
-                </a></div>
-            <div class="mt-10"><a href="./GTI-Programmes.html" class="button button-light !text-[#2430ce]">Browse
-                    all programmes<svg width="17" height="17" viewBox="0 0 24 24" fill="none"
-                        stroke="currentColor" stroke-width="2" aria-hidden="true">
-                        <path d="M5 12h14m-6-6 6 6-6 6" />
-                    </svg></a></div>
-            <p class="mt-10 text-xs font-bold tracking-[1.5px] text-white/70">DOWNLOAD A CATALOGUE (PDF)</p>
-            <div class="mt-4 flex flex-wrap gap-3"><a class="button button-outline !px-4 !py-3 !text-xs"
-                    href="mailto:training@gage.com.mv?subject=Safety,%20Security%20%26%20Investigations%20catalogue"
-                    aria-label="Request Safety, Security &amp; Investigations catalogue">Safety, Security &amp;
-                    Investigations<svg width="16" height="16" viewBox="0 0 24 24" fill="none"
-                        stroke="currentColor" stroke-width="1.8" aria-hidden="true">
-                        <path d="M12 3v12m-4-4 4 4 4-4M5 15v5h14v-5" />
-                    </svg></a><a class="button button-outline !px-4 !py-3 !text-xs"
-                    href="mailto:training@gage.com.mv?subject=Corporate%20%26%20Professional%20Development%20catalogue"
-                    aria-label="Request Corporate &amp; Professional Development catalogue">Corporate &amp;
-                    Professional Development<svg width="16" height="16" viewBox="0 0 24 24" fill="none"
-                        stroke="currentColor" stroke-width="1.8" aria-hidden="true">
-                        <path d="M12 3v12m-4-4 4 4 4-4M5 15v5h14v-5" />
-                    </svg></a><a class="button button-outline !px-4 !py-3 !text-xs"
-                    href="mailto:training@gage.com.mv?subject=Hospitality%20Vocational%20catalogue"
-                    aria-label="Request Hospitality Vocational catalogue">Hospitality Vocational<svg width="16"
-                        height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"
-                        aria-hidden="true">
-                        <path d="M12 3v12m-4-4 4 4 4-4M5 15v5h14v-5" />
-                    </svg></a></div>
+        <div class="container"><p class="eyebrow"><span></span>WHAT WE OFFER</p>
+        <h2>{{ $divisions->sum('programmes_count') }} programmes across {{ $divisions->count() }} divisions.</h2>
+        <p class="mt-5 max-w-[1000px] text-white/80">Explore practical training for safety, security, professional development and hospitality.</p>
+        @include('frontend.components.programme-divisions', ['divisions' => $divisions])
+        <a href="{{ route('frontend.programmes.index') }}" class="button button-light mt-10 !text-[#2430ce]">Browse all programmes <span aria-hidden="true">→</span></a>
         </div>
     </section>
     <section class="section container">
@@ -296,7 +179,7 @@
                     <p class="mt-3 text-base leading-7 text-muted">Our flagship Certificate I in Security Officer
                         Training is approved by the Maldives Qualifications Authority.</p>
                 </div>
-            </div><a href="./conact.html#enquiry" class="button training-outline shrink-0">View course<svg width="17"
+            </div><a href="{{ route('frontend.programmes.index') }}" class="button training-outline shrink-0">View course<svg width="17"
                     height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
                     aria-hidden="true">
                     <path d="M5 12h14m-6-6 6 6-6 6" />
@@ -311,7 +194,7 @@
                 <p class="mt-3 text-base font-bold leading-7 text-[#2430ce]">Assistant Professor; Dean, Kulliyah of
                     Education, Islamic University of Maldives</p>
                 <div class="mt-6 space-y-5 text-base leading-[1.8] text-muted">
-                    <p>Dr. Shina holds a PhD in Education from the University of Brunei Darussalam, a Master’s in
+                    <p>Dr. Shina holds a PhD in Education from the University of Brunei Darussalam, a Masterâ€™s in
                         Educational Management from the University of Malaya, and a BA in Teaching English as a
                         Foreign Language from the Maldives National University.</p>
                     <p>With more than 20 years in education, she has held senior management roles at the Islamic
@@ -327,11 +210,11 @@
             class="flex flex-col justify-between gap-9 rounded-[24px] bg-[#2430ce] px-9 py-16 text-white lg:flex-row lg:items-center lg:px-16">
             <div>
                 <h2 class="!mt-0">Train your team with GAGE.</h2>
-                <p class="mt-4 max-w-[740px] text-base leading-7 text-white/80">On-site at your resort, in Malé on
+                <p class="mt-4 max-w-[740px] text-base leading-7 text-white/80">On-site at your resort, in MalÃ© on
                     weekends and evenings, or online. Tell us who you<br class="hidden xl:block"> want to train and
-                    we’ll recommend the right programme.</p>
+                    weâ€™ll recommend the right programme.</p>
             </div>
-            <div class="flex min-w-0 flex-col gap-3 lg:min-w-[320px]"><a href="./conact.html#enquiry"
+            <div class="flex min-w-0 flex-col gap-3 lg:min-w-[320px]"><a href="{{ route('frontend.programmes.index') }}"
                     class="button button-light !text-[#2430ce]">Enquire about training<svg width="17" height="17"
                         viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true">
                         <path d="M5 12h14m-6-6 6 6-6 6" />
