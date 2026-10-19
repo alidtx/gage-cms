@@ -91,6 +91,22 @@ class ServiceTest extends TestCase
         $this->get('/backend/services/'.$latest->id.'/image')->assertNotFound();
     }
 
+    public function test_links_can_be_saved_updated_cleared_and_validated(): void
+    {
+        $data = ['title' => 'Linked service', 'entity_id' => Entity::factory()->create()->id, 'link' => '/gage-security'];
+        $this->actingAs(User::factory()->create())->post('/backend/services', $data)->assertSessionHasNoErrors();
+        $service = Service::firstOrFail();
+        $this->assertSame('/gage-security', $service->link);
+        $this->put('/backend/services/'.$service->id, [...$data, 'link' => 'https://example.com/service'])->assertSessionHasNoErrors();
+        $this->assertSame('https://example.com/service', $service->fresh()->link);
+        $this->withoutVite()->get('/backend/services')->assertInertia(fn (Assert $page) => $page->where('services.data.0.link', 'https://example.com/service'));
+        foreach (['javascript:alert(1)', '//example.com', 'invalid link'] as $link) {
+            $this->put('/backend/services/'.$service->id, [...$data, 'link' => $link])->assertSessionHasErrors('link');
+        }
+        $this->put('/backend/services/'.$service->id, [...$data, 'link' => ''])->assertSessionHasNoErrors();
+        $this->assertNull($service->fresh()->link);
+    }
+
     public function test_guests_cannot_manage_services_or_access_images(): void
     {
         $service = Service::factory()->create();

@@ -7,7 +7,7 @@ import { toast } from 'vue3-toastify';
 defineProps({ services: Object, entities: Array });
 const editing = ref(null);
 const imageUrl = ref(null);
-const form = useForm({ title: '', description: '', entity_id: '', icon: null });
+const form = useForm({ title: '', description: '', link: '', entity_id: '', icon: null });
 const iconInput = ref(null);
 const localIconUrl = ref(null);
 const iconPreview = computed(() => localIconUrl.value || imageUrl.value);
@@ -21,7 +21,7 @@ const busy = computed(() => form.processing || deletion.processing);
 function reset() { editing.value = null; imageUrl.value = null; if (iconInput.value) iconInput.value.value = ''; form.reset(); form.clearErrors(); }
 function edit(service) {
     reset(); editing.value = service.id; imageUrl.value = service.icon_url;
-    for (const key of ['title', 'description', 'entity_id']) form[key] = service[key] ?? '';
+    for (const key of ['title', 'description', 'link', 'entity_id']) form[key] = service[key] ?? '';
     document.getElementById('service-title')?.focus();
 }
 function save() {
@@ -68,6 +68,7 @@ function remove(service) {
                         </select>
                         <InputError :message="form.errors.entity_id" />
                     </label>
+                    <label class="md:col-span-2 block text-sm font-medium text-gray-700">Link<input v-model="form.link" maxlength="2048" placeholder="/gage-security or https://example.com" class="mt-2 w-full border-gray-200 rounded-xl" /><InputError :message="form.errors.link" /></label>
                     <label class="md:col-span-2 block text-sm font-medium text-gray-700">Short description<textarea
                             v-model="form.description" maxlength="160" rows="4"
                             class="mt-2 w-full border-gray-200 rounded-xl"></textarea><span

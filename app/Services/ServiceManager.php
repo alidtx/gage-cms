@@ -18,7 +18,7 @@ class ServiceManager
         $upload = null;
         try {
             DB::transaction(function () use ($service, $data, &$upload): void {
-                $service->fill(collect($data)->only(['title', 'description', 'entity_id'])->all())->save();
+                $service->fill(collect($data)->only(['title', 'description', 'link', 'entity_id'])->all())->save();
                 if (($data['icon'] ?? null) instanceof UploadedFile) {
                     $upload = MediaService::upload($data['icon'], 'services/'.$service->id, 'Service SVG Icon', fileable: $service);
                     $upload->update(['type' => 'image']);

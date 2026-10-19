@@ -19,7 +19,7 @@ class ServiceController extends Controller
     {
         return Inertia::render('Backend/Service/Index', [
             'services' => Service::with(['entity:id,name', 'media'])->latest('id')->paginate(12)->through(fn (Service $service) => [
-                ...$service->only(['id', 'title', 'description', 'entity_id']),
+                ...$service->only(['id', 'title', 'description', 'link', 'entity_id']),
                 'entity' => $service->entity?->only(['id', 'name']),
                 'icon_url' => $service->media?->name === 'Service SVG Icon' ? route('backend.services.image', $service, false).'?v='.$service->media_id : null,
             ]),

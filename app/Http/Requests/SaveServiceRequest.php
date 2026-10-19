@@ -50,6 +50,7 @@ class SaveServiceRequest extends FormRequest
                     libxml_use_internal_errors($previous);
                 }
             }],
+            'link' => ['nullable', 'string', 'max:2048', 'regex:~^(?:/(?!/)[^\\s\\\\]*|https?://[^\\s\\\\]+)$~i'],
             'description' => ['nullable', 'string', 'max:160'],
             'entity_id' => ['required', 'integer', Rule::exists('entities', 'id')->whereNull('deleted_at')],
         ];
