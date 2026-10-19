@@ -11,14 +11,11 @@ return new class extends Migration
         Schema::create('programmes', function (Blueprint $table) {
             $table->id();
             $table->foreignId('division_id')
-                  ->constrained()
-                  ->cascadeOnUpdate()
-                  ->cascadeOnDelete();
+                ->constrained()
+                ->cascadeOnUpdate()
+                ->cascadeOnDelete();
 
-            // "1.1" → sequence = 1, sub_sequence = 1
-            // "1.10" → sequence = 1, sub_sequence = 10
-            $table->unsignedSmallInteger('sequence');       // group within division (1..10)
-            $table->unsignedSmallInteger('sub_sequence');   // item within group (1..n)
+            $table->unsignedSmallInteger('position');
 
             $table->string('code')->nullable();             // 'SEC 101', 'INV 220', 'OSHA 1994'
             $table->string('title');                        // 'Basic First Aid Training Course'
@@ -47,7 +44,7 @@ return new class extends Migration
             $table->boolean('is_published')->default(true);
             $table->timestamps();
 
-            $table->unique(['division_id', 'sequence', 'sub_sequence']);
+            $table->unique(['division_id', 'position']);
             $table->index(['division_id', 'sort_order']);
         });
     }

@@ -20,6 +20,6 @@ class TrainingEnquiry extends Model
 
     public function programme(): BelongsTo
     {
-        return $this->belongsTo(Program::class);
+        return $this->belongsTo(Program::class, 'programme_id');
     }
 }

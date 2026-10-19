@@ -11,13 +11,13 @@ class Division extends Model
 {
     protected $fillable = [
         'programme_group_id', 'number', 'slug', 'name', 'description',
-        'hero_image_path', 'hero_alt', 'detail_url',
+        'detail_url',
         'cta_heading', 'cta_body', 'sort_order', 'is_published',
     ];
 
     protected $casts = [
-        'number'       => 'integer',
-        'sort_order'   => 'integer',
+        'number' => 'integer',
+        'sort_order' => 'integer',
         'is_published' => 'boolean',
     ];
 

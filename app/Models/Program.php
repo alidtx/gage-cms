@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
@@ -45,9 +46,9 @@ class Program extends Model
      * Attribute casting.
      */
     protected $casts = [
-        'division_id'  => 'integer',
-        'position'     => 'integer',
-        'sort_order'   => 'integer',
+        'division_id' => 'integer',
+        'position' => 'integer',
+        'sort_order' => 'integer',
         'is_published' => 'boolean',
     ];
 
@@ -56,7 +57,7 @@ class Program extends Model
      */
     protected $attributes = [
         'is_published' => true,
-        'sort_order'   => 0,
+        'sort_order' => 0,
     ];
 
     /* -----------------------------------------------------------------
@@ -70,24 +71,24 @@ class Program extends Model
 
     public function objectives(): HasMany
     {
-        return $this->hasMany(ProgrammeObjective::class)->orderBy('sort_order');
+        return $this->hasMany(ProgrammeObjective::class, 'programme_id')->orderBy('sort_order');
     }
 
     public function enquiries(): HasMany
     {
-        return $this->hasMany(TrainingEnquiry::class);
+        return $this->hasMany(TrainingEnquiry::class, 'programme_id');
     }
 
     /* -----------------------------------------------------------------
      |  Scopes
      | ----------------------------------------------------------------- */
 
-    public function scopePublished($query)
+    public function scopePublished(Builder $query): Builder
     {
         return $query->where('is_published', true);
     }
 
-    public function scopeOrdered($query)
+    public function scopeOrdered(Builder $query): Builder
     {
         return $query->orderBy('sort_order')->orderBy('position');
     }
