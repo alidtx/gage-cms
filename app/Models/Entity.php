@@ -13,7 +13,7 @@ class Entity extends Model
 {
     use HasFactory, SoftDeletes;
 
-    public const CATEGORIES = ['security', 'safety', 'training','technology', 'retail', 'consulting', 'marine'];
+    public const CATEGORIES = ['security', 'safety','technology', 'retail', 'consulting', 'marine'];
 
     public function media(): BelongsTo
     {
