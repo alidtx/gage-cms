@@ -48,7 +48,7 @@ class EntityController extends Controller
     private function data(Entity $entity): array
     {
         return [
-            ...$entity->only(['id', 'name', 'slug', 'category']),
+            ...$entity->only(['id', 'name', 'slug', 'category', 'sort_order']),
             'short_description' => $entity->meta['short_description'] ?? '',
             'link' => $entity->meta['link'] ?? '',
             'image_url' => $entity->media_id ? route('backend.entities.image', $entity, false).'?v='.$entity->media_id : null,

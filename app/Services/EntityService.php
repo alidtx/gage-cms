@@ -23,7 +23,7 @@ class EntityService
                         $meta[$field] = $data[$field];
                     }
                 }
-                $entity->fill(collect($data)->only(['name', 'slug', 'category'])->all());
+                $entity->fill(collect($data)->only(['name', 'slug', 'category', 'sort_order'])->all());
                 $entity->meta = $meta;
                 $entity->save();
                 if (($data['image'] ?? null) instanceof UploadedFile) {

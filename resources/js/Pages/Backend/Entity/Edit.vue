@@ -8,7 +8,7 @@ import { toast } from 'vue3-toastify';
 const props = defineProps({ entity: Object, categories: Array });
 const form = useForm({
     name: props.entity.name, slug: props.entity.slug, category: props.entity.category,
-    short_description: props.entity.short_description ?? '', link: props.entity.link ?? '', image: null
+    short_description: props.entity.short_description ?? '', link: props.entity.link ?? '', sort_order: props.entity.sort_order ?? 0, image: null
 });
 watch(() => form.name, name => {
     form.slug = name.toLowerCase().replace(/[^a-z0-9]+/g, '_').replace(/^_+|_+$/g, '');
@@ -42,6 +42,7 @@ function save() {
                         <option v-for="item in categories" :key="item" :value="item">{{ item }}</option>
                     </select></label>
                 <label class="block text-sm font-medium text-gray-700">Short description<textarea v-model="form.short_description" maxlength="140" rows="3" class="mt-2 w-full border-gray-200 rounded-xl text-sm"></textarea><span class="block text-xs text-gray-500">{{ (form.short_description || '').length }}/140 characters</span></label>
+                <label class="block text-sm font-medium text-gray-700">Sort order<input v-model.number="form.sort_order" type="number" min="0" max="2147483647" step="1" required class="mt-2 w-full border-gray-200 rounded-xl text-sm" /><span class="block text-xs text-gray-500">Lower numbers appear first.</span></label>
                 <Field v-model="form.link" label="Link" />
                 <p class="text-xs text-gray-500">Use a page path such as /gage-security or a full https:// address.</p>
                 <div>

@@ -110,6 +110,24 @@ class EntityTest extends TestCase
         $this->assertSame($data['short_description'], $entity->fresh()->short_description);
     }
 
+    public function test_sort_order_controls_backend_and_frontend_order(): void
+    {
+        $this->actingAs(User::factory()->create());
+        $this->post('/backend/entities', ['name' => 'Sort First', 'category' => 'security', 'sort_order' => 1])->assertSessionHasNoErrors();
+        $first = Entity::where('name', 'Sort First')->firstOrFail();
+        $this->post('/backend/entities', ['name' => 'Sort Second', 'category' => 'safety', 'sort_order' => 2])->assertSessionHasNoErrors();
+        $second = Entity::where('name', 'Sort Second')->firstOrFail();
+        $this->withoutVite()->get('/backend/entities')->assertInertia(fn (Assert $page) => $page->where('entities.data.0.id', $first->id));
+        $this->get('/')->assertSeeInOrder(['Sort First', 'Sort Second']);
+        $data = ['name' => $second->name, 'slug' => $second->slug, 'category' => $second->category];
+        $this->put('/backend/entities/'.$second->id, [...$data, 'sort_order' => 0])->assertSessionHasNoErrors();
+        $this->get('/backend/entities')->assertInertia(fn (Assert $page) => $page->where('entities.data.0.id', $second->id)->where('entities.data.0.sort_order', 0));
+        $this->get('/')->assertSeeInOrder(['Sort Second', 'Sort First']);
+        foreach ([-1, 1.5, 'invalid'] as $invalid) {
+            $this->put('/backend/entities/'.$second->id, [...$data, 'sort_order' => $invalid])->assertSessionHasErrors('sort_order');
+        }
+    }
+
     public function test_guests_cannot_manage_entities_and_missing_records_return_not_found(): void
     {
         $entity = Entity::factory()->create();

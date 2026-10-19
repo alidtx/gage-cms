@@ -12,7 +12,7 @@ const category = ref(props.filters.category ?? '');
 const creating = ref(false);
 onMounted(() => { creating.value = new URLSearchParams(window.location.search).get('create') === '1'; });
 const action = useForm({});
-const form = useForm({ name: '', slug: '', category: 'security', short_description: '', link: '', image: null });
+const form = useForm({ name: '', slug: '', category: 'security', short_description: '', link: '', sort_order: 0, image: null });
 watch(() => form.name, name => {
     form.slug = name.toLowerCase().replace(/[^a-z0-9]+/g, '_').replace(/^_+|_+$/g, '');
 });
@@ -128,6 +128,7 @@ function remove(entity) {
                         <p class="text-sm text-gray-700 mb-2">Image</p>
                         <ImageUpload v-model="form.image" :error="form.errors.image" />
                     </div>
+                    <label class="block text-sm text-gray-700">Sort order<input v-model.number="form.sort_order" type="number" min="0" max="2147483647" step="1" required class="mt-2 w-full border-gray-200 rounded-xl text-sm" /><span class="block text-xs text-gray-500">Lower numbers appear first.</span><InputError :message="form.errors.sort_order" /></label>
                 </fieldset>
                 <div class="flex justify-end gap-3 pt-5"><button type="button" :disabled="form.processing"
                         @click="creating = false"
