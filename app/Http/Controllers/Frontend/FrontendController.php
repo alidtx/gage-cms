@@ -56,7 +56,10 @@ class FrontendController extends Controller
     {
         return view('frontend.pages.gage-technology', ['services' => $this->companyServices('gage_technology'), 'companyTheme' => 'technology', 'heroContent' => $heroes->forPage('gage_technology'), 'pageSeo' => $seo->forPage('gage_technology')]);
     }
-
+    public function gageTechnologyDetail(Request $request, FrontendHero $heroes, FrontendSeo $seo): View
+    {
+        return view('frontend.pages.gage-technology-details', ['services' => $this->companyServices('gage_technology'), 'companyTheme' => 'technology', 'heroContent' => $heroes->forPage('gage-technology-detail'), 'pageSeo' => $seo->forPage('gage-technology-detail')]);
+    }
     public function gageProjectClient(Request $request, FrontendHero $heroes, FrontendSeo $seo): View
     {
         return view('frontend.pages.gage-project-client', ['heroContent' => $heroes->forPage('gage_project_client'), 'pageSeo' => $seo->forPage('gage_project_client')]);

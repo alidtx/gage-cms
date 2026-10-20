@@ -38,6 +38,7 @@ Route::get('/news/{slug}', [App\Http\Controllers\Frontend\NewsController::class,
 Route::get('/gage-security', [FrontendController::class, 'gageSecurity'])->name('frontend.gage-security');
 Route::get('/gage-security-detail', [FrontendController::class, 'gageSecurityDetail'])->name('frontend.gage-security-detail');
 Route::get('/gage-fire-safety-detail', [FrontendController::class, 'gageFireSafetyDetail'])->name('frontend.gage-fire-safety-detail');
+Route::get('/gage-technology-detail', [FrontendController::class, 'gageTechnologyDetail'])->name('frontend.gage-technology-detail');
 Route::get('/gage-fire-safety', [FrontendController::class, 'gageFireSafety'])->name('frontend.gage-fire-safety');
 Route::get('/gage-training-instruction', [FrontendController::class, 'gageTrainingInstruction'])->name('frontend.gage-training-instruction');
 Route::get('/gage-technology', [FrontendController::class, 'gageTechnology'])->name('frontend.gage-technology');
