@@ -285,7 +285,7 @@
                 <p class="mt-2 flex-1 text-sm leading-[1.65] text-muted">Guards, fire systems, staff training and
                     connectivity for island properties.</p>
                 <a class="mt-7 inline-flex items-center gap-2 text-sm font-bold"
-                    href="mailto:info@gage.com.mv?subject=Resorts%20%26%20Hotels%20protection%20enquiry">Explore<svg
+                    href="{{ route('frontend.solutions') }}">Explore<svg
                         xmlns="http://www.w3.org/2000/svg" width="17" height="17" viewBox="0 0 24 24"
                         fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
                         stroke-linejoin="round" class="lucide lucide-arrow-right">
@@ -319,7 +319,7 @@
                 <p class="mt-2 flex-1 text-sm leading-[1.65] text-muted">Discreet, high-assurance security, cash in
                     transit and fire protection.</p>
                 <a class="mt-7 inline-flex items-center gap-2 text-sm font-bold"
-                    href="mailto:info@gage.com.mv?subject=Banks%20%26%20Diplomatic%20Missions%20protection%20enquiry">Explore<svg
+                    href="{{ route('frontend.solutions') }}">Explore<svg
                         xmlns="http://www.w3.org/2000/svg" width="17" height="17" viewBox="0 0 24 24"
                         fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
                         stroke-linejoin="round" class="lucide lucide-arrow-right">
@@ -349,7 +349,7 @@
                 <p class="mt-2 flex-1 text-sm leading-[1.65] text-muted">Fire protection and security for power
                     houses, fuel farms and warehouses.</p>
                 <a class="mt-7 inline-flex items-center gap-2 text-sm font-bold"
-                    href="mailto:info@gage.com.mv?subject=Industrial%2C%20Fuel%20%26%20Utilities%20protection%20enquiry">Explore<svg
+                    href="{{ route('frontend.solutions') }}">Explore<svg
                         xmlns="http://www.w3.org/2000/svg" width="17" height="17" viewBox="0 0 24 24"
                         fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
                         stroke-linejoin="round" class="lucide lucide-arrow-right">
@@ -385,7 +385,7 @@
                 <p class="mt-2 flex-1 text-sm leading-[1.65] text-muted">Fire systems, alarms and access control for
                     high-rise and mixed-use buildings.</p>
                 <a class="mt-7 inline-flex items-center gap-2 text-sm font-bold"
-                    href="mailto:info@gage.com.mv?subject=Residential%20%26%20Mixed-use%20protection%20enquiry">Explore<svg
+                    href="{{ route('frontend.solutions') }}">Explore<svg
                         xmlns="http://www.w3.org/2000/svg" width="17" height="17" viewBox="0 0 24 24"
                         fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
                         stroke-linejoin="round" class="lucide lucide-arrow-right">
@@ -410,7 +410,7 @@
                 <p class="mt-2 flex-1 text-sm leading-[1.65] text-muted">Safety systems and training for airports,
                     schools and healthcare facilities.</p>
                 <a class="mt-7 inline-flex items-center gap-2 text-sm font-bold"
-                    href="mailto:info@gage.com.mv?subject=Public%20Facilities%20protection%20enquiry">Explore<svg
+                    href="{{ route('frontend.solutions') }}">Explore<svg
                         xmlns="http://www.w3.org/2000/svg" width="17" height="17" viewBox="0 0 24 24"
                         fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
                         stroke-linejoin="round" class="lucide lucide-arrow-right">
