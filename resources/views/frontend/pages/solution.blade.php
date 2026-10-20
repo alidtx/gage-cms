@@ -274,57 +274,88 @@
                 </li>
             </ol>
         </div>
-        <div class="mt-[120px]">
-            <h2>Trusted by resorts across the atolls.</h2>
-            <div class="mt-10 grid grid-cols-2 gap-6 sm:grid-cols-3 lg:grid-cols-6">
-                <div class="flex h-[88px] items-center justify-center rounded-xl border border-[#dfe2e7] px-5 py-3">
-                    <img src="{{ asset('assets/projects-page-3.png') }}" alt="Resort client logo"
-                        class="max-h-full max-w-full object-contain" loading="lazy">
+        <div id="clients" class="relative mt-24">
+            <p class="mb-6 text-center text-base font-bold">Trusted by leading resorts, banks and diplomatic
+                missions</p>
+            <div class="brand-carousel" data-brand-carousel role="region" aria-label="Trusted clients">
+                <button class="brand-carousel-arrow" type="button" data-brand-previous aria-label="Previous clients"
+                    aria-controls="home-client-track" disabled><span aria-hidden="true">&#8592;</span></button>
+                <div class="brand-carousel-track" id="home-client-track" tabindex="0" aria-label="Client logos">
+                    <div
+                        class="flex h-[82px] items-center justify-center rounded-lg border border-[#dfe2e7] bg-white px-5">
+                        <img width="196" height="110" decoding="async"
+                            class="max-h-[64px] max-w-full object-contain" alt="Heritance Aarah" loading="lazy"
+                            src="{{ asset('assets/pdf-12.jpg') }}">
+                    </div>
+                    <div
+                        class="flex h-[82px] items-center justify-center rounded-lg border border-[#dfe2e7] bg-white px-5">
+                        <img width="187" height="86" decoding="async"
+                            class="max-h-[64px] max-w-full object-contain" alt="Miechi" loading="lazy"
+                            src="{{ asset('assets/pdf-13.jpg') }}">
+                    </div>
+                    <div
+                        class="flex h-[82px] items-center justify-center rounded-lg border border-[#dfe2e7] bg-white px-5">
+                        <img width="147" height="147" decoding="async"
+                            class="max-h-[64px] max-w-full object-contain" alt="RIU Hotels &amp; Resorts" loading="lazy"
+                            src="{{ asset('assets/pdf-0.png') }}">
+                    </div>
+                    <div
+                        class="flex h-[82px] items-center justify-center rounded-lg border border-[#dfe2e7] bg-white px-5">
+                        <img width="202" height="121" decoding="async"
+                            class="max-h-[64px] max-w-full object-contain" alt="NH Collection" loading="lazy"
+                            src="{{ asset('assets/pdf-14.png') }}">
+                    </div>
+                    <div
+                        class="flex h-[82px] items-center justify-center rounded-lg border border-[#dfe2e7] bg-white px-5">
+                        <img width="177" height="99" decoding="async"
+                            class="max-h-[64px] max-w-full object-contain" alt="Taj Exotica" loading="lazy"
+                            src="{{ asset('assets/pdf-15.jpg') }}">
+                    </div>
+                    <div
+                        class="flex h-[82px] items-center justify-center rounded-lg border border-[#dfe2e7] bg-white px-5">
+                        <img width="197" height="139" decoding="async"
+                            class="max-h-[64px] max-w-full object-contain" alt="Adaaran Meedhupparu" loading="lazy"
+                            src="{{ asset('assets/pdf-11.jpg') }}">
+                    </div>
+                    <div
+                        class="flex h-[82px] items-center justify-center rounded-lg border border-[#dfe2e7] bg-white px-5">
+                        <img width="113" height="88" decoding="async"
+                            class="max-h-[64px] max-w-full object-contain" alt="Dhivehi Insurance" loading="lazy"
+                            src="{{ asset('assets/pdf-6.jpg') }}">
+                    </div>
+                    <div
+                        class="flex h-[82px] items-center justify-center rounded-lg border border-[#dfe2e7] bg-white px-5">
+                        <img width="187" height="187" decoding="async"
+                            class="max-h-[64px] max-w-full object-contain" alt="Renaatus" loading="lazy"
+                            src="{{ asset('assets/pdf-5.jpg') }}">
+                    </div>
+                    <div
+                        class="flex h-[82px] items-center justify-center rounded-lg border border-[#dfe2e7] bg-white px-5">
+                        <img width="267" height="101" decoding="async"
+                            class="max-h-[64px] max-w-full object-contain" alt="Ooredoo" loading="lazy"
+                            src="{{ asset('assets/pdf-7.png') }}">
+                    </div>
+                    <div
+                        class="flex h-[82px] items-center justify-center rounded-lg border border-[#dfe2e7] bg-white px-5">
+                        <img width="154" height="97" decoding="async"
+                            class="max-h-[64px] max-w-full object-contain" alt="SIBCO" loading="lazy"
+                            src="{{ asset('assets/pdf-4.png') }}">
+                    </div>
+                    <div
+                        class="flex h-[82px] items-center justify-center rounded-lg border border-[#dfe2e7] bg-white px-5">
+                        <img width="187" height="63" decoding="async"
+                            class="max-h-[64px] max-w-full object-contain" alt="Velana International Airport"
+                            loading="lazy" src="{{ asset('assets/pdf-3.png') }}">
+                    </div>
+                    <div
+                        class="flex h-[82px] items-center justify-center rounded-lg border border-[#dfe2e7] bg-white px-5">
+                        <img width="187" height="125" decoding="async"
+                            class="max-h-[64px] max-w-full object-contain" alt="Alkatas" loading="lazy"
+                            src="{{ asset('assets/pdf-2.jpg') }}">
+                    </div>
                 </div>
-                <div class="flex h-[88px] items-center justify-center rounded-xl border border-[#dfe2e7] px-5 py-3">
-                    <img src="{{ asset('assets/projects-page-74.png') }}" alt="Resort client logo"
-                        class="max-h-full max-w-full object-contain" loading="lazy">
-                </div>
-                <div class="flex h-[88px] items-center justify-center rounded-xl border border-[#dfe2e7] px-5 py-3">
-                    <img src="{{ asset('assets/projects-page-2.jpg') }}" alt="Resort client logo"
-                        class="max-h-full max-w-full object-contain" loading="lazy">
-                </div>
-                <div class="flex h-[88px] items-center justify-center rounded-xl border border-[#dfe2e7] px-5 py-3">
-                    <img src="{{ asset('assets/projects-page-78.png') }}" alt="Resort client logo"
-                        class="max-h-full max-w-full object-contain" loading="lazy">
-                </div>
-                <div class="flex h-[88px] items-center justify-center rounded-xl border border-[#dfe2e7] px-5 py-3">
-                    <img src="{{ asset('assets/projects-page-4.jpg') }}" alt="Resort client logo"
-                        class="max-h-full max-w-full object-contain" loading="lazy">
-                </div>
-                <div class="flex h-[88px] items-center justify-center rounded-xl border border-[#dfe2e7] px-5 py-3">
-                    <img src="{{ asset('assets/projects-page-6.jpg') }}" alt="Resort client logo"
-                        class="max-h-full max-w-full object-contain" loading="lazy">
-                </div>
-                <div class="flex h-[88px] items-center justify-center rounded-xl border border-[#dfe2e7] px-5 py-3">
-                    <img src="{{ asset('assets/projects-page-7.png') }}" alt="Resort client logo"
-                        class="max-h-full max-w-full object-contain" loading="lazy">
-                </div>
-                <div class="flex h-[88px] items-center justify-center rounded-xl border border-[#dfe2e7] px-5 py-3">
-                    <img src="{{ asset('assets/projects-page-79.png') }}" alt="Resort client logo"
-                        class="max-h-full max-w-full object-contain" loading="lazy">
-                </div>
-                <div class="flex h-[88px] items-center justify-center rounded-xl border border-[#dfe2e7] px-5 py-3">
-                    <img src="{{ asset('assets/projects-page-67.jpg') }}" alt="Resort client logo"
-                        class="max-h-full max-w-full object-contain" loading="lazy">
-                </div>
-                <div class="flex h-[88px] items-center justify-center rounded-xl border border-[#dfe2e7] px-5 py-3">
-                    <img src="{{ asset('assets/projects-page-5.jpg') }}" alt="Resort client logo"
-                        class="max-h-full max-w-full object-contain" loading="lazy">
-                </div>
-                <div class="flex h-[88px] items-center justify-center rounded-xl border border-[#dfe2e7] px-5 py-3">
-                    <img src="{{ asset('assets/projects-page-10.png') }}" alt="Resort client logo"
-                        class="max-h-full max-w-full object-contain" loading="lazy">
-                </div>
-                <div class="flex h-[88px] items-center justify-center rounded-xl border border-[#dfe2e7] px-5 py-3">
-                    <img src="{{ asset('assets/projects-page-8.jpg') }}" alt="Resort client logo"
-                        class="max-h-full max-w-full object-contain" loading="lazy">
-                </div>
+                <button class="brand-carousel-arrow" type="button" data-brand-next aria-label="Next clients"
+                    aria-controls="home-client-track"><span aria-hidden="true">&#8594;</span></button>
             </div>
         </div>
         <div
