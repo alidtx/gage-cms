@@ -75,7 +75,7 @@
                                 class="mt-1 flex h-4 w-4 shrink-0 items-center justify-center rounded-full bg-[#e9ebef] text-xs font-extrabold text-black"
                                 aria-hidden="true">✓</span>Daily occurrence logs and incident reports</li>
                     </ul>
-                </div><img src="./public/assets/physical-page-1.jpg"
+                </div><img src="{{ asset('assets/physical-page-1.jpg') }}" width="722" height="670"
                     alt="GAGE security officer checking visitor credentials at a resort entrance"
                     class="aspect-[1.08] w-full rounded-[16px] object-cover" loading="lazy">
             </div>
@@ -348,7 +348,7 @@
                     <p class="mt-5 max-w-[740px] text-base leading-7 text-white/70">Tell us about your site. We’ll assess
                         your security needs and recommend the right<br class="hidden xl:block"> deployment.</p>
                 </div>
-                <div class="flex flex-col gap-3 lg:min-w-[320px]"><a href="./conact.html#enquiry"
+                <div class="flex flex-col gap-3 lg:min-w-[320px]"><a href="{{ route('contact.create') }}"
                         class="button button-light">Request a security assessment<svg width="17" height="17"
                             viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
                             aria-hidden="true">
