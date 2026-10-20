@@ -34,6 +34,10 @@ class FrontendController extends Controller
     {
         return view('frontend.pages.gage-security', ['services' => $this->companyServices('gage_security'), 'companyTheme' => 'security', 'heroContent' => $heroes->forPage('gage_security'), 'pageSeo' => $seo->forPage('gage_security')]);
     }
+    public function gageSecurityDetail(Request $request, FrontendHero $heroes, FrontendSeo $seo): View
+    {
+        return view('frontend.pages.gage-security-detail', ['services' => $this->companyServices('gage_security'), 'companyTheme' => 'security', 'heroContent' => $heroes->forPage('gage-security-detail'), 'pageSeo' => $seo->forPage('gage-security-detail')]);
+    }
 
     public function gageFireSafety(Request $request, FrontendHero $heroes, FrontendSeo $seo): View
     {

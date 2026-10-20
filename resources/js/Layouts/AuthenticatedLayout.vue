@@ -134,7 +134,7 @@ const markAllAsRead = () => {
                 <Link :href="route('backend.services.index')" class="sidebar-item flex items-center space-x-3 px-4 py-3 rounded-lg text-gray-300 transition-colors">
                     <i class="fas fa-concierge-bell w-5" aria-hidden="true"></i><span>Service</span>
                 </Link>
-                <div>
+                <!-- <div>
                     <button type="button" class="dropdown-trigger sidebar-item w-full flex items-center space-x-3 px-4 py-3 rounded-lg text-gray-300 transition-colors"
                         :aria-expanded="isOpen('programs')" aria-controls="program-settings-menu"
                         :class="{ 'is-open': isOpen('programs') }" @click="toggleDropdown('programs')">
@@ -150,7 +150,7 @@ const markAllAsRead = () => {
                             {{ item.label }}
                         </Link>
                     </div>
-                </div>
+                </div> -->
                 <Link :href="route('backend.contact-submissions.index')" class="sidebar-item flex items-center space-x-3 px-4 py-3 rounded-lg text-gray-300 transition-colors">
                     <i class="fas fa-envelope w-5" aria-hidden="true"></i><span>Contact Form</span>
                 </Link>
