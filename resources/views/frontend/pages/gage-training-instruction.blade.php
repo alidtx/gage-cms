@@ -59,13 +59,13 @@
                         matters most.</p>
                 </div>
             </div>
-            <img src="{{ asset('assets/training-page-2.jpg') }}"
+            <img src="{{ asset('assets/training-page-1.jpg') }}"
                 alt="Hospitality professional welcoming a guest at a resort reception"
                 width="613" height="342" loading="lazy" decoding="async"
                 class="w-full rounded-[16px] object-cover">
         </div>
         <div class="mt-[120px] grid items-start gap-12 lg:grid-cols-2 lg:gap-24"><img
-                src="./public/assets/training-page-1.jpg"
+                src="{{ asset('assets/training-page-1.jpg') }}"
                 alt="Hospitality students learning practical customer service at a resort"
                 class="aspect-[1.3] w-full rounded-[16px] object-cover" loading="lazy">
             <div>
@@ -130,32 +130,32 @@
             hospitality industry â€” from front-line trades to leadership and management.</p>
         <div class="mt-10 grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
             <article class="overflow-hidden rounded-[16px] border border-[#dfe2e7]"><img
-                    src="./public/assets/training-page-2.jpg" alt="Customer Service practical training"
+                    src="{{ asset('assets/training-page-2.jpg') }}" alt="Customer Service practical training"
                     class="aspect-[1.85] w-full object-cover" loading="lazy">
                 <h3 class="p-6 text-lg font-bold">Customer Service</h3>
             </article>
             <article class="overflow-hidden rounded-[16px] border border-[#dfe2e7]"><img
-                    src="./public/assets/training-page-3.jpg" alt="Food & Beverage practical training"
+                    src="{{ asset('assets/training-page-3.jpg') }}" alt="Food & Beverage practical training"
                     class="aspect-[1.85] w-full object-cover" loading="lazy">
                 <h3 class="p-6 text-lg font-bold">Food &amp; Beverage</h3>
             </article>
             <article class="overflow-hidden rounded-[16px] border border-[#dfe2e7]"><img
-                    src="./public/assets/training-page-4.jpg" alt="Housekeeping practical training"
+                    src="{{ asset('assets/training-page-4.jpg') }}" alt="Housekeeping practical training"
                     class="aspect-[1.85] w-full object-cover" loading="lazy">
                 <h3 class="p-6 text-lg font-bold">Housekeeping</h3>
             </article>
             <article class="overflow-hidden rounded-[16px] border border-[#dfe2e7]"><img
-                    src="./public/assets/training-page-5.jpg" alt="Sales & Marketing practical training"
+                    src="{{ asset('assets/training-page-5.jpg') }}" alt="Sales & Marketing practical training"
                     class="aspect-[1.85] w-full object-cover" loading="lazy">
                 <h3 class="p-6 text-lg font-bold">Sales &amp; Marketing</h3>
             </article>
             <article class="overflow-hidden rounded-[16px] border border-[#dfe2e7]"><img
-                    src="./public/assets/training-page-6.jpg" alt="Security practical training"
+                    src="{{ asset('assets/training-page-6.jpg') }}" alt="Security practical training"
                     class="aspect-[1.85] w-full object-cover" loading="lazy">
                 <h3 class="p-6 text-lg font-bold">Security</h3>
             </article>
             <article class="overflow-hidden rounded-[16px] border border-[#dfe2e7]"><img
-                    src="./public/assets/training-page-7.jpg" alt="Swimming & Rescue practical training"
+                    src="{{ asset('assets/training-page-7.jpg') }}" alt="Swimming & Rescue practical training"
                     class="aspect-[1.85] w-full object-cover" loading="lazy">
                 <h3 class="p-6 text-lg font-bold">Swimming &amp; Rescue</h3>
             </article>
@@ -172,7 +172,7 @@
     <section class="section container">
         <div
             class="flex flex-col items-start justify-between gap-6 rounded-[16px] border border-[#dfe2e7] p-7 sm:flex-row sm:items-center">
-            <div class="flex items-center gap-7"><img src="./public/assets/award-mqa.png"
+            <div class="flex items-center gap-7"><img src="{{ asset('assets/award-mqa.png') }}"
                     alt="Maldives Qualifications Authority" class="h-[110px] w-[125px] object-contain">
                 <div>
                     <h3 class="text-xl font-bold">MQA-approved Security Officer certificate</h3>
@@ -186,7 +186,7 @@
                 </svg></a>
         </div>
         <div class="mt-[120px] grid items-start gap-12 lg:grid-cols-[.6fr_1.1fr] lg:gap-24"><img
-                src="./public/assets/training-page-8.jpg" alt="Dr. Aishath Shina in academic graduation dress"
+                src="{{ asset('assets/training-page-8.jpg') }}" alt="Dr. Aishath Shina in academic graduation dress"
                 class="aspect-[.9] w-full rounded-[16px] object-cover" loading="lazy">
             <div>
                 <p class="eyebrow text-[#2430ce]"><span></span>TRAINER HIGHLIGHTS</p>

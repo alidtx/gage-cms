@@ -90,7 +90,7 @@
         </div>
     </section>
     <section class="section container">
-        <div class="grid items-start gap-12 lg:grid-cols-2 lg:gap-24"><img src="./public/assets/security-page-1.jpg"
+        <div class="grid items-start gap-12 lg:grid-cols-2 lg:gap-24"><img src="{{ asset('assets/security-page-1.jpg') }}" width="722" height="542"
                 alt="GAGE security supervisor briefing a team of uniformed officers"
                 class="aspect-[1.33] w-full rounded-[16px] object-cover" loading="lazy">
             <div>

@@ -60,7 +60,7 @@
                 aria-label="Intrusion &amp; alarm"><input class="tech-radio sr-only" type="radio" name="technology-zone"
                 id="tech-zone-5" aria-label="Communications &amp; radio"><input class="tech-radio sr-only" type="radio"
                 name="technology-zone" id="tech-zone-6" aria-label="Server &amp; backup room">
-            <div class="tech-map relative overflow-hidden rounded-[16px]"><img src="./public/assets/technology-page-1.jpg"
+            <div class="tech-map relative overflow-hidden rounded-[16px]"><img src="{{ asset('assets/technology-page-1.jpg') }}"
                     alt="Cutaway of resort villas showing network, security and communications equipment"
                     class="h-full w-full object-cover"><label for="tech-zone-1" class="tech-hotspot tech-point-1"
                     style="left:74%;top:46%" title="Network &amp; Wi-Fi">01</label><label for="tech-zone-2"
