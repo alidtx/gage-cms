@@ -43,7 +43,10 @@ class FrontendController extends Controller
     {
         return view('frontend.pages.gage-fire-safety', ['services' => $this->companyServices('gage_fire_safety'), 'companyTheme' => 'fire-safety', 'heroContent' => $heroes->forPage('gage_fire_safety'), 'pageSeo' => $seo->forPage('gage_fire_safety')]);
     }
-
+    public function gageFireSafetyDetail(Request $request, FrontendHero $heroes, FrontendSeo $seo): View
+    {
+        return view('frontend.pages.gage-fire-safety-detail', ['services' => $this->companyServices('gage_fire_safety'), 'companyTheme' => 'fire-safety', 'heroContent' => $heroes->forPage('gage-fire-safety-detail'), 'pageSeo' => $seo->forPage('gage-fire-safety-detail')]);
+    }
     public function gageTrainingInstruction(Request $request, FrontendHero $heroes, FrontendSeo $seo): View
     {
         return view('frontend.pages.gage-training-instruction', ['divisions' => Division::where('is_published', true)->withCount(['programmes' => fn ($query) => $query->published()])->orderBy('sort_order')->orderBy('number')->get(), 'companyTheme' => 'training', 'heroContent' => $heroes->forPage('gage_training_instruction'), 'pageSeo' => $seo->forPage('gage_training_instruction')]);
