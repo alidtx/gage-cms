@@ -60,4 +60,8 @@ class FrontendController extends Controller
     {
         return Service::with('media')->whereHas('entity', fn ($query) => $query->active()->whereIn('slug', [$slug, str_replace('_', '-', $slug)]))->orderBy('id')->get();
     }
+    public function solution(Request $request, FrontendHero $heroes, FrontendSeo $seo): View
+    {
+        return view('frontend.pages.solution', ['heroContent' => $heroes->forPage('solution'), 'pageSeo' => $seo->forPage('solution')]);
+    }
 }

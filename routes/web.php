@@ -44,6 +44,7 @@ Route::get('/service-icons/{service}', ServiceIconController::class)->name('fron
 Route::get('/entity-images/{entity}', EntityImageController::class)->name('frontend.entity-image');
 Route::get('/page-hero-images/{pageContent}', PageHeroImageController::class)->name('frontend.page-hero-image');
 Route::get('/seo-images/{media}', SeoImageController::class)->name('frontend.seo-image');
+Route::get('/solutions', [FrontendController::class, 'solution'])->name('frontend.solutions');
 
 Route::get('/dashboard', [DashboardController::class, 'index'])->middleware(['auth', 'verified'])->name('dashboard');
 

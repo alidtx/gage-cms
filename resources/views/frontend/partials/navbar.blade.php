@@ -25,11 +25,11 @@
                         </svg>
                     </a>
                     <div class="dropdown-panel">
-                        <a href="{{ route('frontend.home') }}#solutions">Resorts &amp; Hotels</a>
-                        <a href="{{ route('frontend.home') }}#solutions">Banks &amp; Diplomatic Missions</a>
-                        <a href="{{ route('frontend.home') }}#solutions">Industrial, Fuel &amp; Utilities</a>
-                        <a href="{{ route('frontend.home') }}#solutions">Residential &amp; Mixed-use</a>
-                        <a href="{{ route('frontend.home') }}#solutions">Public Facilities</a>
+                        <a href="{{ route('frontend.solutions') }}">Resorts &amp; Hotels</a>
+                        <a href="{{ route('frontend.solutions') }}">Banks &amp; Diplomatic Missions</a>
+                        <a href="{{ route('frontend.solutions') }}">Industrial, Fuel &amp; Utilities</a>
+                        <a href="{{ route('frontend.solutions') }}">Residential &amp; Mixed-use</a>
+                        <a href="{{ route('frontend.solutions') }}">Public Facilities</a>
                     </div>
                 </div>
                 <a href="{{ route('frontend.gage-project-client')}}">Projects &amp; Clients</a>
