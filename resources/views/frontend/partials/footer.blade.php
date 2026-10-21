@@ -3,7 +3,7 @@
             <div class="grid gap-10 pb-16 sm:grid-cols-2 lg:grid-cols-[260px_1.5fr_1fr_1.1fr_.7fr]">
                 <a href="{{ route('frontend.home') }}">
                     <img width="260" height="235" decoding="async" class="w-[250px] max-w-full" alt="GAGE — Experts in Safety &amp; Security"
-                        src="{{ asset('assets/footer-logo.png') }}">
+                        src="{{ asset('assets/GAGE Fire Safety White.png') }}">
                 </a>
                 <div>
                     <h3 class="text-base font-bold">Protecting Maldives since 2010.</h3>

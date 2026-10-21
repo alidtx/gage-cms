@@ -38,7 +38,7 @@
         <div class="container flex h-[100px] items-center justify-between gap-8">
             <a href="{{ route('frontend.home') }}" aria-label="GAGE home">
                 <img width="270" height="62" decoding="async" class="w-[270px] max-w-[42vw]" alt="GAGE — Experts in Safety &amp; Security"
-                    src="{{ asset('assets/logo.png') }}">
+                    src="{{ asset('assets/GAGE Main Horizontal.png') }}">
             </a>
             @include('frontend.partials.navbar')
         </div>
