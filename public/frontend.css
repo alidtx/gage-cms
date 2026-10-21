@@ -132,3 +132,26 @@ body:is([data-company-theme="security"], [data-company-theme="fire-safety"], [da
 .home-hero h1 { white-space: pre-line; overflow-wrap: break-word; }
 .home-hero > .container > div { min-width: 0; }
 .home-hero > .container > video { width: 100%; height: auto; aspect-ratio: 1.05; object-fit: cover; border-radius: 20px; }
+
+/* Frontend Animation css */
+.ZoomOutAnimation {
+    opacity: 0;
+    transform: scale(1.15);
+    transform-origin: center center;
+}
+
+.ZoomOutAnimation.show {
+    animation: zoomOut 0.8s ease-out forwards;
+}
+
+@keyframes zoomOut {
+    from {
+        opacity: 0;
+        transform: scale(1.15);
+    }
+
+    to {
+        opacity: 1;
+        transform: scale(1);
+    }
+}
